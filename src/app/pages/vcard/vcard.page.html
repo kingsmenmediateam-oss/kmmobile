@@ -1,0 +1,53 @@
+<ion-header [translucent]="true" class="km-header">
+  <ion-toolbar class="km-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="km-title">My vCard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="km-content">
+  <div class="km-wrapper">
+
+    <div class="km-center" *ngIf="loading">
+      <ion-spinner name="crescent"></ion-spinner>
+      <div class="km-muted">Generating QR Code…</div>
+    </div>
+
+    <div *ngIf="!loading && errorMessage">
+      <ion-text color="danger">
+        <p class="km-error">{{ errorMessage }}</p>
+      </ion-text>
+
+      <ion-button expand="block" color="danger" (click)="loadQr()">
+        Retry
+      </ion-button>
+    </div>
+
+    <div *ngIf="!loading && !errorMessage" class="km-card">
+      <div class="km-card-title">
+        {{ isLoggedIn ? 'Your Kingsmen vCard' : 'Guest Mode' }}
+      </div>
+
+      <div class="km-card-subtitle" *ngIf="isLoggedIn && me">
+        {{ me.firstname || '' }} {{ me.lastname || '' }}
+        <span *ngIf="me.email">• {{ me.email }}</span>
+      </div>
+
+      <div class="km-card-subtitle" *ngIf="!isLoggedIn">
+        You are not logged in. Demo QR Code displayed.
+      </div>
+
+      <div class="km-qr-wrap" *ngIf="qrDataUrl">
+        <img class="km-qr" [src]="qrDataUrl" alt="QR Code vCard" />
+      </div>
+
+      <ion-button expand="block" fill="outline" color="light" (click)="loadQr()">
+        Refresh
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

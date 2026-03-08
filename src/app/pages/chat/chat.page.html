@@ -1,0 +1,99 @@
+<ion-header [translucent]="true" class="km-header">
+  <ion-toolbar class="km-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="km-title">Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Rooms (horizontal swipe) -->
+  <div class="rooms-strip">
+    <div class="rooms-scroll">
+      <button
+        class="room-pill"
+        *ngFor="let room of rooms"
+        [class.active]="room.id === selectedRoom?.id"
+        (click)="selectRoom(room)">
+        {{ room.name }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages" *ngIf="selectedRoom">
+<div
+  class="msg-row"
+  *ngFor="let msg of messages"
+  [class.mine]="msg.isMine"
+  [class.system]="msg.author?.id === 'system' || msg.author?.displayName === 'SYSTEM'">
+  <div class="bubble">
+<div class="author-badge" *ngIf="msg.author?.displayName">
+  {{ msg.author?.displayName }}
+</div>
+
+    <div class="reply-block" *ngIf="msg.replyTo">
+      <div class="reply-label">Reponse a {{ msg.replyTo.author }}</div>
+      <div class="reply-snippet">{{ msg.replyTo.snippet }}</div>
+    </div>
+
+    
+    <div class="text">{{ msg.bodyText }}</div>
+    <div class="meta-row">
+      <button type="button" class="reply-action" (click)="startReply(msg)">Repondre</button>
+      <div class="meta">{{ msg.createdAt | date:'HH:mm' }}</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+</ion-content>
+
+<!-- Composer -->
+<ion-footer *ngIf="selectedRoom">
+  <ion-toolbar>
+    <div class="composer-wrap">
+      <div class="reply-draft" *ngIf="replyTarget">
+        <div class="reply-draft-copy">
+          <div class="reply-draft-label">Reponse a {{ replyTarget.author?.displayName || 'Utilisateur' }}</div>
+          <div class="reply-draft-snippet">{{ replyTarget.bodyText }}</div>
+        </div>
+        <button type="button" class="reply-cancel" (click)="cancelReply()" aria-label="Cancel reply">x</button>
+      </div>
+
+      <div class="composer">
+        <ion-textarea
+          autoGrow="true"
+          placeholder="Type a message…"
+          [(ngModel)]="draft">
+        </ion-textarea>
+
+        <ion-button
+          fill="clear"
+          class="emoji-toggle"
+          (click)="toggleEmojiPicker()"
+          [attr.aria-label]="emojiPickerOpen ? 'Close emojis' : 'Open emojis'">
+          <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="send()" [disabled]="!draft.trim() || sending">
+          <ion-icon slot="icon-only" name="send-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="emoji-picker" *ngIf="emojiPickerOpen">
+        <button
+          type="button"
+          class="emoji-chip"
+          *ngFor="let emoji of quickEmojis"
+          (click)="appendEmoji(emoji)">
+          {{ emoji }}
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

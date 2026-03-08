@@ -1,0 +1,31 @@
+<ion-header [translucent]="true" class="km-header">
+  <ion-toolbar class="km-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="km-title">Kingsmen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="km-content">
+  <div class="km-wrapper">
+    <div class="km-quote">
+      <div class="km-quote-line1">LIFE BEGINS ...</div>
+      <div class="km-quote-line2">... at the end of your comfort zone</div>
+    </div>
+
+    <img
+      class="km-emblem"
+      src="assets/kingsmen_logo.png"
+      alt="Kingsmen emblem"
+      draggable="false"
+    />
+
+    <div class="km-help-label">I NEED HELP</div>
+
+    <button class="km-panic-btn" type="button" [disabled]="sendingEmergency" (click)="onNeedHelp()">
+      <span class="km-panic-bang">!</span>
+    </button>
+  </div>
+</ion-content>

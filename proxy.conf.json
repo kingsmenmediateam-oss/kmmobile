@@ -1,0 +1,8 @@
+{
+  "/kmmobile/api": {
+    "target": "https://carecode.be",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

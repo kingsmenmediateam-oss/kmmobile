@@ -1,0 +1,60 @@
+<ion-header [translucent]="true" class="km-header">
+  <ion-toolbar class="km-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="km-title">My Events</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="rooms-strip">
+    <div class="rooms-scroll">
+      <button
+        class="room-pill"
+        *ngFor="let eventItem of events"
+        [class.active]="eventItem.id === selectedEvent?.id"
+        (click)="selectEvent(eventItem)">
+        {{ eventItem.name }}
+      </button>
+    </div>
+  </div>
+
+  <div class="messages" *ngIf="selectedEvent">
+    <div class="msg-row" *ngIf="loadingItems">
+      <div class="bubble">
+        <div class="text">Loading event information...</div>
+      </div>
+    </div>
+
+    <div class="msg-row" *ngIf="!loadingItems && items.length === 0">
+      <div class="bubble">
+        <div class="text">No information available for this event yet.</div>
+      </div>
+    </div>
+
+    <div class="msg-row" *ngFor="let item of items; trackBy: trackByItemId">
+      <div class="bubble">
+        <div class="author-badge">{{ typeLabel(item.type) }}</div>
+        <div class="info-title">{{ item.title }}</div>
+
+        <div class="text" *ngIf="item.body">{{ item.body }}</div>
+
+        <a class="file-link" *ngIf="item.type === 'file' && item.fileUrl" [href]="item.fileUrl" target="_blank" rel="noreferrer">
+          Open file
+        </a>
+
+        <div class="poll-options" *ngIf="item.type === 'poll' && item.pollOptions.length > 0">
+          <div class="poll-option" *ngFor="let option of item.pollOptions">{{ option }}</div>
+        </div>
+
+        <div class="meta">{{ item.createdAt | date:'MMM d, y, HH:mm' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!loadingEvents && events.length === 0">
+    You are not registered for any event.
+  </div>
+</ion-content>

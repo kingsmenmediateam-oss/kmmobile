@@ -1,0 +1,62 @@
+.km-content {
+  --background: #e00000; // même rouge que home
+}
+
+.km-wrapper {
+  padding: 18px;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.km-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.km-muted {
+  opacity: 0.9;
+}
+
+.km-error {
+  color: #fff;
+  margin: 10px 0 14px;
+}
+
+.km-card {
+  width: min(520px, 100%);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22);
+  text-align: center;
+}
+
+.km-card-title {
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.km-card-subtitle {
+  opacity: 0.75;
+  margin-bottom: 14px;
+}
+
+.km-qr-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 14px;
+}
+
+.km-qr {
+  width: 260px;
+  max-width: 70vw;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px;
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kingsmen Admin Web</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <h1 data-i18n="top.title">Kingsmen Admin</h1>
+        <p data-i18n="top.subtitle">Gestion utilisateurs, acces, chat, myEvents</p>
+      </div>
+      <div class="topbar-actions">
+        <label class="api-base">
+          <span data-i18n="top.apiLabel">API</span>
+          <input id="apiBase" type="text" />
+        </label>
+
+        <label class="api-base">
+          <span data-i18n="top.langLabel">Langue</span>
+          <select id="languageSelect">
+            <option value="fr">Francais</option>
+            <option value="en">English</option>
+            <option value="nl">Nederlands</option>
+          </select>
+        </label>
+
+        <button id="saveApiBaseBtn" class="btn" data-i18n="actions.save">Sauver</button>
+        <button id="logoutBtn" class="btn danger hidden" data-i18n="actions.logout">Deconnexion</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="loginSection" class="card">
+        <h2 data-i18n="login.title">Connexion admin</h2>
+        <form id="loginForm" class="form-grid">
+          <label>
+            <span data-i18n="login.usernameLabel">Username ou email</span>
+            <input type="text" id="username" required />
+          </label>
+          <label>
+            <span data-i18n="login.passwordLabel">Mot de passe</span>
+            <input type="password" id="password" required />
+          </label>
+          <button class="btn primary" type="submit" data-i18n="login.submit">Se connecter</button>
+        </form>
+        <p class="hint" data-i18n="login.hint">Authentification via /login.php (meme backend que l'app mobile).</p>
+      </section>
+
+      <section id="adminSection" class="hidden">
+        <nav class="tabs" id="tabs">
+          <button class="tab active" data-page="dashboard" data-i18n="tabs.dashboard">Dashboard</button>
+          <button class="tab" data-page="users" data-i18n="tabs.users">Utilisateurs</button>
+          <button class="tab" data-page="access" data-i18n="tabs.access">Acces</button>
+          <button class="tab" data-page="chat" data-i18n="tabs.chat">Moderation chat</button>
+          <button class="tab" data-page="myevents" data-i18n="tabs.myevents">MyEvents</button>
+        </nav>
+
+        <section id="page-dashboard" class="card page active">
+          <h2 data-i18n="dashboard.title">Dashboard</h2>
+          <div id="dashStats" class="stats-grid"></div>
+        </section>
+
+        <section id="page-users" class="card page">
+          <div class="section-header">
+            <h2 data-i18n="users.title">Gestion utilisateurs</h2>
+            <button class="btn" id="refreshUsersBtn" data-i18n="actions.refresh">Rafraichir</button>
+          </div>
+          <p class="hint" data-i18n="users.expected">Endpoint attendu: /admin_users.php</p>
+          <div id="usersContent"></div>
+        </section>
+
+        <section id="page-access" class="card page">
+          <div class="section-header">
+            <h2 data-i18n="access.title">Gestion des acces</h2>
+            <button class="btn" id="refreshAccessBtn" data-i18n="actions.refresh">Rafraichir</button>
+          </div>
+          <p class="hint" data-i18n="access.expected">Endpoint attendu: /admin_access.php</p>
+          <div id="accessContent"></div>
+        </section>
+
+        <section id="page-chat" class="card page">
+          <div class="section-header">
+            <h2 data-i18n="chat.title">Moderation des salons</h2>
+            <button class="btn" id="refreshRoomsBtn" data-i18n="chat.refreshRooms">Rafraichir salons</button>
+          </div>
+          <div class="chat-admin-grid">
+            <div>
+              <h3 data-i18n="chat.rooms">Salons</h3>
+              <ul id="roomsList" class="list"></ul>
+            </div>
+            <div>
+              <h3 id="messagesTitle" data-i18n="chat.messages">Messages</h3>
+              <div id="messagesContent"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-myevents" class="card page">
+          <div class="section-header">
+            <h2 data-i18n="myevents.title">Gestion page MyEvents</h2>
+            <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">Rafraichir events</button>
+          </div>
+          <div class="events-admin-grid">
+            <div>
+              <h3 data-i18n="myevents.list">Mes events</h3>
+              <ul id="eventsList" class="list"></ul>
+            </div>
+            <div>
+              <h3 id="eventItemsTitle" data-i18n="myevents.items">Contenu event</h3>
+              <div id="eventItemsContent"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script src="./vendor/i18next.min.js"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

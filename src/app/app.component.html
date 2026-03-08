@@ -1,0 +1,89 @@
+<ion-app>
+<ion-menu contentId="main-content" type="overlay">
+  <ion-header>
+    <ion-toolbar color="danger">
+      <ion-title>Kingsmen</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+
+      <!-- Accueil -->
+      <ion-menu-toggle autoHide="true">
+        <ion-item button routerLink="/home">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('home') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <!-- Profil (uniquement si connecté) -->
+      <ion-menu-toggle autoHide="true" *ngIf="isAuthenticated$ | async">
+        <ion-item button routerLink="/profile">
+          <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('account') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <!-- Login (si non connecté) -->
+      <ion-menu-toggle autoHide="true" *ngIf="!(isAuthenticated$ | async)">
+        <ion-item button routerLink="/login">
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('login') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <!-- Logout -->
+      <ion-menu-toggle autoHide="true" *ngIf="isAuthenticated$ | async">
+        <ion-item button (click)="logout()">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('logout') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle autoHide="true">
+        <ion-item button routerLink="/vcard">
+          <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('vcard') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle autoHide="true">
+        <ion-item routerLink="/chat" routerDirection="root">
+          <ion-icon name="chatbubbles-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('chat') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle autoHide="true" *ngIf="isAuthenticated$ | async">
+        <ion-item routerLink="/my-event" routerDirection="root">
+          <ion-icon name="ribbon-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('myEvents') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <!-- Calendrier (disponible quand connecté) -->
+      <ion-menu-toggle autoHide="true" *ngIf="isAuthenticated$ | async">
+        <ion-item button routerLink="/calendar" routerDirection="root">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>{{ tr('calendar') }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-item lines="full">
+        <ion-label>{{ tr('language') }}</ion-label>
+        <ion-select
+          [value]="selectedLanguage"
+          interface="popover"
+          (ionChange)="setLanguage($event.detail.value)">
+          <ion-select-option *ngFor="let lang of languages" [value]="lang.code">
+            {{ lang.flag }} {{ lang.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>

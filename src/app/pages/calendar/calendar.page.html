@@ -1,0 +1,83 @@
+<ion-header [translucent]="true" class="km-header">
+  <ion-toolbar class="km-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="km-title">Kingsmen calendar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div
+    class="calendar-container"
+    [ngClass]="swipeFeedbackClass"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)">
+    <!-- Month Navigation -->
+    <div class="month-header">
+      <ion-button fill="clear" (click)="previousMonth()">
+        <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+      </ion-button>
+      <h2>{{ monthName }}</h2>
+      <ion-button fill="clear" (click)="nextMonth()">
+        <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Weekdays Header -->
+    <div class="weekdays">
+      <div class="weekday" *ngFor="let day of weekDays">{{ day }}</div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-grid">
+      <div 
+        *ngFor="let dayObj of calendarDays" 
+        class="calendar-day"
+        [class.other-month]="!dayObj.isCurrentMonth"
+        [class.today]="isToday(dayObj.date)">
+        
+        <div class="day-number">{{ dayObj.day }}</div>
+        
+        <!-- Events for this day -->
+        <div class="events">
+          <div 
+            *ngFor="let event of dayObj.events | slice:0:2" 
+            class="event-item"
+            (click)="openEventPopup(event)"
+            [title]="event.title + ' - ' + event.start_time">
+            <span class="event-dot">•</span>
+            <span class="event-title">{{ event.title }}</span>
+          </div>
+          <div *ngIf="dayObj.events.length > 2" class="more-events">
+            +{{ dayObj.events.length - 2 }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ion-modal
+    [isOpen]="!!selectedEvent"
+    [breakpoints]="[0, 0.5, 0.8]"
+    [initialBreakpoint]="0.5"
+    [backdropBreakpoint]="0.25"
+    handle="true"
+    (didDismiss)="closeEventPopup()">
+    <ng-template>
+      <ion-content class="event-sheet-content ion-padding">
+        <ion-card class="event-modal-card" *ngIf="selectedEvent">
+          <ion-card-content>
+            <h2>{{ selectedEvent.title }}</h2>
+            <p><strong>Date:</strong> {{ selectedEvent.event_date }}</p>
+            <p><strong>Time:</strong> {{ selectedEvent.start_time }} - {{ selectedEvent.end_time }}</p>
+            <p>{{ selectedEvent.description }}</p>
+            <ion-button expand="block" fill="outline" (click)="closeEventPopup()">Close</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,0 +1,53 @@
+<ion-header [translucent]="true" class="km-header">
+  <ion-toolbar class="km-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="km-title">Log in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-input
+      label="username"
+      labelPlacement="stacked"
+      [(ngModel)]="username"
+      autocomplete="username"
+      required
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+      label="Password"
+      labelPlacement="stacked"
+      type="password"
+      [(ngModel)]="password"
+      autocomplete="current-password"
+      required
+    ></ion-input>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    color="danger"
+    style="margin-top: 24px"
+    [disabled]="loading"
+    (click)="login()"
+  >
+    <ion-spinner
+      *ngIf="loading"
+      name="crescent"
+      slot="start"
+    ></ion-spinner>
+    Se connecter
+  </ion-button>
+
+  <ion-text color="danger" *ngIf="errorMessage">
+    <p class="ion-padding-top">{{ errorMessage }}</p>
+  </ion-text>
+
+</ion-content>
