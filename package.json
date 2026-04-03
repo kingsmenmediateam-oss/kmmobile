@@ -1,8 +1,8 @@
 {
-  "name": "KmMobile",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "Kingsmen Mobile",
+  "version": "1.0.0",
+  "author": "Kingsmen Media Team",
+  "homepage": "https://kingsmen.international",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,9 +21,11 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/platform-browser-dynamic": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "@capacitor/android": "8.0.2",
     "@capacitor/app": "8.0.0",
     "@capacitor/core": "8.0.2",
     "@capacitor/haptics": "8.0.0",
+    "@capacitor/ios": "8.0.2",
     "@capacitor/keyboard": "8.0.0",
     "@capacitor/preferences": "^8.0.0",
     "@capacitor/status-bar": "8.0.0",
@@ -64,5 +66,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.0"
   },
-  "description": "An Ionic project"
+  "description": "Kingsmen Mobile is the official mobile application for Kingsmen International, providing users with access to news, events, and resources related to the organization."
 }

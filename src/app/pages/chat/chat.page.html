@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="km-title">Chat</ion-title>
+    <ion-title class="km-title">{{ tr('chatTitle') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -36,14 +36,14 @@
 </div>
 
     <div class="reply-block" *ngIf="msg.replyTo">
-      <div class="reply-label">Reponse a {{ msg.replyTo.author }}</div>
+      <div class="reply-label">{{ tr('chatReplyTo') }} {{ msg.replyTo.author }}</div>
       <div class="reply-snippet">{{ msg.replyTo.snippet }}</div>
     </div>
 
     
     <div class="text">{{ msg.bodyText }}</div>
     <div class="meta-row">
-      <button type="button" class="reply-action" (click)="startReply(msg)">Repondre</button>
+      <button type="button" class="reply-action" (click)="startReply(msg)">{{ tr('chatReply') }}</button>
       <div class="meta">{{ msg.createdAt | date:'HH:mm' }}</div>
     </div>
   </div>
@@ -59,7 +59,7 @@
     <div class="composer-wrap">
       <div class="reply-draft" *ngIf="replyTarget">
         <div class="reply-draft-copy">
-          <div class="reply-draft-label">Reponse a {{ replyTarget.author?.displayName || 'Utilisateur' }}</div>
+          <div class="reply-draft-label">{{ tr('chatReplyTo') }} {{ replyTarget.author?.displayName || tr('chatUser') }}</div>
           <div class="reply-draft-snippet">{{ replyTarget.bodyText }}</div>
         </div>
         <button type="button" class="reply-cancel" (click)="cancelReply()" aria-label="Cancel reply">x</button>
@@ -68,7 +68,7 @@
       <div class="composer">
         <ion-textarea
           autoGrow="true"
-          placeholder="Type a message…"
+          [placeholder]="tr('chatPlaceholder')"
           [(ngModel)]="draft">
         </ion-textarea>
 
@@ -76,7 +76,7 @@
           fill="clear"
           class="emoji-toggle"
           (click)="toggleEmojiPicker()"
-          [attr.aria-label]="emojiPickerOpen ? 'Close emojis' : 'Open emojis'">
+          [attr.aria-label]="emojiPickerOpen ? tr('chatCloseEmoji') : tr('chatOpenEmoji')">
           <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
         </ion-button>
 

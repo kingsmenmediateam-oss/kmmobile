@@ -19,6 +19,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { AuthService, MeResponse, UpdateMeRequest } from '../../services/auth.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-profile',
@@ -57,7 +58,11 @@ export class ProfilePage implements OnInit {
   email = '';
   birthday = ''; // YYYY-MM-DD
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private app: AppComponent) {}
+
+  tr(key: string): string {
+    return this.app.tr(key);
+  }
 
   async ngOnInit() {
     await this.loadMe();
@@ -79,7 +84,7 @@ export class ProfilePage implements OnInit {
       this.me = await this.auth.me();
       this.fillForm(this.me);
     } catch (e: any) {
-      this.errorMessage = e?.error?.message || e?.message || 'Impossible de charger le profil';
+      this.errorMessage = e?.error?.message || e?.message || this.tr('profileLoadError');
     } finally {
       this.loading = false;
     }
@@ -101,9 +106,9 @@ export class ProfilePage implements OnInit {
       const updated = await this.auth.updateMe(payload);
       this.me = updated;
       this.fillForm(updated);
-      this.successMessage = 'Profil mis à jour ✅';
+      this.successMessage = this.tr('profileSaved');
     } catch (e: any) {
-      this.errorMessage = e?.error?.message || e?.message || 'Échec de la mise à jour';
+      this.errorMessage = e?.error?.message || e?.message || this.tr('profileSaveError');
     } finally {
       this.saving = false;
     }

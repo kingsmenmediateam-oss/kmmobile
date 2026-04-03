@@ -3,24 +3,11 @@
 
 declare(strict_types=1);
 
-// CORS immédiat (avant tout include) pour éviter un blocage navigateur
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin === 'http://localhost:8100' || $origin === 'https://carecode.be') {
-  header("Access-Control-Allow-Origin: $origin");
-  header('Vary: Origin');
-}
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Authorization, Content-Type, Accept, X-Requested-With');
-header('Access-Control-Max-Age: 86400');
-if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
-  http_response_code(204);
-  exit;
-}
-
+// auth.php doit être chargé en premier : il définit is_allowed_origin() et send_cors_headers()
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-// CORS + preflight même si login.php est appelé directement (sans passer par index.php)
+// CORS + preflight (gère tout localhost:*, capacitor://, ionic://, carecode.be)
 send_cors_headers();
 handle_preflight_if_needed();
 
@@ -60,7 +47,7 @@ try {
 
   // Table exemple: users(uuid, username, password_hash, is_active)
     $stmt = $pdo->prepare('
-      SELECT uuid, username, password_hash, is_active, firstname, lastname, email, birthday
+      SELECT uuid, username, password_hash, is_active, firstname, lastname, email, birthday, role
       FROM users
       WHERE username = :u OR email = :u
       LIMIT 1
@@ -90,6 +77,7 @@ try {
     'lastname' => $user['lastname'],
     'email' => $user['email'],
     'birthday' => (string)$user['birthday'],
+    'role' => (string)($user['role'] ?? 'member'),
   ];
 
   $token = jwt_encode($payload, $config['jwt_secret']);

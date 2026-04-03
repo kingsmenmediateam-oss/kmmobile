@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="km-title">My vCard</ion-title>
+    <ion-title class="km-title">{{ tr('vcardTitle') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +13,7 @@
 
     <div class="km-center" *ngIf="loading">
       <ion-spinner name="crescent"></ion-spinner>
-      <div class="km-muted">Generating QR Code…</div>
+      <div class="km-muted">{{ tr('vcardGenerating') }}</div>
     </div>
 
     <div *ngIf="!loading && errorMessage">
@@ -22,13 +22,13 @@
       </ion-text>
 
       <ion-button expand="block" color="danger" (click)="loadQr()">
-        Retry
+        {{ tr('vcardRetry') }}
       </ion-button>
     </div>
 
     <div *ngIf="!loading && !errorMessage" class="km-card">
       <div class="km-card-title">
-        {{ isLoggedIn ? 'Your Kingsmen vCard' : 'Guest Mode' }}
+        {{ isLoggedIn ? tr('vcardYours') : tr('vcardGuest') }}
       </div>
 
       <div class="km-card-subtitle" *ngIf="isLoggedIn && me">
@@ -37,7 +37,7 @@
       </div>
 
       <div class="km-card-subtitle" *ngIf="!isLoggedIn">
-        You are not logged in. Demo QR Code displayed.
+        {{ tr('vcardNotLogged') }}
       </div>
 
       <div class="km-qr-wrap" *ngIf="qrDataUrl">
@@ -45,7 +45,7 @@
       </div>
 
       <ion-button expand="block" fill="outline" color="light" (click)="loadQr()">
-        Refresh
+        {{ tr('vcardRefresh') }}
       </ion-button>
     </div>
 

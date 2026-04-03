@@ -35,6 +35,7 @@ CREATE TABLE `chat_messages` (
   `room_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` varchar(64) NOT NULL,
   `text` text NOT NULL,
+  `reply_to` bigint(20) UNSIGNED NULL DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -224,6 +225,7 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `role` varchar(32) NOT NULL DEFAULT 'member',
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -234,9 +236,11 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`uuid`, `username`, `password_hash`, `is_active`, `firstname`, `lastname`, `email`, `birthday`) VALUES
-('02110b33-fd30-11f0-bbea-00163ef6ee59', 'etienne.darquennes@gmail.com', '$2y$10$4CPwXRpFZw1T/ECSuyMxN...ThQ/kA3H1x5Jznl/Ccsy6F7mkcxQy', 1, 'Etienne', 'Darquennes', 'etienne.darquennes@gmail.com', '1971-05-19'),
-('47632ec0-fde1-11f0-bbea-00163ef6ee59', 'system', '$2y$10$sKYXEPr2tQtwK7GuLDUydOlnqBMoqETB4HVBAXxpJ6zuVx5nGzX3i', 1, 'system', 'system', '[value-7]', '0000-00-00');
+INSERT INTO `users` (`uuid`, `username`, `password_hash`, `is_active`, `role`, `firstname`, `lastname`, `email`, `birthday`) VALUES
+('02110b33-fd30-11f0-bbea-00163ef6ee59', 'etienne.darquennes@gmail.com', '$2y$10$4CPwXRpFZw1T/ECSuyMxN...ThQ/kA3H1x5Jznl/Ccsy6F7mkcxQy', 1, 'admin', 'Etienne', 'Darquennes', 'etienne.darquennes@gmail.com', '1971-05-19'),
+('47632ec0-fde1-11f0-bbea-00163ef6ee59', 'system', '$2y$10$sKYXEPr2tQtwK7GuLDUydOlnqBMoqETB4HVBAXxpJ6zuVx5nGzX3i', 1, 'member', 'system', 'system', '[value-7]', '0000-00-00'),
+(uuid(), 'Henk Bragt', '$2y$12$u.D1izw1MjZY3Z5zZUK.r./K3NM1656miQWlzfGXCFB/VNf6AHpgK', 1, 'admin', 'Henk', 'Bragt', 'h.e.bragt@gmail.com', '1900-01-01'),
+(uuid(), 'Etienne KM', '$2y$12$lLNOLt/pIQWhhgoE8VKnLuVI6DMI5LTLpO8FUB.zAawZrAwhsnwIG', 1, 'member', 'Etienne', 'KM', 'etienne.darquennes@eglisemlk.fr', '1900-01-01');
 
 --
 -- Index pour la table `calendar_events`
@@ -337,6 +341,9 @@ ALTER TABLE `event_info_items`
 --
 ALTER TABLE `chat_messages`
   ADD CONSTRAINT `fk_msg_room` FOREIGN KEY (`room_id`) REFERENCES `chat_rooms` (`id`) ON DELETE CASCADE;
+
+-- Migration: reply support
+-- ALTER TABLE `chat_messages` ADD COLUMN `reply_to` bigint(20) UNSIGNED NULL DEFAULT NULL;
 
 --
 -- Contraintes pour la table `chat_rooms`

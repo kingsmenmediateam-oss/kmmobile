@@ -12,6 +12,7 @@ import {
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-home',
@@ -32,8 +33,13 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private app: AppComponent
   ) {}
+
+  tr(key: string): string {
+    return this.app.tr(key);
+  }
 
   ngOnInit(): void {}
 

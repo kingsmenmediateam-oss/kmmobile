@@ -16,6 +16,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-login',
@@ -45,8 +46,13 @@ export class LoginPage {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private app: AppComponent
   ) {}
+
+  tr(key: string): string {
+    return this.app.tr(key);
+  }
 
   async login() {
     this.errorMessage = '';
@@ -56,7 +62,7 @@ export class LoginPage {
       await this.authService.login(this.username, this.password);
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } catch (err: any) {
-      this.errorMessage = err?.message || 'Échec de la connexion';
+      this.errorMessage = err?.message || this.tr('loginError');
     } finally {
       this.loading = false;
     }

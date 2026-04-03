@@ -11,8 +11,8 @@
 <ion-content [fullscreen]="true" class="km-content">
   <div class="km-wrapper">
     <div class="km-quote">
-      <div class="km-quote-line1">LIFE BEGINS ...</div>
-      <div class="km-quote-line2">... at the end of your comfort zone</div>
+      <div class="km-quote-line1">{{ tr('lifeBegins') }}</div>
+      <div class="km-quote-line2">{{ tr('comfortZone') }}</div>
     </div>
 
     <img
@@ -22,7 +22,7 @@
       draggable="false"
     />
 
-    <div class="km-help-label">I NEED HELP</div>
+    <div class="km-help-label">{{ tr('iNeedHelp') }}</div>
 
     <button class="km-panic-btn" type="button" [disabled]="sendingEmergency" (click)="onNeedHelp()">
       <span class="km-panic-bang">!</span>

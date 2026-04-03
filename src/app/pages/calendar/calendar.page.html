@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="km-title">Kingsmen calendar</ion-title>
+    <ion-title class="km-title">{{ tr('calTitle') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -71,10 +71,10 @@
         <ion-card class="event-modal-card" *ngIf="selectedEvent">
           <ion-card-content>
             <h2>{{ selectedEvent.title }}</h2>
-            <p><strong>Date:</strong> {{ selectedEvent.event_date }}</p>
-            <p><strong>Time:</strong> {{ selectedEvent.start_time }} - {{ selectedEvent.end_time }}</p>
+            <p><strong>{{ tr('calDate') }}:</strong> {{ selectedEvent.event_date }}</p>
+            <p><strong>{{ tr('calTime') }}:</strong> {{ selectedEvent.start_time }} - {{ selectedEvent.end_time }}</p>
             <p>{{ selectedEvent.description }}</p>
-            <ion-button expand="block" fill="outline" (click)="closeEventPopup()">Close</ion-button>
+            <ion-button expand="block" fill="outline" (click)="closeEventPopup()">{{ tr('calClose') }}</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-content>

@@ -14,13 +14,19 @@ const resources = {
         title: 'Connexion admin', usernameLabel: 'Username ou email', passwordLabel: 'Mot de passe',
         submit: 'Se connecter', hint: 'Authentification via /login.php (meme backend que l\'app mobile).',
       },
-      actions: { save: 'Sauver', logout: 'Deconnexion', refresh: 'Rafraichir', delete: 'Supprimer', cancel: 'Annuler' },
+      actions: { save: 'Sauver', logout: 'Deconnexion', refresh: 'Rafraichir', delete: 'Supprimer', cancel: 'Annuler', reply: 'Répondre' },
       tabs: { dashboard: 'Dashboard', users: 'Utilisateurs', access: 'Acces', chat: 'Moderation chat', myevents: 'MyEvents' },
       dashboard: { title: 'Dashboard', rooms: 'Salons', roomMessages: 'Messages salon', events: 'MyEvents', eventItems: 'Items event' },
       users: {
         title: 'Gestion utilisateurs', expected: 'Endpoint attendu: /admin_users.php', loading: 'Chargement...',
         empty: 'Aucun utilisateur.', loadFailed: 'Impossible de charger les utilisateurs:', missingEndpoint: 'Ajoute un endpoint JSON /admin_users.php pour activer cette page.',
-        thId: 'ID', thUsername: 'Username', thEmail: 'Email', thRole: 'Role', thState: 'Etat', active: 'Actif', inactive: 'Inactif',
+        thId: 'ID', thUsername: 'Username', thEmail: 'Email', thRole: 'Role', thState: 'Etat', thActions: 'Actions',
+        active: 'Actif', inactive: 'Inactif', activate: 'Activer', deactivate: 'Désactiver',
+        toggleError: 'Erreur mise à jour:', selfDeactivation: 'Impossible de désactiver votre propre compte.',
+        createBtn: '+ Ajouter', createTitle: 'Nouvel utilisateur', createSubmit: 'Créer',
+        fieldFirstname: 'Prénom', fieldLastname: 'Nom', fieldUsername: 'Username',
+        fieldEmail: 'Email', fieldPassword: 'Mot de passe', fieldRole: 'Rôle', fieldBirthday: 'Date de naissance',
+        createSuccess: 'Utilisateur créé avec succès.', createError: 'Erreur création:',
       },
       access: {
         title: 'Gestion des acces', expected: 'Endpoint attendu: /admin_access.php', loading: 'Chargement...',
@@ -32,6 +38,10 @@ const resources = {
         loading: 'Chargement...', noVisibleRooms: 'Aucun salon visible.', roomId: 'id', roomLabel: 'room',
         loadMessagesError: 'Erreur chargement messages:', deleteConfirm: 'Supprimer ce message ?', deleteSuccess: 'Message supprime', deleteFailed: 'Suppression impossible:',
         thId: 'ID', thAuthor: 'Auteur', thDate: 'Date', thMessage: 'Message', thAction: 'Action', noMessages: 'Aucun message.',
+        newRoomName: 'Nom du salon', newRoomDesc: 'Description', createRoomBtn: 'Creer', createRoomHeading: 'Nouveau salon',
+        createRoomSuccess: 'Salon cree avec succes', createRoomError: 'Erreur lors de la creation du salon:',
+        sendBtn: 'Envoyer', composePlaceholder: 'Ecrire un message…', replyingTo: 'Réponse à',
+        sendSuccess: 'Message envoye', sendError: 'Erreur envoi:',
       },
       myevents: {
         title: 'Gestion page MyEvents', refresh: 'Rafraichir events', list: 'Mes events', items: 'Contenu event',
@@ -49,13 +59,19 @@ const resources = {
         title: 'Admin login', usernameLabel: 'Username or email', passwordLabel: 'Password',
         submit: 'Sign in', hint: 'Authentication via /login.php (same backend as mobile app).',
       },
-      actions: { save: 'Save', logout: 'Logout', refresh: 'Refresh', delete: 'Delete', cancel: 'Cancel' },
+      actions: { save: 'Save', logout: 'Logout', refresh: 'Refresh', delete: 'Delete', cancel: 'Cancel', reply: 'Reply' },
       tabs: { dashboard: 'Dashboard', users: 'Users', access: 'Access', chat: 'Chat moderation', myevents: 'MyEvents' },
       dashboard: { title: 'Dashboard', rooms: 'Rooms', roomMessages: 'Room messages', events: 'MyEvents', eventItems: 'Event items' },
       users: {
         title: 'User management', expected: 'Expected endpoint: /admin_users.php', loading: 'Loading...',
         empty: 'No users.', loadFailed: 'Failed to load users:', missingEndpoint: 'Add a JSON endpoint /admin_users.php to enable this page.',
-        thId: 'ID', thUsername: 'Username', thEmail: 'Email', thRole: 'Role', thState: 'State', active: 'Active', inactive: 'Inactive',
+        thId: 'ID', thUsername: 'Username', thEmail: 'Email', thRole: 'Role', thState: 'State', thActions: 'Actions',
+        active: 'Active', inactive: 'Inactive', activate: 'Activate', deactivate: 'Deactivate',
+        toggleError: 'Update error:', selfDeactivation: 'Cannot deactivate your own account.',
+        createBtn: '+ Add user', createTitle: 'New user', createSubmit: 'Create',
+        fieldFirstname: 'First name', fieldLastname: 'Last name', fieldUsername: 'Username',
+        fieldEmail: 'Email', fieldPassword: 'Password', fieldRole: 'Role', fieldBirthday: 'Birthday',
+        createSuccess: 'User created successfully.', createError: 'Creation error:',
       },
       access: {
         title: 'Access management', expected: 'Expected endpoint: /admin_access.php', loading: 'Loading...',
@@ -67,6 +83,10 @@ const resources = {
         loading: 'Loading...', noVisibleRooms: 'No visible rooms.', roomId: 'id', roomLabel: 'room',
         loadMessagesError: 'Failed to load messages:', deleteConfirm: 'Delete this message?', deleteSuccess: 'Message deleted', deleteFailed: 'Deletion failed:',
         thId: 'ID', thAuthor: 'Author', thDate: 'Date', thMessage: 'Message', thAction: 'Action', noMessages: 'No messages.',
+        newRoomName: 'Room name', newRoomDesc: 'Description', createRoomBtn: 'Create', createRoomHeading: 'New room',
+        createRoomSuccess: 'Room created successfully', createRoomError: 'Error creating room:',
+        sendBtn: 'Send', composePlaceholder: 'Write a message…', replyingTo: 'Replying to',
+        sendSuccess: 'Message sent', sendError: 'Send error:',
       },
       myevents: {
         title: 'MyEvents page management', refresh: 'Refresh events', list: 'My events', items: 'Event content',
@@ -84,13 +104,19 @@ const resources = {
         title: 'Admin aanmelding', usernameLabel: 'Gebruikersnaam of e-mail', passwordLabel: 'Wachtwoord',
         submit: 'Aanmelden', hint: 'Authenticatie via /login.php (zelfde backend als de mobiele app).',
       },
-      actions: { save: 'Opslaan', logout: 'Afmelden', refresh: 'Vernieuwen', delete: 'Verwijderen', cancel: 'Annuleren' },
+      actions: { save: 'Opslaan', logout: 'Afmelden', refresh: 'Vernieuwen', delete: 'Verwijderen', cancel: 'Annuleren', reply: 'Beantwoorden' },
       tabs: { dashboard: 'Dashboard', users: 'Gebruikers', access: 'Toegang', chat: 'Chat moderatie', myevents: 'MyEvents' },
       dashboard: { title: 'Dashboard', rooms: 'Kanalen', roomMessages: 'Kanaalberichten', events: 'MyEvents', eventItems: 'Eventitems' },
       users: {
         title: 'Gebruikersbeheer', expected: 'Verwacht endpoint: /admin_users.php', loading: 'Laden...',
         empty: 'Geen gebruikers.', loadFailed: 'Gebruikers laden mislukt:', missingEndpoint: 'Voeg JSON-endpoint /admin_users.php toe om deze pagina te activeren.',
-        thId: 'ID', thUsername: 'Gebruikersnaam', thEmail: 'E-mail', thRole: 'Rol', thState: 'Status', active: 'Actief', inactive: 'Inactief',
+        thId: 'ID', thUsername: 'Gebruikersnaam', thEmail: 'E-mail', thRole: 'Rol', thState: 'Status', thActions: 'Acties',
+        active: 'Actief', inactive: 'Inactief', activate: 'Activeren', deactivate: 'Deactiveren',
+        toggleError: 'Updatefout:', selfDeactivation: 'U kunt uw eigen account niet deactiveren.',
+        createBtn: '+ Toevoegen', createTitle: 'Nieuwe gebruiker', createSubmit: 'Aanmaken',
+        fieldFirstname: 'Voornaam', fieldLastname: 'Achternaam', fieldUsername: 'Gebruikersnaam',
+        fieldEmail: 'E-mail', fieldPassword: 'Wachtwoord', fieldRole: 'Rol', fieldBirthday: 'Geboortedatum',
+        createSuccess: 'Gebruiker succesvol aangemaakt.', createError: 'Aanmaakfout:',
       },
       access: {
         title: 'Toegangsbeheer', expected: 'Verwacht endpoint: /admin_access.php', loading: 'Laden...',
@@ -102,6 +128,10 @@ const resources = {
         loading: 'Laden...', noVisibleRooms: 'Geen zichtbare kanalen.', roomId: 'id', roomLabel: 'kanaal',
         loadMessagesError: 'Berichten laden mislukt:', deleteConfirm: 'Dit bericht verwijderen?', deleteSuccess: 'Bericht verwijderd', deleteFailed: 'Verwijderen mislukt:',
         thId: 'ID', thAuthor: 'Auteur', thDate: 'Datum', thMessage: 'Bericht', thAction: 'Actie', noMessages: 'Geen berichten.',
+        newRoomName: 'Kanaalnaam', newRoomDesc: 'Beschrijving', createRoomBtn: 'Aanmaken', createRoomHeading: 'Nieuw kanaal',
+        createRoomSuccess: 'Kanaal succesvol aangemaakt', createRoomError: 'Fout bij aanmaken kanaal:',
+        sendBtn: 'Versturen', composePlaceholder: 'Schrijf een bericht…', replyingTo: 'Antwoord aan',
+        sendSuccess: 'Bericht verzonden', sendError: 'Fout bij verzenden:',
       },
       myevents: {
         title: 'MyEvents pagina beheer', refresh: 'Events vernieuwen', list: 'Mijn events', items: 'Eventinhoud',
@@ -120,6 +150,7 @@ const state = {
   lang: localStorage.getItem(STORAGE_KEYS.lang) || 'fr',
   rooms: [],
   selectedRoomId: null,
+  replyToMessage: null, // { id, author, text }
   events: [],
   selectedEventId: null,
 };
@@ -139,6 +170,9 @@ const els = {
   refreshUsersBtn: document.getElementById('refreshUsersBtn'),
   refreshAccessBtn: document.getElementById('refreshAccessBtn'),
   refreshRoomsBtn: document.getElementById('refreshRoomsBtn'),
+  createRoomForm: document.getElementById('createRoomForm'),
+  newRoomName: document.getElementById('newRoomName'),
+  newRoomDesc: document.getElementById('newRoomDesc'),
   refreshEventsBtn: document.getElementById('refreshEventsBtn'),
   usersContent: document.getElementById('usersContent'),
   accessContent: document.getElementById('accessContent'),
@@ -148,6 +182,26 @@ const els = {
   eventsList: document.getElementById('eventsList'),
   eventItemsTitle: document.getElementById('eventItemsTitle'),
   eventItemsContent: document.getElementById('eventItemsContent'),
+  openCreateUserBtn: document.getElementById('openCreateUserBtn'),
+  createUserModal: document.getElementById('createUserModal'),
+  closeCreateUserBtn: document.getElementById('closeCreateUserBtn'),
+  cancelCreateUserBtn: document.getElementById('cancelCreateUserBtn'),
+  createUserForm: document.getElementById('createUserForm'),
+  newUserFirstname: document.getElementById('newUserFirstname'),
+  newUserLastname: document.getElementById('newUserLastname'),
+  newUserUsername: document.getElementById('newUserUsername'),
+  newUserEmail: document.getElementById('newUserEmail'),
+  newUserPassword: document.getElementById('newUserPassword'),
+  newUserRole: document.getElementById('newUserRole'),
+  newUserBirthday: document.getElementById('newUserBirthday'),
+  createUserError: document.getElementById('createUserError'),
+  composeArea: document.getElementById('composeArea'),
+  composeText: document.getElementById('composeText'),
+  sendMessageBtn: document.getElementById('sendMessageBtn'),
+  replyContext: document.getElementById('replyContext'),
+  replyContextAuthor: document.getElementById('replyContextAuthor'),
+  replyContextText: document.getElementById('replyContextText'),
+  cancelReplyBtn: document.getElementById('cancelReplyBtn'),
   toast: document.getElementById('toast'),
 };
 
@@ -173,6 +227,8 @@ function setAuthUI(loggedIn) {
   els.loginSection.classList.toggle('hidden', loggedIn);
   els.adminSection.classList.toggle('hidden', !loggedIn);
   els.logoutBtn.classList.toggle('hidden', !loggedIn);
+  const menuToggle = document.getElementById('menuToggle');
+  if (menuToggle) menuToggle.classList.toggle('hidden', !loggedIn);
 }
 
 function escapeHtml(input) {
@@ -187,30 +243,55 @@ function escapeHtml(input) {
 async function apiFetch(path, options = {}) {
   const headers = new Headers(options.headers || {});
   headers.set('Accept', 'application/json');
+  headers.set('Content-Type', 'application/json');
 
   if (state.token) {
     headers.set('Authorization', `Bearer ${state.token}`);
   }
 
-  const response = await fetch(`${state.apiBase}${path}`, {
-    ...options,
-    headers,
-  });
+  try {
+    const response = await fetch(`${state.apiBase}${path}`, {
+      ...options,
+      headers,
+    });
 
-  if (!response.ok) {
-    let detail = '';
-    try {
-      const data = await response.json();
-      detail = data.message || data.error || JSON.stringify(data);
-    } catch {
-      detail = await response.text();
+    if (!response.ok) {
+      let detail = '';
+      try {
+        const data = await response.json();
+        detail = data.message || data.error || JSON.stringify(data);
+      } catch {
+        detail = await response.text();
+      }
+      throw new Error(`${response.status} ${response.statusText}${detail ? ` - ${detail}` : ''}`);
     }
-    throw new Error(`${response.status} ${response.statusText}${detail ? ` - ${detail}` : ''}`);
-  }
 
-  const contentType = response.headers.get('content-type') || '';
-  if (contentType.includes('application/json')) return response.json();
-  return response.text();
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) return response.json();
+    return response.text();
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error(`Connection error: Could not reach ${state.apiBase}${path}. Make sure the API server is running.`);
+    }
+    throw error;
+  }
+}
+
+// Normalise les clés d'objet (snake_case -> camelCase)
+function normalizeKeys(obj) {
+  if (!obj || typeof obj !== 'object') return obj;
+  
+  if (Array.isArray(obj)) {
+    return obj.map(item => normalizeKeys(item));
+  }
+  
+  const normalized = {};
+  for (const [key, value] of Object.entries(obj)) {
+    // Convertir snake_case en camelCase
+    const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+    normalized[camelKey] = normalizeKeys(value);
+  }
+  return normalized;
 }
 
 function activatePage(pageId) {
@@ -220,6 +301,8 @@ function activatePage(pageId) {
   document.querySelectorAll('.page').forEach((page) => {
     page.classList.toggle('active', page.id === `page-${pageId}`);
   });
+  // Ferme la sidebar sur mobile après navigation
+  document.getElementById('sidebar')?.classList.remove('open');
 }
 
 function renderStats(stats) {
@@ -244,48 +327,147 @@ async function loadDashboard() {
   const stats = { rooms: '-', messages: '-', events: '-', items: '-' };
 
   try {
-    const rooms = await apiFetch('/chat_rooms.php');
+    const response = await apiFetch('/chat_rooms.php');
+    const rawRooms = Array.isArray(response) ? response : (response?.data ?? []);
+    const rooms = normalizeKeys(rawRooms);
     stats.rooms = Array.isArray(rooms) ? rooms.length : 0;
-  } catch {}
+  } catch (error) {
+    console.error('Dashboard: Error loading rooms count:', error);
+  }
 
   try {
-    const events = await apiFetch('/my_events.php');
+    const response = await apiFetch('/my_events.php');
+    const rawEvents = Array.isArray(response) ? response : (response?.data ?? []);
+    const events = normalizeKeys(rawEvents);
     stats.events = Array.isArray(events) ? events.length : 0;
     if (Array.isArray(events) && events[0]) {
-      const items = await apiFetch(`/my_event_items.php?eventId=${encodeURIComponent(events[0].id)}`);
+      const itemResponse = await apiFetch(`/my_event_items.php?eventId=${encodeURIComponent(events[0].id)}`);
+      const rawItems = Array.isArray(itemResponse) ? itemResponse : (itemResponse?.data ?? []);
+      const items = normalizeKeys(rawItems);
       stats.items = Array.isArray(items) ? items.length : 0;
     }
-  } catch {}
+  } catch (error) {
+    console.error('Dashboard: Error loading events:', error);
+  }
 
   try {
     if (state.selectedRoomId) {
-      const messages = await apiFetch(`/chat_messages.php?roomId=${encodeURIComponent(state.selectedRoomId)}&limit=50`);
+      const response = await apiFetch(`/chat_messages.php?roomId=${encodeURIComponent(state.selectedRoomId)}&limit=50`);
+      const rawMessages = Array.isArray(response) ? response : (response?.data ?? []);
+      const messages = normalizeKeys(rawMessages);
       stats.messages = Array.isArray(messages) ? messages.length : 0;
     }
-  } catch {}
+  } catch (error) {
+    console.error('Dashboard: Error loading messages:', error);
+  }
 
   renderStats(stats);
+}
+
+function openCreateUserModal() {
+  els.createUserForm.reset();
+  els.createUserError.classList.add('hidden');
+  els.createUserError.textContent = '';
+  els.createUserModal.classList.remove('hidden');
+  els.newUserFirstname.focus();
+}
+
+function closeCreateUserModal() {
+  els.createUserModal.classList.add('hidden');
+}
+
+async function createUser() {
+  els.createUserError.classList.add('hidden');
+  els.createUserError.textContent = '';
+
+  const body = {
+    firstname: els.newUserFirstname.value.trim(),
+    lastname:  els.newUserLastname.value.trim(),
+    username:  els.newUserUsername.value.trim(),
+    email:     els.newUserEmail.value.trim(),
+    password:  els.newUserPassword.value,
+    role:      els.newUserRole.value,
+    birthday:  els.newUserBirthday.value || '1900-01-01',
+  };
+
+  try {
+    await apiFetch('/admin_user_create.php', { method: 'POST', body: JSON.stringify(body) });
+    closeCreateUserModal();
+    toast(t('users.createSuccess'), 'success');
+    await loadUsers();
+  } catch (error) {
+    const msg = error.message.includes('CONFLICT')
+      ? (state.lang === 'fr' ? 'Ce username ou email existe déjà.' : state.lang === 'nl' ? 'Gebruikersnaam of e-mail bestaat al.' : 'Username or email already exists.')
+      : `${t('users.createError')} ${error.message}`;
+    els.createUserError.textContent = msg;
+    els.createUserError.classList.remove('hidden');
+  }
+}
+
+async function toggleUser(uuid) {
+  try {
+    const result = await apiFetch('/admin_user_toggle.php', {
+      method: 'POST',
+      body: JSON.stringify({ uuid }),
+    });
+    // Mise à jour locale sans rechargement complet
+    const btn = document.querySelector(`[data-toggle-uuid="${CSS.escape(uuid)}"]`);
+    if (btn) {
+      const newActive = result.isActive;
+      btn.dataset.toggleActive = newActive ? '1' : '0';
+      btn.textContent = newActive ? t('users.deactivate') : t('users.activate');
+      btn.className = `btn small ${newActive ? 'toggle-deactivate' : 'toggle-activate'}`;
+      const statusCell = btn.closest('tr')?.querySelector('.user-status');
+      if (statusCell) {
+        statusCell.innerHTML = newActive
+          ? `<span class="status-badge active">${escapeHtml(t('users.active'))}</span>`
+          : `<span class="status-badge inactive">${escapeHtml(t('users.inactive'))}</span>`;
+      }
+    }
+  } catch (error) {
+    const msg = error.message.includes('SELF_DEACTIVATION')
+      ? t('users.selfDeactivation')
+      : `${t('users.toggleError')} ${error.message}`;
+    toast(msg, 'error');
+  }
 }
 
 async function loadUsers() {
   els.usersContent.innerHTML = `<p class="hint">${escapeHtml(t('users.loading'))}</p>`;
   try {
-    const users = await apiFetch('/admin_users.php');
+    const response = await apiFetch('/admin_users.php');
+    const rawUsers = Array.isArray(response) ? response : (response?.data ?? []);
+    const users = normalizeKeys(rawUsers);
+    
     if (!Array.isArray(users)) throw new Error('Unexpected format');
     if (users.length === 0) {
       els.usersContent.innerHTML = `<p class="hint">${escapeHtml(t('users.empty'))}</p>`;
       return;
     }
 
-    const rows = users.map((u) => `
+    const rows = users.map((u) => {
+      const active = u.isActive;
+      const uuid = escapeHtml(u.uuid || u.id || '');
+      return `
       <tr>
-        <td class="code">${escapeHtml(u.uuid || u.id || '')}</td>
+        <td class="code">${uuid}</td>
         <td>${escapeHtml(u.username || '')}</td>
         <td>${escapeHtml(u.email || '')}</td>
         <td>${escapeHtml(u.role || '-')}</td>
-        <td>${u.is_active ? escapeHtml(t('users.active')) : escapeHtml(t('users.inactive'))}</td>
-      </tr>
-    `).join('');
+        <td class="user-status">
+          <span class="status-badge ${active ? 'active' : 'inactive'}">
+            ${escapeHtml(active ? t('users.active') : t('users.inactive'))}
+          </span>
+        </td>
+        <td>
+          <button class="btn small ${active ? 'toggle-deactivate' : 'toggle-activate'}"
+            data-toggle-uuid="${uuid}"
+            data-toggle-active="${active ? '1' : '0'}">
+            ${escapeHtml(active ? t('users.deactivate') : t('users.activate'))}
+          </button>
+        </td>
+      </tr>`;
+    }).join('');
 
     els.usersContent.innerHTML = `
       <div class="table-wrap">
@@ -296,12 +478,14 @@ async function loadUsers() {
             <th>${escapeHtml(t('users.thEmail'))}</th>
             <th>${escapeHtml(t('users.thRole'))}</th>
             <th>${escapeHtml(t('users.thState'))}</th>
+            <th>${escapeHtml(t('users.thActions'))}</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
     `;
   } catch (error) {
+    console.error('Error loading users:', error);
     els.usersContent.innerHTML = `
       <p class="hint">${escapeHtml(t('users.loadFailed'))} ${escapeHtml(error.message)}</p>
       <p class="hint">${escapeHtml(t('users.missingEndpoint'))}</p>
@@ -312,7 +496,10 @@ async function loadUsers() {
 async function loadAccess() {
   els.accessContent.innerHTML = `<p class="hint">${escapeHtml(t('access.loading'))}</p>`;
   try {
-    const data = await apiFetch('/admin_access.php');
+    const response = await apiFetch('/admin_access.php');
+    const rawAccess = Array.isArray(response) ? response : (response?.data ?? []);
+    const data = normalizeKeys(rawAccess);
+    
     if (!Array.isArray(data)) throw new Error('Unexpected format');
 
     const rows = data.map((a) => `
@@ -336,6 +523,7 @@ async function loadAccess() {
       </div>
     `;
   } catch (error) {
+    console.error('Error loading access:', error);
     els.accessContent.innerHTML = `
       <p class="hint">${escapeHtml(t('access.loadFailed'))} ${escapeHtml(error.message)}</p>
       <p class="hint">${escapeHtml(t('access.missingEndpoint'))}</p>
@@ -352,11 +540,67 @@ function renderRooms() {
   `).join('');
 }
 
+function setReply(message) {
+  state.replyToMessage = message;
+  if (message) {
+    els.replyContextAuthor.textContent = message.author;
+    els.replyContextText.textContent = message.text.substring(0, 100);
+    els.replyContext.classList.remove('hidden');
+    els.composeText.focus();
+  } else {
+    els.replyContext.classList.add('hidden');
+    els.replyContextAuthor.textContent = '';
+    els.replyContextText.textContent = '';
+  }
+}
+
+async function sendMessage() {
+  const text = els.composeText.value.trim();
+  if (!text || !state.selectedRoomId) return;
+
+  const body = { roomId: state.selectedRoomId, text };
+  if (state.replyToMessage) body.replyTo = state.replyToMessage.id;
+
+  try {
+    await apiFetch('/chat_post_message.php', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+    els.composeText.value = '';
+    setReply(null);
+    toast(t('chat.sendSuccess'), 'success');
+    await loadMessages(state.selectedRoomId);
+  } catch (error) {
+    toast(`${t('chat.sendError')} ${error.message}`, 'error');
+  }
+}
+
+async function createRoom() {
+  const name = els.newRoomName.value.trim();
+  const desc = els.newRoomDesc.value.trim();
+  if (!name) return;
+  try {
+    await apiFetch('/chat_room_create.php', {
+      method: 'POST',
+      body: JSON.stringify({ name, description: desc }),
+    });
+    toast(t('chat.createRoomSuccess'), 'success');
+    els.newRoomName.value = '';
+    els.newRoomDesc.value = '';
+    await loadRooms();
+  } catch (error) {
+    toast(`${t('chat.createRoomError')} ${error.message}`, 'error');
+  }
+}
+
 async function loadRooms() {
   els.roomsList.innerHTML = `<li class="hint">${escapeHtml(t('chat.loading'))}</li>`;
   try {
-    const rooms = await apiFetch('/chat_rooms.php');
+    const response = await apiFetch('/chat_rooms.php');
+    const rawRooms = Array.isArray(response) ? response : (response?.data ?? []);
+    const rooms = normalizeKeys(rawRooms);
     state.rooms = Array.isArray(rooms) ? rooms : [];
+    
     if (!state.selectedRoomId && state.rooms[0]) {
       state.selectedRoomId = state.rooms[0].id;
     }
@@ -367,6 +611,7 @@ async function loadRooms() {
       els.messagesContent.innerHTML = `<p class="hint">${escapeHtml(t('chat.noVisibleRooms'))}</p>`;
     }
   } catch (error) {
+    console.error('Error loading rooms:', error);
     els.roomsList.innerHTML = `<li class="hint">${escapeHtml(t('common.error'))}: ${escapeHtml(error.message)}</li>`;
     els.messagesContent.innerHTML = '';
   }
@@ -381,7 +626,8 @@ async function deleteMessage(roomId, messageId) {
     });
     toast(t('chat.deleteSuccess'), 'success');
     await loadMessages(roomId);
-  } catch {
+  } catch (jsonError) {
+    console.warn('JSON delete failed, trying form-urlencoded:', jsonError);
     try {
       const form = new URLSearchParams();
       form.set('roomId', String(roomId));
@@ -394,6 +640,7 @@ async function deleteMessage(roomId, messageId) {
       toast(t('chat.deleteSuccess'), 'success');
       await loadMessages(roomId);
     } catch (formError) {
+      console.error('Form delete failed:', formError);
       toast(`${t('chat.deleteFailed')} ${formError.message}`, 'error');
     }
   }
@@ -404,20 +651,38 @@ async function loadMessages(roomId) {
   els.messagesContent.innerHTML = `<p class="hint">${escapeHtml(t('chat.loading'))}</p>`;
 
   try {
-    const messages = await apiFetch(`/chat_messages.php?roomId=${encodeURIComponent(roomId)}&limit=100`);
-    const rows = (Array.isArray(messages) ? messages : []).map((m) => `
+    const response = await apiFetch(`/chat_messages.php?roomId=${encodeURIComponent(roomId)}&limit=100`);
+    const rawMessages = Array.isArray(response) ? response : (response?.data ?? []);
+    const messages = normalizeKeys(rawMessages);
+
+    const rows = (Array.isArray(messages) ? messages : []).map((m) => {
+      const replyQuote = m.replyTo
+        ? `<div class="msg-reply-quote">
+             <span class="msg-reply-author">${escapeHtml(m.replyTo.author)}</span>
+             <span class="msg-reply-text">${escapeHtml(m.replyTo.text)}</span>
+           </div>`
+        : '';
+      return `
       <tr>
         <td class="code">${escapeHtml(m.id)}</td>
-        <td>${escapeHtml(m.author?.displayName || m.user_id || t('common.unknown'))}</td>
-        <td>${escapeHtml(m.createdAt || m.created_at || '')}</td>
-        <td>${escapeHtml(m.text || '')}</td>
-        <td>
-          <button class="btn danger" data-delete-message-id="${escapeHtml(m.id)}" data-delete-room-id="${escapeHtml(roomId)}">
+        <td>${escapeHtml(m.author?.displayName || m.userId || t('common.unknown'))}</td>
+        <td>${escapeHtml(m.createdAt || '')}</td>
+        <td>${replyQuote}${escapeHtml(m.text || '')}</td>
+        <td class="actions-cell">
+          <button class="btn small"
+            data-reply-message-id="${escapeHtml(m.id)}"
+            data-reply-author="${escapeHtml(m.author?.displayName || '')}"
+            data-reply-text="${escapeHtml((m.text || '').substring(0, 100))}">
+            ${escapeHtml(t('actions.reply'))}
+          </button>
+          <button class="btn danger small"
+            data-delete-message-id="${escapeHtml(m.id)}"
+            data-delete-room-id="${escapeHtml(roomId)}">
             ${escapeHtml(t('actions.delete'))}
           </button>
         </td>
-      </tr>
-    `).join('');
+      </tr>`;
+    }).join('');
 
     els.messagesContent.innerHTML = `
       <div class="table-wrap">
@@ -433,7 +698,12 @@ async function loadMessages(roomId) {
         </table>
       </div>
     `;
+
+    // Afficher la zone de composition dès qu'un salon est sélectionné
+    els.composeArea.classList.remove('hidden');
+    els.composeText.placeholder = t('chat.composePlaceholder');
   } catch (error) {
+    console.error('Error loading messages:', error);
     els.messagesContent.innerHTML = `<p class="hint">${escapeHtml(t('chat.loadMessagesError'))} ${escapeHtml(error.message)}</p>`;
   }
 }
@@ -450,8 +720,11 @@ function renderEvents() {
 async function loadEvents() {
   els.eventsList.innerHTML = `<li class="hint">${escapeHtml(t('myevents.loading'))}</li>`;
   try {
-    const events = await apiFetch('/my_events.php');
+    const response = await apiFetch('/my_events.php');
+    const rawEvents = Array.isArray(response) ? response : (response?.data ?? []);
+    const events = normalizeKeys(rawEvents);
     state.events = Array.isArray(events) ? events : [];
+    
     if (!state.selectedEventId && state.events[0]) {
       state.selectedEventId = state.events[0].id;
     }
@@ -462,6 +735,7 @@ async function loadEvents() {
       els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.noVisibleEvents'))}</p>`;
     }
   } catch (error) {
+    console.error('Error loading events:', error);
     els.eventsList.innerHTML = `<li class="hint">${escapeHtml(t('common.error'))}: ${escapeHtml(error.message)}</li>`;
     els.eventItemsContent.innerHTML = '';
   }
@@ -471,7 +745,10 @@ async function loadEventItems(eventId) {
   els.eventItemsTitle.textContent = `${t('myevents.items')} #${eventId}`;
   els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loading'))}</p>`;
   try {
-    const items = await apiFetch(`/my_event_items.php?eventId=${encodeURIComponent(eventId)}`);
+    const response = await apiFetch(`/my_event_items.php?eventId=${encodeURIComponent(eventId)}`);
+    const rawItems = Array.isArray(response) ? response : (response?.data ?? []);
+    const items = normalizeKeys(rawItems);
+    
     const blocks = (Array.isArray(items) ? items : []).map((item) => `
       <article class="list-item">
         <div class="item-badge">${escapeHtml(item.type || 'item')}</div>
@@ -482,6 +759,7 @@ async function loadEventItems(eventId) {
 
     els.eventItemsContent.innerHTML = blocks || `<p class="hint">${escapeHtml(t('myevents.noItems'))}</p>`;
   } catch (error) {
+    console.error('Error loading event items:', error);
     els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loadItemsError'))} ${escapeHtml(error.message)}</p>`;
   }
 }
@@ -491,22 +769,29 @@ async function login(username, password) {
   form.append('username', username);
   form.append('password', password);
 
-  const response = await fetch(`${state.apiBase}/login.php`, {
-    method: 'POST',
-    body: form,
-    headers: { Accept: 'application/json' },
-  });
+  try {
+    const response = await fetch(`${state.apiBase}/login.php`, {
+      method: 'POST',
+      body: form,
+      headers: { Accept: 'application/json' },
+    });
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Login failed: ${response.status} ${text}`);
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(`Login failed: ${response.status} ${text}`);
+    }
+
+    const data = await response.json();
+    if (!data?.token) throw new Error('Token missing in login response');
+
+    state.token = data.token;
+    localStorage.setItem(STORAGE_KEYS.token, state.token);
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error(`Connection error: Could not reach ${state.apiBase}/login.php. Make sure the API server is running and CORS is properly configured.`);
+    }
+    throw error;
   }
-
-  const data = await response.json();
-  if (!data?.token) throw new Error('Token missing in login response');
-
-  state.token = data.token;
-  localStorage.setItem(STORAGE_KEYS.token, state.token);
 }
 
 function logout() {
@@ -560,9 +845,37 @@ function wireEvents() {
   });
 
   els.refreshUsersBtn.addEventListener('click', () => void loadUsers());
+  els.openCreateUserBtn.addEventListener('click', openCreateUserModal);
+  els.closeCreateUserBtn.addEventListener('click', closeCreateUserModal);
+  els.cancelCreateUserBtn.addEventListener('click', closeCreateUserModal);
+  els.createUserModal.addEventListener('click', (event) => {
+    if (event.target === els.createUserModal) closeCreateUserModal();
+  });
+  els.createUserForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    void createUser();
+  });
+
+  els.usersContent.addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-toggle-uuid]');
+    if (!btn) return;
+    void toggleUser(btn.dataset.toggleUuid);
+  });
   els.refreshAccessBtn.addEventListener('click', () => void loadAccess());
   els.refreshRoomsBtn.addEventListener('click', () => void loadRooms());
+
+  els.createRoomForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    void createRoom();
+  });
   els.refreshEventsBtn.addEventListener('click', () => void loadEvents());
+
+  // Bouton hamburger (mobile)
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  }
 
   els.roomsList.addEventListener('click', (event) => {
     const item = event.target.closest('[data-room-id]');
@@ -573,13 +886,34 @@ function wireEvents() {
   });
 
   els.messagesContent.addEventListener('click', (event) => {
-    const btn = event.target.closest('[data-delete-message-id]');
-    if (!btn) return;
-    const messageId = btn.dataset.deleteMessageId;
-    const roomId = btn.dataset.deleteRoomId;
-    if (!messageId || !roomId) return;
-    if (!confirm(t('chat.deleteConfirm'))) return;
-    void deleteMessage(roomId, messageId);
+    const delBtn = event.target.closest('[data-delete-message-id]');
+    if (delBtn) {
+      const messageId = delBtn.dataset.deleteMessageId;
+      const roomId = delBtn.dataset.deleteRoomId;
+      if (!messageId || !roomId) return;
+      if (!confirm(t('chat.deleteConfirm'))) return;
+      void deleteMessage(roomId, messageId);
+      return;
+    }
+    const replyBtn = event.target.closest('[data-reply-message-id]');
+    if (replyBtn) {
+      setReply({
+        id: replyBtn.dataset.replyMessageId,
+        author: replyBtn.dataset.replyAuthor,
+        text: replyBtn.dataset.replyText,
+      });
+    }
+  });
+
+  els.cancelReplyBtn.addEventListener('click', () => setReply(null));
+
+  els.sendMessageBtn.addEventListener('click', () => void sendMessage());
+
+  els.composeText.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
+      void sendMessage();
+    }
   });
 
   els.eventsList.addEventListener('click', (event) => {

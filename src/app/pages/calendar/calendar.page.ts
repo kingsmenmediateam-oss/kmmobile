@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonButton, IonIcon, IonButtons, IonMenuButton, IonModal } from '@ionic/angular/standalone';
 import { CalendarService } from '../../services/calendar.service';
+import { AppComponent } from '../../app.component';
 import { addIcons } from 'ionicons';
 import { chevronBack, chevronForward } from 'ionicons/icons';
 
@@ -58,8 +59,12 @@ export class CalendarPage implements OnInit {
   private readonly swipeThresholdPx = 50;
   private swipeFeedbackTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private calendarService: CalendarService) {
+  constructor(private calendarService: CalendarService, private app: AppComponent) {
     addIcons({ chevronBack, chevronForward });
+  }
+
+  tr(key: string): string {
+    return this.app.tr(key);
   }
 
   ngOnInit(): void {
@@ -90,9 +95,11 @@ export class CalendarPage implements OnInit {
     const month = this.currentDate.getMonth();
 
     // Update month name
-    const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-                        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    const monthNames = this.tr('calMonths').split(',');
     this.monthName = `${monthNames[month]} ${year}`;
+
+    // Update week days
+    this.weekDays = this.tr('calWeekDays').split(',');
 
     // Get first day of month and number of days
     const firstDay = new Date(year, month, 1);

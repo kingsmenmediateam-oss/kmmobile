@@ -12,46 +12,70 @@ if ($userId === '') {
 
 $pdo = db();
 
+$userRole = (string)($payload['role'] ?? '');
+$isAdmin  = ($userRole === 'admin' || $userRole === 'superadmin');
+
 /**
  * Règles:
+ * - Admin => tous les salons visibles
  * - Salons "classiques" (event_id NULL) => visibles si chat_room_members contient (room_id, user_id)
  * - Salons "event" (event_id NOT NULL)  => visibles si event_users contient (event_id, user_id)
  * - last_read_at vient de chat_room_members si présent, sinon NULL
  * - unread_count calculé à partir de last_read_at (NULL => tout est non-lu)
  */
-$sql = "
-  SELECT
-    r.id,
-    r.name,
-    r.description,
-    m.last_read_at,
-    (
-      SELECT COUNT(*)
-      FROM chat_messages mm
-      WHERE mm.room_id = r.id
-        AND (m.last_read_at IS NULL OR mm.created_at > m.last_read_at)
-    ) AS unread_count
-  FROM chat_rooms r
-  LEFT JOIN chat_room_members m
-    ON m.room_id = r.id
-   AND m.user_id = :uid
-  WHERE
-    (
-      r.event_id IS NULL
-      AND m.user_id IS NOT NULL
-    )
-    OR
-    (
-      r.event_id IS NOT NULL
-      AND EXISTS (
-        SELECT 1
-        FROM event_users eu
-        WHERE eu.event_id = r.event_id
-          AND eu.user_id = :uid
+if ($isAdmin) {
+  $sql = "
+    SELECT
+      r.id,
+      r.name,
+      r.description,
+      m.last_read_at,
+      (
+        SELECT COUNT(*)
+        FROM chat_messages mm
+        WHERE mm.room_id = r.id
+          AND (m.last_read_at IS NULL OR mm.created_at > m.last_read_at)
+      ) AS unread_count
+    FROM chat_rooms r
+    LEFT JOIN chat_room_members m
+      ON m.room_id = r.id AND m.user_id = :uid
+    ORDER BY r.name ASC
+  ";
+} else {
+  $sql = "
+    SELECT
+      r.id,
+      r.name,
+      r.description,
+      m.last_read_at,
+      (
+        SELECT COUNT(*)
+        FROM chat_messages mm
+        WHERE mm.room_id = r.id
+          AND (m.last_read_at IS NULL OR mm.created_at > m.last_read_at)
+      ) AS unread_count
+    FROM chat_rooms r
+    LEFT JOIN chat_room_members m
+      ON m.room_id = r.id
+     AND m.user_id = :uid
+    WHERE
+      (
+        r.event_id IS NULL
+        AND m.user_id IS NOT NULL
       )
-    )
-  ORDER BY r.name ASC
-";
+      OR
+      (
+        r.event_id IS NOT NULL
+        AND EXISTS (
+          SELECT 1
+          FROM event_users eu
+          WHERE eu.event_id = r.event_id
+            AND eu.user_id = :uid
+        )
+      )
+    ORDER BY r.name ASC
+  ";
+}
 
 $st = $pdo->prepare($sql);
 $st->execute([':uid' => $userId]);

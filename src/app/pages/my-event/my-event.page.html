@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="km-title">My Events</ion-title>
+    <ion-title class="km-title">{{ tr('eventTitle') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -24,13 +24,13 @@
   <div class="messages" *ngIf="selectedEvent">
     <div class="msg-row" *ngIf="loadingItems">
       <div class="bubble">
-        <div class="text">Loading event information...</div>
+        <div class="text">{{ tr('eventLoading') }}</div>
       </div>
     </div>
 
     <div class="msg-row" *ngIf="!loadingItems && items.length === 0">
       <div class="bubble">
-        <div class="text">No information available for this event yet.</div>
+        <div class="text">{{ tr('eventEmpty') }}</div>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
         <div class="text" *ngIf="item.body">{{ item.body }}</div>
 
         <a class="file-link" *ngIf="item.type === 'file' && item.fileUrl" [href]="item.fileUrl" target="_blank" rel="noreferrer">
-          Open file
+          {{ tr('eventOpenFile') }}
         </a>
 
         <div class="poll-options" *ngIf="item.type === 'poll' && item.pollOptions.length > 0">
@@ -55,6 +55,6 @@
   </div>
 
   <div class="empty-state" *ngIf="!loadingEvents && events.length === 0">
-    You are not registered for any event.
+    {{ tr('eventNoEvent') }}
   </div>
 </ion-content>

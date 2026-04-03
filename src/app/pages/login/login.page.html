@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="km-title">Log in</ion-title>
+    <ion-title class="km-title">{{ tr('loginTitle') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
 
   <ion-item>
     <ion-input
-      label="username"
+      [label]="tr('loginUsername')"
       labelPlacement="stacked"
       [(ngModel)]="username"
       autocomplete="username"
@@ -22,7 +22,7 @@
 
   <ion-item>
     <ion-input
-      label="Password"
+      [label]="tr('loginPassword')"
       labelPlacement="stacked"
       type="password"
       [(ngModel)]="password"
@@ -43,7 +43,7 @@
       name="crescent"
       slot="start"
     ></ion-spinner>
-    Se connecter
+    {{ tr('loginSubmit') }}
   </ion-button>
 
   <ion-text color="danger" *ngIf="errorMessage">

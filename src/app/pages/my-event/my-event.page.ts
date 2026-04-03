@@ -6,6 +6,7 @@ import {
   MyEventInfoItem,
   MyEventSummary,
 } from '../../services/my-event-api.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-my-event',
@@ -22,7 +23,11 @@ export class MyEventPage implements OnInit {
   loadingEvents = false;
   loadingItems = false;
 
-  constructor(private myEventApi: MyEventApiService) {}
+  constructor(private myEventApi: MyEventApiService, private app: AppComponent) {}
+
+  tr(key: string): string {
+    return this.app.tr(key);
+  }
 
   async ngOnInit(): Promise<void> {
     await this.loadEvents();
@@ -54,16 +59,11 @@ export class MyEventPage implements OnInit {
 
   typeLabel(type: MyEventInfoItem['type']): string {
     switch (type) {
-      case 'pin':
-        return 'Pinned';
-      case 'song':
-        return 'Song';
-      case 'file':
-        return 'File';
-      case 'poll':
-        return 'Poll';
-      default:
-        return 'Info';
+      case 'pin':  return this.tr('eventTypePin');
+      case 'song': return this.tr('eventTypeSong');
+      case 'file': return this.tr('eventTypeFile');
+      case 'poll': return this.tr('eventTypePoll');
+      default:     return this.tr('eventTypeInfo');
     }
   }
 

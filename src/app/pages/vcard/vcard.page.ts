@@ -13,6 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 import QRCode from 'qrcode';
 import { AuthService, MeResponse } from '../../services/auth.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-vcard',
@@ -45,7 +46,11 @@ export class VCardPage implements OnInit {
   // Entreprise en dur
   readonly company = 'Kingsmen';
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private app: AppComponent) {}
+
+  tr(key: string): string {
+    return this.app.tr(key);
+  }
 
   async ngOnInit() {
     await this.loadQr();
@@ -73,7 +78,7 @@ export class VCardPage implements OnInit {
         this.qrDataUrl = await this.generateQr(payload);
       }
     } catch (e: any) {
-      this.errorMessage = e?.error?.message || e?.message || 'Impossible de générer le QR Code';
+      this.errorMessage = e?.error?.message || e?.message || this.tr('vcardError');
     } finally {
       this.loading = false;
     }

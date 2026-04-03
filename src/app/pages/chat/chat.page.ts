@@ -11,6 +11,7 @@ import { addIcons } from 'ionicons';
 import { happyOutline, sendOutline } from 'ionicons/icons';
 
 import { ChatApiService, ChatMessage, ChatRoom } from '../../services/chat-api.service';
+import { AppComponent } from '../../app.component';
 
 type ReplyReference = {
   author: string;
@@ -52,9 +53,14 @@ export class ChatPage implements OnInit, OnDestroy {
 
   constructor(
     private chatApi: ChatApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private app: AppComponent
   ) {
     addIcons({ happyOutline, sendOutline });
+  }
+
+  tr(key: string): string {
+    return this.app.tr(key);
   }
 
   async ngOnInit() {
@@ -169,9 +175,9 @@ export class ChatPage implements OnInit, OnDestroy {
   private composeOutgoingText(text: string): string {
     if (!this.replyTarget) return text;
 
-    const author = this.replyTarget.author?.displayName?.trim() || 'Utilisateur';
+    const author = this.replyTarget.author?.displayName?.trim() || this.tr('chatUser');
     const snippet = this.formatReplySnippet(this.replyTarget.bodyText || this.replyTarget.text);
-    return `Reponse a ${author}: ${snippet}\n${text}`;
+    return `${this.tr('chatReplyTo')} ${author}: ${snippet}\n${text}`;
   }
 
   private formatReplySnippet(text: string, maxLength = 80): string {
@@ -181,7 +187,7 @@ export class ChatPage implements OnInit, OnDestroy {
   }
 
   private parseReply(text: string): { replyTo: ReplyReference | null; bodyText: string } {
-    const match = text.match(/^Reponse a\s+(.+?):\s+(.+)\n([\s\S]*)$/);
+    const match = text.match(/^(?:Reponse a|Reply to|Reactie op|Respuesta a|Antwort an|Odpowiedz do|Atsakymas i|Réponse à)\s+(.+?):\s+(.+)\n([\s\S]*)$/);
     if (!match) {
       return { replyTo: null, bodyText: text };
     }

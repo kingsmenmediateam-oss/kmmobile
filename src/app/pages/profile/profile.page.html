@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="km-title">My account</ion-title>
+    <ion-title class="km-title">{{ tr('profileTitle') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
     <!-- LOADING -->
     <div class="km-center" *ngIf="loading">
       <ion-spinner name="crescent"></ion-spinner>
-      <div class="km-muted">Loading profile…</div>
+      <div class="km-muted">{{ tr('profileLoading') }}</div>
     </div>
 
     <!-- ERROR (chargement) -->
@@ -24,11 +24,11 @@
       </ion-text>
 
       <ion-button expand="block" color="danger" (click)="loadMe()">
-        Retry
+        {{ tr('profileRetry') }}
       </ion-button>
 
       <ion-button expand="block" fill="outline" color="danger" (click)="logout()">
-        Log out
+        {{ tr('profileLogout') }}
       </ion-button>
     </div>
 
@@ -46,7 +46,7 @@
 
       <ion-list lines="inset" class="km-form">
         <ion-item>
-          <ion-label position="stacked">Prénom</ion-label>
+          <ion-label position="stacked">{{ tr('profileFirstname') }}</ion-label>
           <ion-input
             [(ngModel)]="firstname"
             name="firstname"
@@ -55,7 +55,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Nom</ion-label>
+          <ion-label position="stacked">{{ tr('profileLastname') }}</ion-label>
           <ion-input
             [(ngModel)]="lastname"
             name="lastname"
@@ -64,7 +64,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Email</ion-label>
+          <ion-label position="stacked">{{ tr('profileEmail') }}</ion-label>
           <ion-input
             [(ngModel)]="email"
             name="email"
@@ -74,7 +74,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Date de naissance</ion-label>
+          <ion-label position="stacked">{{ tr('profileBirthday') }}</ion-label>
           <ion-input
             [(ngModel)]="birthday"
             name="birthday"
@@ -91,7 +91,7 @@
 
         <ion-item lines="none">
           <ion-label>
-            <div class="km-label">Nom d’utilisateur</div>
+            <div class="km-label">{{ tr('profileUsername') }}</div>
             <div class="km-value">{{ me.username }}</div>
           </ion-label>
         </ion-item>
@@ -100,11 +100,11 @@
       <div class="km-actions">
         <ion-button expand="block" color="danger" [disabled]="saving" (click)="save()">
           <ion-spinner *ngIf="saving" slot="start" name="crescent"></ion-spinner>
-          Enregistrer
+          {{ tr('profileSave') }}
         </ion-button>
 
         <ion-button expand="block" fill="outline" color="danger" (click)="logout()">
-          Déconnexion
+          {{ tr('profileLogout') }}
         </ion-button>
       </div>
 

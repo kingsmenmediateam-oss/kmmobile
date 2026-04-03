@@ -3,125 +3,280 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kingsmen Admin Web</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <title>Kingsmen Admin</title>
+  <link rel="stylesheet" href="./styles.css?v=6" />
 </head>
 <body>
   <div id="app">
-    <header class="topbar">
-      <div>
-        <h1 data-i18n="top.title">Kingsmen Admin</h1>
-        <p data-i18n="top.subtitle">Gestion utilisateurs, acces, chat, myEvents</p>
-      </div>
-      <div class="topbar-actions">
-        <label class="api-base">
-          <span data-i18n="top.apiLabel">API</span>
-          <input id="apiBase" type="text" />
-        </label>
 
-        <label class="api-base">
+    <!-- ══════════════════════════════════════════
+         BARRE DE CONFIGURATION (toujours visible)
+         ══════════════════════════════════════════ -->
+    <header class="config-bar">
+      <div class="config-bar-brand">
+        <div class="brand-k">K</div>
+        <span class="brand-name" data-i18n="top.title">Kingsmen Admin</span>
+      </div>
+      <div class="config-bar-controls">
+        <label class="cfg-item">
+          <span data-i18n="top.apiLabel">API</span>
+          <input id="apiBase" type="text" class="cfg-input" />
+        </label>
+        <label class="cfg-item">
           <span data-i18n="top.langLabel">Langue</span>
-          <select id="languageSelect">
-            <option value="fr">Francais</option>
+          <select id="languageSelect" class="cfg-select">
+            <option value="fr">Français</option>
             <option value="en">English</option>
             <option value="nl">Nederlands</option>
           </select>
         </label>
-
-        <button id="saveApiBaseBtn" class="btn" data-i18n="actions.save">Sauver</button>
-        <button id="logoutBtn" class="btn danger hidden" data-i18n="actions.logout">Deconnexion</button>
+        <button id="saveApiBaseBtn" class="btn-cfg" data-i18n="actions.save">Sauver</button>
+        <button id="logoutBtn" class="btn-cfg danger hidden" data-i18n="actions.logout">Déconnexion</button>
+        <button id="menuToggle" class="btn-menu hidden" aria-label="Menu">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </button>
       </div>
     </header>
 
-    <main>
-      <section id="loginSection" class="card">
-        <h2 data-i18n="login.title">Connexion admin</h2>
+    <!-- ══════════════════════════════════════════
+         PAGE DE CONNEXION
+         ══════════════════════════════════════════ -->
+    <section id="loginSection" class="login-page">
+      <div class="login-card">
+        <div class="login-brand">
+          <div class="login-emblem">K</div>
+          <h1 class="login-title">Kingsmen</h1>
+          <p class="login-sub" data-i18n="top.subtitle">Administration</p>
+        </div>
         <form id="loginForm" class="form-grid">
           <label>
             <span data-i18n="login.usernameLabel">Username ou email</span>
-            <input type="text" id="username" required />
+            <input type="text" id="username" autocomplete="username" required />
           </label>
           <label>
             <span data-i18n="login.passwordLabel">Mot de passe</span>
-            <input type="password" id="password" required />
+            <input type="password" id="password" autocomplete="current-password" required />
           </label>
           <button class="btn primary" type="submit" data-i18n="login.submit">Se connecter</button>
         </form>
-        <p class="hint" data-i18n="login.hint">Authentification via /login.php (meme backend que l'app mobile).</p>
-      </section>
+        <p class="login-hint" data-i18n="login.hint">Authentification via /login.php (même backend que l'app mobile).</p>
+      </div>
+    </section>
 
-      <section id="adminSection" class="hidden">
-        <nav class="tabs" id="tabs">
-          <button class="tab active" data-page="dashboard" data-i18n="tabs.dashboard">Dashboard</button>
-          <button class="tab" data-page="users" data-i18n="tabs.users">Utilisateurs</button>
-          <button class="tab" data-page="access" data-i18n="tabs.access">Acces</button>
-          <button class="tab" data-page="chat" data-i18n="tabs.chat">Moderation chat</button>
-          <button class="tab" data-page="myevents" data-i18n="tabs.myevents">MyEvents</button>
+    <!-- ══════════════════════════════════════════
+         LAYOUT ADMIN (sidebar + contenu)
+         ══════════════════════════════════════════ -->
+    <section id="adminSection" class="admin-layout hidden">
+
+      <!-- Sidebar de navigation -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-emblem">K</div>
+          <div class="sidebar-brand-text">
+            <div class="sidebar-title">Kingsmen</div>
+            <div class="sidebar-sub">Admin</div>
+          </div>
+        </div>
+
+        <nav id="tabs" class="sidebar-nav">
+          <button class="tab active" data-page="dashboard">
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+              <path d="M2 4a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H4a2 2 0 01-2-2V4zM2 13a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H4a2 2 0 01-2-2v-3zM11 4a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2V4zM11 13a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2v-3z"/>
+            </svg>
+            <span data-i18n="tabs.dashboard">Dashboard</span>
+          </button>
+          <button class="tab" data-page="users">
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+            </svg>
+            <span data-i18n="tabs.users">Utilisateurs</span>
+          </button>
+          <button class="tab" data-page="access">
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+            </svg>
+            <span data-i18n="tabs.access">Accès</span>
+          </button>
+          <button class="tab" data-page="chat">
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+              <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+              <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/>
+            </svg>
+            <span data-i18n="tabs.chat">Modération chat</span>
+          </button>
+          <button class="tab" data-page="myevents">
+            <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            <span data-i18n="tabs.myevents">Events</span>
+          </button>
         </nav>
+      </aside>
 
-        <section id="page-dashboard" class="card page active">
-          <h2 data-i18n="dashboard.title">Dashboard</h2>
+      <!-- Zone de contenu principale -->
+      <main class="admin-main">
+
+        <!-- Dashboard -->
+        <section id="page-dashboard" class="page active">
+          <div class="page-header">
+            <h2 data-i18n="dashboard.title">Dashboard</h2>
+          </div>
           <div id="dashStats" class="stats-grid"></div>
         </section>
 
-        <section id="page-users" class="card page">
-          <div class="section-header">
+        <!-- Utilisateurs -->
+        <section id="page-users" class="page">
+          <div class="page-header">
             <h2 data-i18n="users.title">Gestion utilisateurs</h2>
-            <button class="btn" id="refreshUsersBtn" data-i18n="actions.refresh">Rafraichir</button>
+            <div class="page-header-actions">
+              <button class="btn primary-sm" id="openCreateUserBtn" data-i18n="users.createBtn">+ Ajouter</button>
+              <button class="btn" id="refreshUsersBtn" data-i18n="actions.refresh">Rafraîchir</button>
+            </div>
           </div>
-          <p class="hint" data-i18n="users.expected">Endpoint attendu: /admin_users.php</p>
+          <p class="hint" data-i18n="users.expected">Endpoint attendu : /admin_users.php</p>
           <div id="usersContent"></div>
         </section>
 
-        <section id="page-access" class="card page">
-          <div class="section-header">
-            <h2 data-i18n="access.title">Gestion des acces</h2>
-            <button class="btn" id="refreshAccessBtn" data-i18n="actions.refresh">Rafraichir</button>
+        <!-- Accès -->
+        <section id="page-access" class="page">
+          <div class="page-header">
+            <h2 data-i18n="access.title">Gestion des accès</h2>
+            <button class="btn" id="refreshAccessBtn" data-i18n="actions.refresh">Rafraîchir</button>
           </div>
-          <p class="hint" data-i18n="access.expected">Endpoint attendu: /admin_access.php</p>
+          <p class="hint" data-i18n="access.expected">Endpoint attendu : /admin_access.php</p>
           <div id="accessContent"></div>
         </section>
 
-        <section id="page-chat" class="card page">
-          <div class="section-header">
-            <h2 data-i18n="chat.title">Moderation des salons</h2>
-            <button class="btn" id="refreshRoomsBtn" data-i18n="chat.refreshRooms">Rafraichir salons</button>
+        <!-- Chat -->
+        <section id="page-chat" class="page">
+          <div class="page-header">
+            <h2 data-i18n="chat.title">Modération chat</h2>
+            <button class="btn" id="refreshRoomsBtn" data-i18n="chat.refreshRooms">Rafraîchir salons</button>
           </div>
+
+          <!-- Formulaire création de salon -->
+          <form id="createRoomForm" class="create-form">
+            <p class="create-form-heading" data-i18n="chat.createRoomHeading">Nouveau salon</p>
+            <div class="create-form-fields">
+              <div class="form-field">
+                <label for="newRoomName" data-i18n="chat.newRoomName">Nom du salon</label>
+                <input type="text" id="newRoomName" required />
+              </div>
+              <div class="form-field">
+                <label for="newRoomDesc" data-i18n="chat.newRoomDesc">Description</label>
+                <input type="text" id="newRoomDesc" />
+              </div>
+              <button class="btn primary-sm" type="submit" data-i18n="chat.createRoomBtn">Créer</button>
+            </div>
+          </form>
+
           <div class="chat-admin-grid">
-            <div>
-              <h3 data-i18n="chat.rooms">Salons</h3>
+            <div class="panel-col">
+              <p class="panel-label" data-i18n="chat.rooms">Salons</p>
               <ul id="roomsList" class="list"></ul>
             </div>
-            <div>
-              <h3 id="messagesTitle" data-i18n="chat.messages">Messages</h3>
+            <div class="panel-col panel-main">
+              <p class="panel-label" id="messagesTitle" data-i18n="chat.messages">Messages</p>
               <div id="messagesContent"></div>
+              <div id="composeArea" class="compose-area hidden">
+                <div id="replyContext" class="reply-context hidden">
+                  <div class="reply-context-body">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14" style="flex-shrink:0;opacity:.7"><path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <span class="reply-context-author" id="replyContextAuthor"></span>
+                    <span class="reply-context-text" id="replyContextText"></span>
+                  </div>
+                  <button id="cancelReplyBtn" class="compose-cancel-btn" type="button" title="Annuler">✕</button>
+                </div>
+                <div class="compose-row">
+                  <textarea id="composeText" class="compose-textarea" rows="2"></textarea>
+                  <button id="sendMessageBtn" class="btn primary-sm" type="button" data-i18n="chat.sendBtn">Envoyer</button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="page-myevents" class="card page">
-          <div class="section-header">
-            <h2 data-i18n="myevents.title">Gestion page MyEvents</h2>
-            <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">Rafraichir events</button>
+        <!-- Events -->
+        <section id="page-myevents" class="page">
+          <div class="page-header">
+            <h2 data-i18n="myevents.title">Gestion Events</h2>
+            <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">Rafraîchir</button>
           </div>
           <div class="events-admin-grid">
-            <div>
-              <h3 data-i18n="myevents.list">Mes events</h3>
+            <div class="panel-col">
+              <p class="panel-label" data-i18n="myevents.list">Mes Events</p>
               <ul id="eventsList" class="list"></ul>
             </div>
-            <div>
-              <h3 id="eventItemsTitle" data-i18n="myevents.items">Contenu event</h3>
+            <div class="panel-col panel-main">
+              <p class="panel-label" id="eventItemsTitle" data-i18n="myevents.items">Contenu event</p>
               <div id="eventItemsContent"></div>
             </div>
           </div>
         </section>
-      </section>
-    </main>
+
+      </main>
+    </section>
 
     <div id="toast" class="toast hidden"></div>
+
+    <!-- ══════════════════════════════════════════
+         MODAL — Créer un utilisateur
+         ══════════════════════════════════════════ -->
+    <div id="createUserModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 data-i18n="users.createTitle">Nouvel utilisateur</h3>
+          <button class="modal-close-btn" id="closeCreateUserBtn" type="button" aria-label="Fermer">✕</button>
+        </div>
+        <form id="createUserForm" class="modal-form">
+          <div class="modal-form-row">
+            <div class="form-field">
+              <label for="newUserFirstname" data-i18n="users.fieldFirstname">Prénom</label>
+              <input type="text" id="newUserFirstname" required autocomplete="off" />
+            </div>
+            <div class="form-field">
+              <label for="newUserLastname" data-i18n="users.fieldLastname">Nom</label>
+              <input type="text" id="newUserLastname" required autocomplete="off" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="newUserUsername" data-i18n="users.fieldUsername">Username</label>
+            <input type="text" id="newUserUsername" required autocomplete="off" />
+          </div>
+          <div class="form-field">
+            <label for="newUserEmail" data-i18n="users.fieldEmail">Email</label>
+            <input type="email" id="newUserEmail" required autocomplete="off" />
+          </div>
+          <div class="form-field">
+            <label for="newUserPassword" data-i18n="users.fieldPassword">Mot de passe</label>
+            <input type="password" id="newUserPassword" required autocomplete="new-password" minlength="6" />
+          </div>
+          <div class="modal-form-row">
+            <div class="form-field">
+              <label for="newUserRole" data-i18n="users.fieldRole">Rôle</label>
+              <select id="newUserRole" class="modal-select">
+                <option value="member">member</option>
+                <option value="admin">admin</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="newUserBirthday" data-i18n="users.fieldBirthday">Date de naissance</label>
+              <input type="date" id="newUserBirthday" autocomplete="off" />
+            </div>
+          </div>
+          <div id="createUserError" class="modal-error hidden"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="cancelCreateUserBtn" data-i18n="actions.cancel">Annuler</button>
+            <button type="submit" class="btn primary-sm" data-i18n="users.createSubmit">Créer</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script src="./vendor/i18next.min.js"></script>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=3"></script>
 </body>
 </html>
