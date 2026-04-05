@@ -358,6 +358,45 @@
   </div>
 
   <!-- Edit message modal -->
+    <!-- ════════════════════════════════════════════
+         MODAL — Modifier un utilisateur
+         ════════════════════════════════════════════ -->
+    <div id="editUserModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 data-i18n="users.editTitle">Modifier l'utilisateur</h3>
+          <button class="modal-close-btn" id="closeEditUserBtn" type="button" aria-label="Fermer">✕</button>
+        </div>
+        <form id="editUserForm" class="modal-form">
+          <input type="hidden" id="editUserUuid" />
+          <div class="form-field">
+            <label for="editUserUsername" data-i18n="users.fieldUsername">Username</label>
+            <input type="text" id="editUserUsername" required autocomplete="off" />
+          </div>
+          <div class="form-field">
+            <label for="editUserEmail" data-i18n="users.fieldEmail">Email</label>
+            <input type="email" id="editUserEmail" required autocomplete="off" />
+          </div>
+          <div class="form-field">
+            <label for="editUserRole" data-i18n="users.fieldRole">Rôle</label>
+            <select id="editUserRole" class="modal-select">
+              <option value="member">member</option>
+              <option value="event_manager">event_manager</option>
+              <option value="admin">admin</option>
+              <option value="superadmin">superadmin</option>
+            </select>
+          </div>
+          <div id="editUserError" class="modal-error hidden"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="cancelEditUserBtn" data-i18n="actions.cancel">Annuler</button>
+            <button type="submit" class="btn primary-sm" data-i18n="users.editSubmit">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit message modal -->
   <div id="editMessageModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
     <div class="modal">
       <div class="modal-header">
@@ -378,6 +417,6 @@
   </div>
 
   <script src="./vendor/i18next.min.js"></script>
-  <script type="module" src="./app.js?v=10"></script>
+  <script type="module" src="./app.js?v=11"></script>
 </body>
 </html>

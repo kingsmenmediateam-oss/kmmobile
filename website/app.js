@@ -28,6 +28,8 @@ const resources = {
         fieldFirstname: 'Prénom', fieldLastname: 'Nom', fieldUsername: 'Username',
         fieldEmail: 'Email', fieldPassword: 'Mot de passe', fieldRole: 'Rôle', fieldBirthday: 'Date de naissance',
         createSuccess: 'Utilisateur créé avec succès.', createError: 'Erreur création:',
+        editTitle: 'Modifier l\'utilisateur', editSubmit: 'Enregistrer',
+        editSuccess: 'Utilisateur mis à jour.', editError: 'Erreur modification:',
       },
       access: {
         title: 'Gestion des accès',
@@ -113,6 +115,8 @@ const resources = {
         fieldFirstname: 'First name', fieldLastname: 'Last name', fieldUsername: 'Username',
         fieldEmail: 'Email', fieldPassword: 'Password', fieldRole: 'Role', fieldBirthday: 'Birthday',
         createSuccess: 'User created successfully.', createError: 'Creation error:',
+        editTitle: 'Edit user', editSubmit: 'Save',
+        editSuccess: 'User updated.', editError: 'Edit error:',
       },
       access: {
         title: 'Access management',
@@ -198,6 +202,8 @@ const resources = {
         fieldFirstname: 'Voornaam', fieldLastname: 'Achternaam', fieldUsername: 'Gebruikersnaam',
         fieldEmail: 'E-mail', fieldPassword: 'Wachtwoord', fieldRole: 'Rol', fieldBirthday: 'Geboortedatum',
         createSuccess: 'Gebruiker succesvol aangemaakt.', createError: 'Aanmaakfout:',
+        editTitle: 'Gebruiker bewerken', editSubmit: 'Opslaan',
+        editSuccess: 'Gebruiker bijgewerkt.', editError: 'Bewerkfout:',
       },
       access: {
         title: 'Toegangsbeheer',
@@ -621,6 +627,13 @@ async function loadUsers() {
           </span>
         </td>
         <td>
+          <button class="btn small"
+            data-edit-user-uuid="${uuid}"
+            data-edit-user-username="${escapeHtml(u.username || '')}"
+            data-edit-user-email="${escapeHtml(u.email || '')}"
+            data-edit-user-role="${escapeHtml(u.role || 'member')}">
+            ${escapeHtml(t('actions.edit'))}
+          </button>
           <button class="btn small ${active ? 'toggle-deactivate' : 'toggle-activate'}"
             data-toggle-uuid="${uuid}"
             data-toggle-active="${active ? '1' : '0'}">
@@ -651,6 +664,48 @@ async function loadUsers() {
       <p class="hint">${escapeHtml(t('users.loadFailed'))} ${escapeHtml(error.message)}</p>
       <p class="hint">${escapeHtml(t('users.missingEndpoint'))}</p>
     `;
+  }
+}
+
+function openEditUserModal(uuid, username, email, role) {
+  document.getElementById('editUserUuid').value     = uuid;
+  document.getElementById('editUserUsername').value = username;
+  document.getElementById('editUserEmail').value    = email;
+  document.getElementById('editUserRole').value     = role;
+  document.getElementById('editUserError').textContent = '';
+  document.getElementById('editUserError').classList.add('hidden');
+  document.getElementById('editUserModal').querySelector('h3').textContent = t('users.editTitle');
+  document.getElementById('editUserModal').classList.remove('hidden');
+  document.getElementById('editUserUsername').focus();
+}
+
+function closeEditUserModal() {
+  document.getElementById('editUserModal').classList.add('hidden');
+}
+
+async function saveUser() {
+  const errorDiv = document.getElementById('editUserError');
+  errorDiv.textContent = '';
+  errorDiv.classList.add('hidden');
+
+  const body = {
+    uuid:     document.getElementById('editUserUuid').value,
+    username: document.getElementById('editUserUsername').value.trim(),
+    email:    document.getElementById('editUserEmail').value.trim(),
+    role:     document.getElementById('editUserRole').value,
+  };
+
+  try {
+    await apiFetch('/admin_user_update.php', { method: 'POST', body: JSON.stringify(body) });
+    closeEditUserModal();
+    toast(t('users.editSuccess'), 'success');
+    await loadUsers();
+  } catch (error) {
+    const msg = error.message.includes('CONFLICT')
+      ? (state.lang === 'fr' ? 'Ce username ou email est déjà utilisé.' : state.lang === 'nl' ? 'Gebruikersnaam of e-mail is al in gebruik.' : 'Username or email already in use.')
+      : `${t('users.editError')} ${error.message}`;
+    errorDiv.textContent = msg;
+    errorDiv.classList.remove('hidden');
   }
 }
 
@@ -1489,9 +1544,28 @@ function wireEvents() {
   });
 
   els.usersContent.addEventListener('click', (event) => {
+    const editBtn = event.target.closest('[data-edit-user-uuid]');
+    if (editBtn) {
+      openEditUserModal(
+        editBtn.dataset.editUserUuid,
+        editBtn.dataset.editUserUsername,
+        editBtn.dataset.editUserEmail,
+        editBtn.dataset.editUserRole,
+      );
+      return;
+    }
     const btn = event.target.closest('[data-toggle-uuid]');
     if (!btn) return;
     void toggleUser(btn.dataset.toggleUuid);
+  });
+  document.getElementById('closeEditUserBtn')?.addEventListener('click', closeEditUserModal);
+  document.getElementById('cancelEditUserBtn')?.addEventListener('click', closeEditUserModal);
+  document.getElementById('editUserModal')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('editUserModal')) closeEditUserModal();
+  });
+  document.getElementById('editUserForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    void saveUser();
   });
   els.refreshAccessBtn.addEventListener('click', () => loadAccess());
   els.refreshRoomsBtn.addEventListener('click', () => void loadRooms());
