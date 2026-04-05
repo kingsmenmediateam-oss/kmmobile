@@ -1,0 +1,6 @@
+# Allow direct access to uploaded files (images, PDFs)
+Options -Indexes
+
+<FilesMatch "\.(jpg|jpeg|png|pdf)$">
+    Allow from all
+</FilesMatch>

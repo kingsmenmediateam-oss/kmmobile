@@ -1,0 +1,5 @@
+# Track this directory but ignore actual uploaded files
+*
+!.htaccess
+!.gitkeep
+!.gitignore

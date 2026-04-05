@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { Browser } from '@capacitor/browser';
 import {
   MyEventApiService,
   MyEventInfoItem,
@@ -65,6 +66,24 @@ export class MyEventPage implements OnInit {
       case 'poll': return this.tr('eventTypePoll');
       default:     return this.tr('eventTypeInfo');
     }
+  }
+
+  isImage(url: string | null): boolean {
+    if (!url) return false;
+    const ext = url.split('?')[0].split('.').pop()?.toLowerCase() ?? '';
+    return ext === 'jpg' || ext === 'jpeg' || ext === 'png';
+  }
+
+  isPdf(url: string | null): boolean {
+    if (!url) return false;
+    return (url.split('?')[0].split('.').pop()?.toLowerCase() ?? '') === 'pdf';
+  }
+
+  async openFile(url: string | null): Promise<void> {
+    if (!url) return;
+    // PDFs need fullscreen to render properly; images/other can use popover
+    const style = this.isPdf(url) ? 'fullscreen' : 'popover';
+    await Browser.open({ url, presentationStyle: style });
   }
 
   trackByItemId(_: number, item: MyEventInfoItem): string {

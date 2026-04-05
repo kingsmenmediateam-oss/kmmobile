@@ -41,9 +41,16 @@
 
         <div class="text" *ngIf="item.body">{{ item.body }}</div>
 
-        <a class="file-link" *ngIf="item.type === 'file' && item.fileUrl" [href]="item.fileUrl" target="_blank" rel="noreferrer">
-          {{ tr('eventOpenFile') }}
-        </a>
+        <!-- Image preview (jpg/png) -->
+        <div class="file-preview" *ngIf="item.type === 'file' && item.fileUrl && isImage(item.fileUrl)">
+          <img [src]="item.fileUrl" [alt]="item.title" class="file-preview-img" (click)="openFile(item.fileUrl)" />
+        </div>
+
+        <!-- PDF / other file -->
+        <button class="file-link" *ngIf="item.type === 'file' && item.fileUrl && !isImage(item.fileUrl)"
+          (click)="openFile(item.fileUrl)">
+          {{ isPdf(item.fileUrl) ? '📄' : '📎' }} {{ tr('eventOpenFile') }}
+        </button>
 
         <div class="poll-options" *ngIf="item.type === 'poll' && item.pollOptions.length > 0">
           <div class="poll-option" *ngFor="let option of item.pollOptions">{{ option }}</div>

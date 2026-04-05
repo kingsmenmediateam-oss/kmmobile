@@ -202,15 +202,23 @@
         <section id="page-myevents" class="page">
           <div class="page-header">
             <h2 data-i18n="myevents.title">Gestion Events</h2>
-            <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">Rafraîchir</button>
-          </div>
-          <div class="events-admin-grid">
-            <div class="panel-col">
-              <p class="panel-label" data-i18n="myevents.list">Mes Events</p>
-              <ul id="eventsList" class="list"></ul>
+            <div class="page-header-actions">
+              <button class="btn primary-sm" id="openCreateEventBtn" data-i18n="myevents.createBtn">+ Ajouter un event</button>
+              <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">RafraîChir</button>
             </div>
+          </div>
+
+          <!-- Liste des events (tableau) -->
+          <div id="eventsTableContent"></div>
+
+          <!-- Détail items d'un event -->
+          <div class="events-admin-grid" style="margin-top:1.5rem">
             <div class="panel-col panel-main">
-              <p class="panel-label" id="eventItemsTitle" data-i18n="myevents.items">Contenu event</p>
+              <div class="panel-label-row">
+                <p class="panel-label" id="eventItemsTitle" data-i18n="myevents.items">Contenu event</p>
+                <button class="btn primary-sm" id="openAddItemBtn" data-i18n="myevents.addItemBtn"
+                  style="display:none">+ Ajouter du contenu</button>
+              </div>
               <div id="eventItemsContent"></div>
             </div>
           </div>
@@ -222,8 +230,80 @@
     <div id="toast" class="toast hidden"></div>
 
     <!-- ══════════════════════════════════════════
-         MODAL — Créer un utilisateur
+         MODAL — Créer un event
          ══════════════════════════════════════════ -->
+    <div id="createEventModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 data-i18n="myevents.createTitle">Nouvel event</h3>
+          <button class="modal-close-btn" id="closeCreateEventBtn" type="button" aria-label="Fermer">✕</button>
+        </div>
+        <form id="createEventForm" class="modal-form">
+          <div class="form-field">
+            <label for="newEventName" data-i18n="myevents.fieldName">Nom</label>
+            <input type="text" id="newEventName" required autocomplete="off" />
+          </div>
+          <div class="modal-form-row">
+            <div class="form-field">
+              <label for="newEventStartsAt" data-i18n="myevents.fieldStartsAt">Début</label>
+              <input type="datetime-local" id="newEventStartsAt" required />
+            </div>
+            <div class="form-field">
+              <label for="newEventEndsAt" data-i18n="myevents.fieldEndsAt">Fin</label>
+              <input type="datetime-local" id="newEventEndsAt" required />
+            </div>
+          </div>
+          <div id="createEventError" class="modal-error hidden"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="cancelCreateEventBtn" data-i18n="actions.cancel">Annuler</button>
+            <button type="submit" class="btn primary-sm" data-i18n="myevents.createSubmit">Créer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         MODAL — Ajouter un item à un event
+         ════════════════════════════════════════════ -->
+    <div id="addItemModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 data-i18n="myevents.addItemTitle">Ajouter un item</h3>
+          <button class="modal-close-btn" id="closeAddItemBtn" type="button" aria-label="Fermer">✕</button>
+        </div>
+        <form id="addItemForm" class="modal-form">
+          <div class="form-field">
+            <label for="addItemType" data-i18n="myevents.itemTypeLabel">Type</label>
+            <select id="addItemType">
+              <option value="text" data-i18n="myevents.itemTypeText">Texte / émoticone</option>
+              <option value="file" data-i18n="myevents.itemTypeFile">Fichier (jpg, png, pdf)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="addItemTitle" data-i18n="myevents.fieldTitle">Titre</label>
+            <input type="text" id="addItemTitle" required autocomplete="off" />
+          </div>
+          <div class="form-field" id="addItemBodyRow">
+            <label for="addItemBody" data-i18n="myevents.fieldBody">Contenu</label>
+            <textarea id="addItemBody" rows="4" placeholder="Texte, émoticones…"></textarea>
+          </div>
+          <div class="form-field" id="addItemFileRow" style="display:none">
+            <label for="addItemFile" data-i18n="myevents.fieldFile">Fichier</label>
+            <input type="file" id="addItemFile" accept=".jpg,.jpeg,.png,.pdf" />
+            <p id="editFileHint" class="form-hint" style="display:none"></p>
+          </div>
+          <div id="addItemError" class="modal-error hidden"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="cancelAddItemBtn" data-i18n="actions.cancel">Annuler</button>
+            <button type="submit" class="btn primary-sm" data-i18n="myevents.addItemSubmit">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         MODAL — Créer un utilisateur
+         ════════════════════════════════════════════ -->
     <div id="createUserModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
       <div class="modal-card">
         <div class="modal-header">
@@ -276,7 +356,27 @@
     </div>
   </div>
 
+  <!-- Edit message modal -->
+  <div id="editMessageModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" data-i18n="chat.editModalTitle">Modifier le message</span>
+        <button class="modal-close" id="closeEditMessageBtn" type="button">&#x2715;</button>
+      </div>
+      <form id="editMessageForm">
+        <div class="form-field">
+          <textarea id="editMessageText" class="compose-textarea" rows="4" style="width:100%"></textarea>
+        </div>
+        <div id="editMessageError" class="modal-error hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancelEditMessageBtn" data-i18n="actions.cancel">Annuler</button>
+          <button type="submit" class="btn primary-sm" data-i18n="chat.editSubmit">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="./vendor/i18next.min.js"></script>
-  <script type="module" src="./app.js?v=3"></script>
+  <script type="module" src="./app.js?v=8"></script>
 </body>
 </html>

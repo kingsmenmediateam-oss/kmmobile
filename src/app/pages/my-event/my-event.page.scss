@@ -113,11 +113,33 @@ ion-toolbar {
 }
 
 .file-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 8px;
+  padding: 7px 14px;
+  background: rgba(139, 0, 0, 0.08);
+  border: 1px solid rgba(139, 0, 0, 0.22);
+  border-radius: 10px;
   color: var(--km-red-dark);
+  font-size: 13px;
   font-weight: 700;
-  text-decoration: underline;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.file-preview {
+  margin-top: 10px;
+}
+
+.file-preview-img {
+  display: block;
+  max-width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
 .poll-options {

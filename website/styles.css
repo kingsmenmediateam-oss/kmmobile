@@ -823,7 +823,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
   align-items: start;
 }
 
-.panel-col { min-width: 0; }
+.panel-col { min-width: 0; width: 100%; }
 
 .panel-label {
   font-size: 11px;
@@ -834,7 +834,27 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
   margin: 0 0 12px;
 }
 
-.panel-main { flex: 1; }
+/* Row that holds the panel label + action button side by side */
+.panel-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.panel-label-row .panel-label { margin-bottom: 0; }
+
+/* Events section: single-column layout (no sidebar panel) */
+.events-admin-grid {
+  display: block;
+  width: 100%;
+}
+
+.events-admin-grid .panel-col {
+  width: 100%;
+}
+
+.panel-main { width: 100%; }
 
 /* ─── 16. Listes (salons, events) ─── */
 .list {
@@ -868,6 +888,89 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
 
 .list-item.active strong { color: var(--km-white); }
 .list-item.active .hint { color: rgba(255, 255, 255, 0.65); }
+
+/* Admin list-item: non-clickable row with delete button */
+.list-item--admin {
+  cursor: default;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.list-item--admin:hover {
+  border-color: var(--km-border);
+  box-shadow: none;
+}
+.list-item--admin .item-body { flex: 1 1 0; min-width: 0; overflow-wrap: break-word; }
+.list-item--admin h4 { margin: 0 0 4px; font-size: 14px; }
+.list-item--admin p  { margin: 0 0 4px; font-size: 13px; color: var(--km-text); white-space: pre-wrap; word-break: break-word; }
+
+/* Item actions (edit + delete) stack vertically on narrow containers */
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+  align-items: flex-end;
+}
+.item-file-link {
+  font-size: 12px;
+  color: var(--km-red-mid);
+  text-decoration: none;
+}
+.item-file-link:hover { text-decoration: underline; }
+.item-delete-btn { white-space: nowrap; }
+.item-edit-btn   { white-space: nowrap; }
+
+/* Full-width grid wrapping all admin item cards */
+.items-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Hint text inside form (e.g. current file name in edit mode) */
+.form-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--km-muted);
+  word-break: break-all;
+}
+
+/* File previews inside admin items */
+.item-file-preview {
+  margin-top: 10px;
+}
+.item-preview-img {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--km-border);
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+.item-preview-img:hover { opacity: 0.88; }
+.item-file-preview--pdf { display: flex; align-items: center; }
+.item-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: rgba(177, 18, 38, 0.07);
+  border: 1px solid rgba(177, 18, 38, 0.2);
+  border-radius: 8px;
+  color: var(--km-red-mid);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+.item-pdf-link:hover { background: rgba(177, 18, 38, 0.14); }
+.item-pdf-icon { font-size: 18px; line-height: 1; }
 
 /* ─── 17. Texte d'aide / indicateur ─── */
 .hint {

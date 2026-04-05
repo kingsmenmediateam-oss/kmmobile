@@ -1,22 +1,13 @@
 import {
   menuController
-} from "./chunk-5KVYLRIG.js";
+} from "./chunk-C25HNYIA.js";
 import {
   getTimeGivenProgression
 } from "./chunk-34QX6F67.js";
 import {
   IonicSafeString,
   setupConfig
-} from "./chunk-OVUA6XKK.js";
-import {
-  iosTransitionAnimation
-} from "./chunk-PX5YBNL3.js";
-import {
-  mdTransitionAnimation
-} from "./chunk-PFXXDD3K.js";
-import {
-  getIonPageElement
-} from "./chunk-MQZAPKBS.js";
+} from "./chunk-NUMOXT7P.js";
 import {
   actionSheetController,
   alertController,
@@ -25,29 +16,38 @@ import {
   pickerController,
   popoverController,
   toastController
-} from "./chunk-PTZHFT3Y.js";
-import "./chunk-UOWX4HEC.js";
+} from "./chunk-T2QCEV2X.js";
+import "./chunk-OUJZ2GFP.js";
 import {
   openURL
 } from "./chunk-NTRTJKKQ.js";
+import "./chunk-JVTMM2L2.js";
+import {
+  iosTransitionAnimation
+} from "./chunk-YPXMEBSO.js";
+import {
+  mdTransitionAnimation
+} from "./chunk-ENBC6X4I.js";
+import {
+  getIonPageElement
+} from "./chunk-VSK46VHU.js";
 import {
   createAnimation
-} from "./chunk-3VRAYA4N.js";
+} from "./chunk-LSXQH5XF.js";
+import "./chunk-LCMILTBF.js";
 import {
   getPlatforms,
   initialize,
   isPlatform
-} from "./chunk-6CEHNQCN.js";
-import "./chunk-52IEUETR.js";
+} from "./chunk-S4ZJM6PG.js";
+import "./chunk-CPPWNK4A.js";
+import {
+  bootstrapLazy
+} from "./chunk-NB5LOKMZ.js";
 import {
   createGesture
 } from "./chunk-Z3OEOVFM.js";
 import "./chunk-QA2SYHF5.js";
-import "./chunk-Z53EVCA2.js";
-import "./chunk-LCMILTBF.js";
-import {
-  bootstrapLazy
-} from "./chunk-6SJTPJVX.js";
 import {
   AngularDelegate,
   Config,

@@ -28,6 +28,7 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
+  MenuController,
 } from '@ionic/angular/standalone';
 
 import { AuthService } from './services/auth.service';
@@ -573,7 +574,8 @@ export class AppComponent {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private menuCtrl: MenuController
   ) {
     addIcons({
       homeOutline,
@@ -596,6 +598,7 @@ export class AppComponent {
     this.selectedLanguage = code;
     document.documentElement.lang = code;
     await Preferences.set({ key: 'app_language', value: code });
+    await this.menuCtrl.close();
   }
 
   private async initLanguage(): Promise<void> {

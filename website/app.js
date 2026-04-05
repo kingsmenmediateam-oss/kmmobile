@@ -14,7 +14,7 @@ const resources = {
         title: 'Connexion admin', usernameLabel: 'Username ou email', passwordLabel: 'Mot de passe',
         submit: 'Se connecter', hint: 'Authentification via /login.php (meme backend que l\'app mobile).',
       },
-      actions: { save: 'Sauver', logout: 'Deconnexion', refresh: 'Rafraichir', delete: 'Supprimer', cancel: 'Annuler', reply: 'Répondre' },
+      actions: { save: 'Sauver', logout: 'Deconnexion', refresh: 'Rafraichir', delete: 'Supprimer', cancel: 'Annuler', reply: 'Répondre', edit: 'Modifier' },
       tabs: { dashboard: 'Dashboard', users: 'Utilisateurs', access: 'Acces', chat: 'Moderation chat', myevents: 'MyEvents' },
       dashboard: { title: 'Dashboard', rooms: 'Salons', roomMessages: 'Messages salon', events: 'MyEvents', eventItems: 'Items event' },
       users: {
@@ -42,11 +42,26 @@ const resources = {
         createRoomSuccess: 'Salon cree avec succes', createRoomError: 'Erreur lors de la creation du salon:',
         sendBtn: 'Envoyer', composePlaceholder: 'Ecrire un message…', replyingTo: 'Réponse à',
         sendSuccess: 'Message envoye', sendError: 'Erreur envoi:',
+        editModalTitle: 'Modifier le message', editPlaceholder: 'Nouveau texte…', editSubmit: 'Enregistrer',
+        editSuccess: 'Message modifié.', editError: 'Erreur modification:',
       },
       myevents: {
         title: 'Gestion page MyEvents', refresh: 'Rafraichir events', list: 'Mes events', items: 'Contenu event',
         loading: 'Chargement...', noVisibleEvents: 'Aucun event visible.', noItems: 'Aucun item pour cet event.',
         loadItemsError: 'Erreur chargement items:', eventLabel: 'event',
+        createBtn: '+ Ajouter un event', createTitle: 'Nouvel event',
+        fieldName: 'Nom', fieldStartsAt: 'Début', fieldEndsAt: 'Fin',
+        createSubmit: 'Créer', createSuccess: 'Event créé avec succès.', createError: 'Erreur création:',
+        deleteConfirm: 'Supprimer cet event et toutes ses données ?', deleteSuccess: 'Event supprimé.', deleteFailed: 'Suppression impossible:',
+        thId: 'ID', thName: 'Nom', thStart: 'Début', thEnd: 'Fin', thAttendees: 'Participants', thActions: 'Actions',
+        addItemBtn: '+ Ajouter du contenu', addItemTitle: 'Ajouter un item à l\'event',
+        itemTypeLabel: 'Type', itemTypeText: 'Texte / émoticone', itemTypeFile: 'Fichier (jpg, png, pdf)',
+        fieldTitle: 'Titre', fieldBody: 'Contenu (texte, émoticones…)', fieldFile: 'Fichier',
+        addItemSubmit: 'Ajouter', addItemSuccess: 'Item ajouté.', addItemError: 'Erreur ajout:',
+        editItemTitle: 'Modifier l\'item', editItemSubmit: 'Enregistrer',
+        editItemSuccess: 'Item mis à jour.', editItemError: 'Erreur modification:',
+        deleteItemConfirm: 'Supprimer cet item ?', deleteItemSuccess: 'Item supprimé.', deleteItemFailed: 'Suppression impossible:',
+        viewFile: 'Voir le fichier',
       },
       common: { unknown: 'Inconnu', error: 'Erreur' },
       toast: { apiSaved: 'API sauvegardee', loginOk: 'Connexion reussie', logoutOk: 'Deconnecte', invalidSession: 'Session invalide. Reconnecte-toi.' },
@@ -59,7 +74,7 @@ const resources = {
         title: 'Admin login', usernameLabel: 'Username or email', passwordLabel: 'Password',
         submit: 'Sign in', hint: 'Authentication via /login.php (same backend as mobile app).',
       },
-      actions: { save: 'Save', logout: 'Logout', refresh: 'Refresh', delete: 'Delete', cancel: 'Cancel', reply: 'Reply' },
+      actions: { save: 'Save', logout: 'Logout', refresh: 'Refresh', delete: 'Delete', cancel: 'Cancel', reply: 'Reply', edit: 'Edit' },
       tabs: { dashboard: 'Dashboard', users: 'Users', access: 'Access', chat: 'Chat moderation', myevents: 'MyEvents' },
       dashboard: { title: 'Dashboard', rooms: 'Rooms', roomMessages: 'Room messages', events: 'MyEvents', eventItems: 'Event items' },
       users: {
@@ -87,11 +102,26 @@ const resources = {
         createRoomSuccess: 'Room created successfully', createRoomError: 'Error creating room:',
         sendBtn: 'Send', composePlaceholder: 'Write a message…', replyingTo: 'Replying to',
         sendSuccess: 'Message sent', sendError: 'Send error:',
+        editModalTitle: 'Edit message', editPlaceholder: 'New text…', editSubmit: 'Save',
+        editSuccess: 'Message updated.', editError: 'Edit error:',
       },
       myevents: {
         title: 'MyEvents page management', refresh: 'Refresh events', list: 'My events', items: 'Event content',
         loading: 'Loading...', noVisibleEvents: 'No visible events.', noItems: 'No items for this event.',
         loadItemsError: 'Failed to load items:', eventLabel: 'event',
+        createBtn: '+ Add event', createTitle: 'New event',
+        fieldName: 'Name', fieldStartsAt: 'Start date', fieldEndsAt: 'End date',
+        createSubmit: 'Create', createSuccess: 'Event created successfully.', createError: 'Creation error:',
+        deleteConfirm: 'Delete this event and all its data?', deleteSuccess: 'Event deleted.', deleteFailed: 'Deletion failed:',
+        thId: 'ID', thName: 'Name', thStart: 'Start', thEnd: 'End', thAttendees: 'Attendees', thActions: 'Actions',
+        addItemBtn: '+ Add content', addItemTitle: 'Add an item to the event',
+        itemTypeLabel: 'Type', itemTypeText: 'Text / emoji', itemTypeFile: 'File (jpg, png, pdf)',
+        fieldTitle: 'Title', fieldBody: 'Content (text, emoji…)', fieldFile: 'File',
+        addItemSubmit: 'Add', addItemSuccess: 'Item added.', addItemError: 'Add error:',
+        editItemTitle: 'Edit item', editItemSubmit: 'Save',
+        editItemSuccess: 'Item updated.', editItemError: 'Edit error:',
+        deleteItemConfirm: 'Delete this item?', deleteItemSuccess: 'Item deleted.', deleteItemFailed: 'Deletion failed:',
+        viewFile: 'View file',
       },
       common: { unknown: 'Unknown', error: 'Error' },
       toast: { apiSaved: 'API saved', loginOk: 'Login successful', logoutOk: 'Logged out', invalidSession: 'Invalid session. Please log in again.' },
@@ -104,7 +134,7 @@ const resources = {
         title: 'Admin aanmelding', usernameLabel: 'Gebruikersnaam of e-mail', passwordLabel: 'Wachtwoord',
         submit: 'Aanmelden', hint: 'Authenticatie via /login.php (zelfde backend als de mobiele app).',
       },
-      actions: { save: 'Opslaan', logout: 'Afmelden', refresh: 'Vernieuwen', delete: 'Verwijderen', cancel: 'Annuleren', reply: 'Beantwoorden' },
+      actions: { save: 'Opslaan', logout: 'Afmelden', refresh: 'Vernieuwen', delete: 'Verwijderen', cancel: 'Annuleren', reply: 'Beantwoorden', edit: 'Bewerken' },
       tabs: { dashboard: 'Dashboard', users: 'Gebruikers', access: 'Toegang', chat: 'Chat moderatie', myevents: 'MyEvents' },
       dashboard: { title: 'Dashboard', rooms: 'Kanalen', roomMessages: 'Kanaalberichten', events: 'MyEvents', eventItems: 'Eventitems' },
       users: {
@@ -132,11 +162,26 @@ const resources = {
         createRoomSuccess: 'Kanaal succesvol aangemaakt', createRoomError: 'Fout bij aanmaken kanaal:',
         sendBtn: 'Versturen', composePlaceholder: 'Schrijf een bericht…', replyingTo: 'Antwoord aan',
         sendSuccess: 'Bericht verzonden', sendError: 'Fout bij verzenden:',
+        editModalTitle: 'Bericht bewerken', editPlaceholder: 'Nieuwe tekst…', editSubmit: 'Opslaan',
+        editSuccess: 'Bericht bijgewerkt.', editError: 'Fout bij bewerken:',
       },
       myevents: {
         title: 'MyEvents pagina beheer', refresh: 'Events vernieuwen', list: 'Mijn events', items: 'Eventinhoud',
         loading: 'Laden...', noVisibleEvents: 'Geen zichtbare events.', noItems: 'Geen items voor dit event.',
         loadItemsError: 'Items laden mislukt:', eventLabel: 'event',
+        createBtn: '+ Event toevoegen', createTitle: 'Nieuw event',
+        fieldName: 'Naam', fieldStartsAt: 'Startdatum', fieldEndsAt: 'Einddatum',
+        createSubmit: 'Aanmaken', createSuccess: 'Event succesvol aangemaakt.', createError: 'Aanmaakfout:',
+        deleteConfirm: 'Dit event en alle bijbehorende gegevens verwijderen?', deleteSuccess: 'Event verwijderd.', deleteFailed: 'Verwijderen mislukt:',
+        thId: 'ID', thName: 'Naam', thStart: 'Start', thEnd: 'Einde', thAttendees: 'Deelnemers', thActions: 'Acties',
+        addItemBtn: '+ Inhoud toevoegen', addItemTitle: 'Item toevoegen aan event',
+        itemTypeLabel: 'Type', itemTypeText: 'Tekst / emoji', itemTypeFile: 'Bestand (jpg, png, pdf)',
+        fieldTitle: 'Titel', fieldBody: 'Inhoud (tekst, emoji…)', fieldFile: 'Bestand',
+        addItemSubmit: 'Toevoegen', addItemSuccess: 'Item toegevoegd.', addItemError: 'Toevoegfout:',
+        editItemTitle: 'Item bewerken', editItemSubmit: 'Opslaan',
+        editItemSuccess: 'Item bijgewerkt.', editItemError: 'Bewerkfout:',
+        deleteItemConfirm: 'Dit item verwijderen?', deleteItemSuccess: 'Item verwijderd.', deleteItemFailed: 'Verwijderen mislukt:',
+        viewFile: 'Bestand bekijken',
       },
       common: { unknown: 'Onbekend', error: 'Fout' },
       toast: { apiSaved: 'API opgeslagen', loginOk: 'Succesvol aangemeld', logoutOk: 'Afgemeld', invalidSession: 'Ongeldige sessie. Meld opnieuw aan.' },
@@ -153,6 +198,7 @@ const state = {
   replyToMessage: null, // { id, author, text }
   events: [],
   selectedEventId: null,
+  editingItemId: null,  // id of item being edited, null = add mode
 };
 
 const els = {
@@ -180,8 +226,30 @@ const els = {
   messagesTitle: document.getElementById('messagesTitle'),
   messagesContent: document.getElementById('messagesContent'),
   eventsList: document.getElementById('eventsList'),
+  eventsTableContent: document.getElementById('eventsTableContent'),
   eventItemsTitle: document.getElementById('eventItemsTitle'),
   eventItemsContent: document.getElementById('eventItemsContent'),
+  openCreateEventBtn: document.getElementById('openCreateEventBtn'),
+  createEventModal: document.getElementById('createEventModal'),
+  closeCreateEventBtn: document.getElementById('closeCreateEventBtn'),
+  cancelCreateEventBtn: document.getElementById('cancelCreateEventBtn'),
+  createEventForm: document.getElementById('createEventForm'),
+  newEventName: document.getElementById('newEventName'),
+  newEventStartsAt: document.getElementById('newEventStartsAt'),
+  newEventEndsAt: document.getElementById('newEventEndsAt'),
+  createEventError: document.getElementById('createEventError'),
+  openAddItemBtn: document.getElementById('openAddItemBtn'),
+  addItemModal: document.getElementById('addItemModal'),
+  closeAddItemBtn: document.getElementById('closeAddItemBtn'),
+  cancelAddItemBtn: document.getElementById('cancelAddItemBtn'),
+  addItemForm: document.getElementById('addItemForm'),
+  addItemType: document.getElementById('addItemType'),
+  addItemTitle: document.getElementById('addItemTitle'),
+  addItemBodyRow: document.getElementById('addItemBodyRow'),
+  addItemBody: document.getElementById('addItemBody'),
+  addItemFileRow: document.getElementById('addItemFileRow'),
+  addItemFile: document.getElementById('addItemFile'),
+  addItemError: document.getElementById('addItemError'),
   openCreateUserBtn: document.getElementById('openCreateUserBtn'),
   createUserModal: document.getElementById('createUserModal'),
   closeCreateUserBtn: document.getElementById('closeCreateUserBtn'),
@@ -198,6 +266,7 @@ const els = {
   composeArea: document.getElementById('composeArea'),
   composeText: document.getElementById('composeText'),
   sendMessageBtn: document.getElementById('sendMessageBtn'),
+
   replyContext: document.getElementById('replyContext'),
   replyContextAuthor: document.getElementById('replyContextAuthor'),
   replyContextText: document.getElementById('replyContextText'),
@@ -241,9 +310,13 @@ function escapeHtml(input) {
 }
 
 async function apiFetch(path, options = {}) {
-  const headers = new Headers(options.headers || {});
+  const { skipContentType, ...fetchOptions } = options;
+  const headers = new Headers(fetchOptions.headers || {});
   headers.set('Accept', 'application/json');
-  headers.set('Content-Type', 'application/json');
+  // For multipart/form-data (file upload), let the browser set Content-Type with boundary
+  if (!skipContentType) {
+    headers.set('Content-Type', 'application/json');
+  }
 
   if (state.token) {
     headers.set('Authorization', `Bearer ${state.token}`);
@@ -251,7 +324,7 @@ async function apiFetch(path, options = {}) {
 
   try {
     const response = await fetch(`${state.apiBase}${path}`, {
-      ...options,
+      ...fetchOptions,
       headers,
     });
 
@@ -646,6 +719,48 @@ async function deleteMessage(roomId, messageId) {
   }
 }
 
+async function editMessage(roomId, messageId, currentText) {
+  const modal     = document.getElementById('editMessageModal');
+  const textarea  = document.getElementById('editMessageText');
+  const errorDiv  = document.getElementById('editMessageError');
+  // Pre-fill modal
+  textarea.value = currentText;
+  errorDiv.textContent = '';
+  errorDiv.classList.add('hidden');
+  modal.dataset.roomId = roomId;
+  modal.dataset.messageId = messageId;
+  modal.querySelector('.modal-title').textContent = t('chat.editModalTitle');
+  textarea.placeholder = t('chat.editPlaceholder');
+  modal.querySelector('[type="submit"]').textContent = t('chat.editSubmit');
+  modal.classList.remove('hidden');
+  textarea.focus();
+}
+
+async function saveEditMessage() {
+  const modal     = document.getElementById('editMessageModal');
+  const textarea  = document.getElementById('editMessageText');
+  const errorDiv  = document.getElementById('editMessageError');
+  const roomId    = modal.dataset.roomId;
+  const messageId = modal.dataset.messageId;
+  const text      = textarea.value.trim();
+  if (!text) return;
+  errorDiv.textContent = '';
+  errorDiv.classList.add('hidden');
+  try {
+    await apiFetch('/chat_message_update.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messageId: Number(messageId), text }),
+    });
+    toast(t('chat.editSuccess'), 'success');
+    modal.classList.add('hidden');
+    await loadMessages(roomId);
+  } catch (err) {
+    errorDiv.textContent = `${t('chat.editError')} ${err.message}`;
+    errorDiv.classList.remove('hidden');
+  }
+}
+
 async function loadMessages(roomId) {
   els.messagesTitle.textContent = `${t('chat.messages')} - ${t('chat.roomLabel')} ${roomId}`;
   els.messagesContent.innerHTML = `<p class="hint">${escapeHtml(t('chat.loading'))}</p>`;
@@ -674,6 +789,12 @@ async function loadMessages(roomId) {
             data-reply-author="${escapeHtml(m.author?.displayName || '')}"
             data-reply-text="${escapeHtml((m.text || '').substring(0, 100))}">
             ${escapeHtml(t('actions.reply'))}
+          </button>
+          <button class="btn small"
+            data-edit-message-id="${escapeHtml(m.id)}"
+            data-edit-room-id="${escapeHtml(roomId)}"
+            data-edit-message-text="${escapeHtml(m.text || '')}">
+            ${escapeHtml(t('actions.edit'))}
           </button>
           <button class="btn danger small"
             data-delete-message-id="${escapeHtml(m.id)}"
@@ -708,59 +829,355 @@ async function loadMessages(roomId) {
   }
 }
 
+function renderEventsTable() {
+  if (!els.eventsTableContent) return;
+  if (state.events.length === 0) {
+    els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.noVisibleEvents'))}</p>`;
+    return;
+  }
+  const rows = state.events.map((event) => `
+    <tr>
+      <td class="code">${escapeHtml(event.id)}</td>
+      <td><strong>${escapeHtml(event.name || '')}</strong></td>
+      <td>${escapeHtml(event.startsAt || '')}</td>
+      <td>${escapeHtml(event.endsAt || '')}</td>
+      <td>${escapeHtml(String(event.attendeeCount ?? 0))}</td>
+      <td class="actions-cell">
+        <button class="btn small"
+          data-view-event-id="${escapeHtml(event.id)}">
+          ${escapeHtml(t('myevents.items'))}
+        </button>
+        <button class="btn danger small"
+          data-delete-event-id="${escapeHtml(event.id)}"
+          data-delete-event-name="${escapeHtml(event.name || '')}">
+          ${escapeHtml(t('actions.delete'))}
+        </button>
+      </td>
+    </tr>`
+  ).join('');
+  els.eventsTableContent.innerHTML = `
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr>
+          <th>${escapeHtml(t('myevents.thId'))}</th>
+          <th>${escapeHtml(t('myevents.thName'))}</th>
+          <th>${escapeHtml(t('myevents.thStart'))}</th>
+          <th>${escapeHtml(t('myevents.thEnd'))}</th>
+          <th>${escapeHtml(t('myevents.thAttendees'))}</th>
+          <th>${escapeHtml(t('myevents.thActions'))}</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+function openCreateEventModal() {
+  els.createEventForm.reset();
+  els.createEventError.classList.add('hidden');
+  els.createEventError.textContent = '';
+  els.createEventModal.classList.remove('hidden');
+  els.newEventName.focus();
+}
+
+function closeCreateEventModal() {
+  els.createEventModal.classList.add('hidden');
+}
+
+async function createEvent() {
+  els.createEventError.classList.add('hidden');
+  els.createEventError.textContent = '';
+
+  const body = {
+    name:     els.newEventName.value.trim(),
+    startsAt: els.newEventStartsAt.value,
+    endsAt:   els.newEventEndsAt.value,
+  };
+
+  try {
+    await apiFetch('/admin_event_create.php', { method: 'POST', body: JSON.stringify(body) });
+    closeCreateEventModal();
+    toast(t('myevents.createSuccess'), 'success');
+    await loadEvents();
+  } catch (error) {
+    const msg = error.message.includes('CONFLICT')
+      ? (state.lang === 'fr' ? 'Un event avec ce nom existe déjà.' : state.lang === 'nl' ? 'Een event met deze naam bestaat al.' : 'An event with this name already exists.')
+      : `${t('myevents.createError')} ${error.message}`;
+    els.createEventError.textContent = msg;
+    els.createEventError.classList.remove('hidden');
+  }
+}
+
+async function deleteEvent(id, name) {
+  const confirmMsg = `${t('myevents.deleteConfirm')}\n"${name}"`;
+  if (!confirm(confirmMsg)) return;
+  try {
+    await apiFetch('/admin_event_delete.php', { method: 'POST', body: JSON.stringify({ id }) });
+    toast(t('myevents.deleteSuccess'), 'success');
+    if (String(state.selectedEventId) === String(id)) {
+      state.selectedEventId = null;
+      if (els.eventItemsContent) els.eventItemsContent.innerHTML = '';
+      if (els.eventItemsTitle) els.eventItemsTitle.textContent = t('myevents.items');
+      if (els.openAddItemBtn) els.openAddItemBtn.style.display = 'none';
+    }
+    await loadEvents();
+  } catch (error) {
+    toast(`${t('myevents.deleteFailed')} ${error.message}`, 'error');
+  }
+}
+
 function renderEvents() {
-  els.eventsList.innerHTML = state.events.map((event) => `
-    <li class="list-item ${String(event.id) === String(state.selectedEventId) ? 'active' : ''}" data-event-id="${escapeHtml(event.id)}">
-      <div><strong>${escapeHtml(event.name || `Event ${event.id}`)}</strong></div>
-      <div class="hint">${escapeHtml(event.startsAt || '')}</div>
-    </li>
-  `).join('');
+  // Kept for backward compat — now delegates to table renderer
+  renderEventsTable();
 }
 
 async function loadEvents() {
-  els.eventsList.innerHTML = `<li class="hint">${escapeHtml(t('myevents.loading'))}</li>`;
+  if (els.eventsTableContent) els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loading'))}</p>`;
   try {
-    const response = await apiFetch('/my_events.php');
+    const response = await apiFetch('/admin_events.php');
     const rawEvents = Array.isArray(response) ? response : (response?.data ?? []);
     const events = normalizeKeys(rawEvents);
     state.events = Array.isArray(events) ? events : [];
-    
+
+    renderEventsTable();
+
     if (!state.selectedEventId && state.events[0]) {
       state.selectedEventId = state.events[0].id;
     }
-    renderEvents();
     if (state.selectedEventId) {
       await loadEventItems(state.selectedEventId);
-    } else {
+    } else if (els.eventItemsContent) {
       els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.noVisibleEvents'))}</p>`;
+      if (els.openAddItemBtn) els.openAddItemBtn.style.display = 'none';
     }
   } catch (error) {
     console.error('Error loading events:', error);
-    els.eventsList.innerHTML = `<li class="hint">${escapeHtml(t('common.error'))}: ${escapeHtml(error.message)}</li>`;
-    els.eventItemsContent.innerHTML = '';
+    if (els.eventsTableContent) els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('common.error'))}: ${escapeHtml(error.message)}</p>`;
+    if (els.eventItemsContent) els.eventItemsContent.innerHTML = '';
   }
 }
 
 async function loadEventItems(eventId) {
   els.eventItemsTitle.textContent = `${t('myevents.items')} #${eventId}`;
   els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loading'))}</p>`;
+  // Show / hide the add-item button depending on a selected event
+  if (els.openAddItemBtn) els.openAddItemBtn.style.display = '';
   try {
-    const response = await apiFetch(`/my_event_items.php?eventId=${encodeURIComponent(eventId)}`);
+    const response = await apiFetch(`/admin_event_item_list.php?eventId=${encodeURIComponent(eventId)}`);
     const rawItems = Array.isArray(response) ? response : (response?.data ?? []);
     const items = normalizeKeys(rawItems);
-    
-    const blocks = (Array.isArray(items) ? items : []).map((item) => `
-      <article class="list-item">
-        <div class="item-badge">${escapeHtml(item.type || 'item')}</div>
-        <h4>${escapeHtml(item.title || '(sans titre)')}</h4>
-        <p>${escapeHtml(item.body || '')}</p>
-      </article>
-    `).join('');
-
-    els.eventItemsContent.innerHTML = blocks || `<p class="hint">${escapeHtml(t('myevents.noItems'))}</p>`;
+    renderEventItemsAdmin(Array.isArray(items) ? items : []);
   } catch (error) {
     console.error('Error loading event items:', error);
     els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loadItemsError'))} ${escapeHtml(error.message)}</p>`;
+  }
+}
+
+function renderEventItemsAdmin(items) {
+  if (!items.length) {
+    els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.noItems'))}</p>`;
+    return;
+  }
+  const blocks = items.map((item) => {
+    const badge = escapeHtml(item.type || 'item');
+    const title = escapeHtml(item.title || '(sans titre)');
+    const body  = escapeHtml(item.body  || '');
+
+    let filePreview = '';
+    if (item.fileUrl) {
+      const url = item.fileUrl;
+      const ext = url.split('?')[0].split('.').pop()?.toLowerCase() ?? '';
+      if (ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
+        filePreview = `
+          <div class="item-file-preview">
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener">
+              <img src="${escapeHtml(url)}" alt="${escapeHtml(item.title || 'image')}" class="item-preview-img" loading="lazy" />
+            </a>
+          </div>`;
+      } else if (ext === 'pdf') {
+        filePreview = `
+          <div class="item-file-preview item-file-preview--pdf">
+            <a class="item-pdf-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">
+              <span class="item-pdf-icon">📄</span>
+              <span>${escapeHtml(t('myevents.viewFile'))}</span>
+            </a>
+          </div>`;
+      } else {
+        filePreview = `<a class="item-file-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(t('myevents.viewFile'))}</a>`;
+      }
+    }
+
+    return `
+      <article class="list-item list-item--admin">
+        <div class="item-badge">${badge}</div>
+        <div class="item-body">
+          <h4>${title}</h4>
+          ${body ? `<p>${body}</p>` : ''}
+          ${filePreview}
+        </div>
+        <div class="item-actions">
+          <button class="btn small item-edit-btn"
+            data-edit-item-id="${escapeHtml(String(item.id))}"
+            data-edit-item-title="${escapeHtml(item.title || '')}"
+            data-edit-item-body="${escapeHtml(item.body || '')}"
+            data-edit-item-type="${escapeHtml(item.type || 'pin')}"
+            data-edit-item-fileurl="${escapeHtml(item.fileUrl || '')}">
+            ✏️ ${escapeHtml(t('actions.edit'))}
+          </button>
+          <button class="btn danger small item-delete-btn"
+            data-delete-item-id="${escapeHtml(String(item.id))}"
+            title="${escapeHtml(t('myevents.deleteItemConfirm'))}">
+            ${escapeHtml(t('actions.delete'))}
+          </button>
+        </div>
+      </article>`;
+  }).join('');
+  els.eventItemsContent.innerHTML = `<div class="items-grid">${blocks}</div>`;
+}
+
+function openAddItemModal() {
+  if (!state.selectedEventId) return;
+  els.addItemForm.reset();
+  els.addItemError.classList.add('hidden');
+  els.addItemError.textContent = '';
+  // Show correct fields for default type
+  updateAddItemFields();
+  els.addItemModal.classList.remove('hidden');
+  els.addItemTitle.focus();
+}
+
+function openEditItemModal(id, title, body, type, fileUrl) {
+  state.editingItemId = id;
+  els.addItemForm.reset();
+  els.addItemError.classList.add('hidden');
+  els.addItemError.textContent = '';
+  // Set title/body
+  els.addItemTitle.value = title;
+  els.addItemBody.value  = body;
+  // Determine displayed type
+  const displayType = (type === 'file') ? 'file' : 'text';
+  els.addItemType.value = displayType;
+  updateAddItemFields();
+  // If editing a file item, show current file as hint
+  const fileHint = document.getElementById('editFileHint');
+  if (fileHint) {
+    if (fileUrl) {
+      const name = fileUrl.split('/').pop();
+      fileHint.textContent = `Fichier actuel : ${name}`;
+      fileHint.style.display = '';
+    } else {
+      fileHint.style.display = 'none';
+    }
+  }
+  // Update modal title and submit button
+  const modalTitle = els.addItemModal.querySelector('.modal-header h3');
+  if (modalTitle) modalTitle.textContent = t('myevents.editItemTitle');
+  const submitBtn = els.addItemForm.querySelector('[type="submit"]');
+  if (submitBtn) submitBtn.textContent = t('myevents.editItemSubmit');
+  // Hide type selector (can't change type while editing)
+  const typeRow = els.addItemModal.querySelector('.form-field:first-child');
+  if (typeRow) typeRow.style.display = 'none';
+  els.addItemModal.classList.remove('hidden');
+  els.addItemTitle.focus();
+}
+
+function closeAddItemModal() {
+  state.editingItemId = null;
+  els.addItemModal.classList.add('hidden');
+  // Reset modal to add-mode appearance
+  const modalTitle = els.addItemModal.querySelector('.modal-header h3');
+  if (modalTitle) modalTitle.textContent = t('myevents.addItemTitle');
+  const submitBtn = els.addItemForm.querySelector('[type="submit"]');
+  if (submitBtn) submitBtn.textContent = t('myevents.addItemSubmit');
+  const typeRow = els.addItemModal.querySelector('.form-field:first-child');
+  if (typeRow) typeRow.style.display = '';
+  const fileHint = document.getElementById('editFileHint');
+  if (fileHint) fileHint.style.display = 'none';
+}
+
+function updateAddItemFields() {
+  const type = els.addItemType.value;
+  const isFile = (type === 'file');
+  els.addItemBodyRow.style.display = isFile ? 'none' : '';
+  els.addItemFileRow.style.display = isFile ? '' : 'none';
+  if (isFile) {
+    els.addItemBody.removeAttribute('required');
+    els.addItemFile.setAttribute('required', '');
+  } else {
+    els.addItemFile.removeAttribute('required');
+    els.addItemBody.removeAttribute('required');
+  }
+}
+
+async function createItem() {
+  if (state.editingItemId) { await saveItem(); return; }
+  els.addItemError.classList.add('hidden');
+  els.addItemError.textContent = '';
+
+  const type  = els.addItemType.value;
+  const title = els.addItemTitle.value.trim();
+  const body  = els.addItemBody.value.trim();
+  const file  = els.addItemFile.files[0] ?? null;
+
+  try {
+    if (type === 'file') {
+      if (!file) throw new Error('No file selected');
+      const fd = new FormData();
+      fd.append('eventId',  String(state.selectedEventId));
+      fd.append('itemType', 'file');
+      fd.append('title',    title);
+      fd.append('file',     file);
+      await apiFetch('/admin_event_item_create.php', { method: 'POST', body: fd, skipContentType: true });
+    } else {
+      const payload = { eventId: state.selectedEventId, itemType: 'text', title, body };
+      await apiFetch('/admin_event_item_create.php', { method: 'POST', body: JSON.stringify(payload) });
+    }
+    closeAddItemModal();
+    toast(t('myevents.addItemSuccess'), 'success');
+    await loadEventItems(state.selectedEventId);
+  } catch (error) {
+    els.addItemError.textContent = `${t('myevents.addItemError')} ${error.message}`;
+    els.addItemError.classList.remove('hidden');
+  }
+}
+
+async function saveItem() {
+  els.addItemError.classList.add('hidden');
+  els.addItemError.textContent = '';
+
+  const id    = state.editingItemId;
+  const type  = els.addItemType.value;
+  const title = els.addItemTitle.value.trim();
+  const body  = els.addItemBody.value.trim();
+  const file  = els.addItemFile.files[0] ?? null;
+
+  try {
+    if (file) {
+      const fd = new FormData();
+      fd.append('id',    String(id));
+      fd.append('title', title);
+      fd.append('body',  body);
+      fd.append('file',  file);
+      await apiFetch('/admin_event_item_update.php', { method: 'POST', body: fd, skipContentType: true });
+    } else {
+      await apiFetch('/admin_event_item_update.php', { method: 'POST', body: JSON.stringify({ id, title, body }) });
+    }
+    closeAddItemModal();
+    toast(t('myevents.editItemSuccess'), 'success');
+    await loadEventItems(state.selectedEventId);
+  } catch (error) {
+    els.addItemError.textContent = `${t('myevents.editItemError')} ${error.message}`;
+    els.addItemError.classList.remove('hidden');
+  }
+}
+
+async function deleteItem(id) {
+  if (!confirm(t('myevents.deleteItemConfirm'))) return;
+  try {
+    await apiFetch('/admin_event_item_delete.php', { method: 'POST', body: JSON.stringify({ id }) });
+    toast(t('myevents.deleteItemSuccess'), 'success');
+    await loadEventItems(state.selectedEventId);
+  } catch (error) {
+    toast(`${t('myevents.deleteItemFailed')} ${error.message}`, 'error');
   }
 }
 
@@ -870,6 +1287,62 @@ function wireEvents() {
   });
   els.refreshEventsBtn.addEventListener('click', () => void loadEvents());
 
+  // Wiring modal create event
+  els.openCreateEventBtn?.addEventListener('click', openCreateEventModal);
+  els.closeCreateEventBtn?.addEventListener('click', closeCreateEventModal);
+  els.cancelCreateEventBtn?.addEventListener('click', closeCreateEventModal);
+  els.createEventModal?.addEventListener('click', (event) => {
+    if (event.target === els.createEventModal) closeCreateEventModal();
+  });
+  els.createEventForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    void createEvent();
+  });
+
+  // Wiring tableau events (view items + delete)
+  document.getElementById('eventsTableContent')?.addEventListener('click', (event) => {
+    const viewBtn = event.target.closest('[data-view-event-id]');
+    if (viewBtn) {
+      state.selectedEventId = viewBtn.dataset.viewEventId;
+      void loadEventItems(state.selectedEventId);
+      return;
+    }
+    const delBtn = event.target.closest('[data-delete-event-id]');
+    if (delBtn) {
+      void deleteEvent(delBtn.dataset.deleteEventId, delBtn.dataset.deleteEventName);
+    }
+  });
+
+  // Wiring modal add item
+  els.openAddItemBtn?.addEventListener('click', openAddItemModal);
+  els.closeAddItemBtn?.addEventListener('click', closeAddItemModal);
+  els.cancelAddItemBtn?.addEventListener('click', closeAddItemModal);
+  els.addItemModal?.addEventListener('click', (event) => {
+    if (event.target === els.addItemModal) closeAddItemModal();
+  });
+  els.addItemType?.addEventListener('change', updateAddItemFields);
+  els.addItemForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    void createItem();
+  });
+
+  // Delegation: delete individual event item
+  document.getElementById('eventItemsContent')?.addEventListener('click', (event) => {
+    const editBtn = event.target.closest('[data-edit-item-id]');
+    if (editBtn) {
+      openEditItemModal(
+        editBtn.dataset.editItemId,
+        editBtn.dataset.editItemTitle,
+        editBtn.dataset.editItemBody,
+        editBtn.dataset.editItemType,
+        editBtn.dataset.editItemFileurl,
+      );
+      return;
+    }
+    const delBtn = event.target.closest('[data-delete-item-id]');
+    if (delBtn) void deleteItem(delBtn.dataset.deleteItemId);
+  });
+
   // Bouton hamburger (mobile)
   const menuToggle = document.getElementById('menuToggle');
   const sidebar = document.getElementById('sidebar');
@@ -895,6 +1368,15 @@ function wireEvents() {
       void deleteMessage(roomId, messageId);
       return;
     }
+    const editBtn = event.target.closest('[data-edit-message-id]');
+    if (editBtn) {
+      void editMessage(
+        editBtn.dataset.editRoomId,
+        editBtn.dataset.editMessageId,
+        editBtn.dataset.editMessageText,
+      );
+      return;
+    }
     const replyBtn = event.target.closest('[data-reply-message-id]');
     if (replyBtn) {
       setReply({
@@ -904,6 +1386,10 @@ function wireEvents() {
       });
     }
   });
+
+  document.getElementById('closeEditMessageBtn').addEventListener('click', () => document.getElementById('editMessageModal').classList.add('hidden'));
+  document.getElementById('cancelEditMessageBtn').addEventListener('click', () => document.getElementById('editMessageModal').classList.add('hidden'));
+  document.getElementById('editMessageForm').addEventListener('submit', (e) => { e.preventDefault(); void saveEditMessage(); });
 
   els.cancelReplyBtn.addEventListener('click', () => setReply(null));
 
@@ -916,13 +1402,7 @@ function wireEvents() {
     }
   });
 
-  els.eventsList.addEventListener('click', (event) => {
-    const item = event.target.closest('[data-event-id]');
-    if (!item) return;
-    state.selectedEventId = item.dataset.eventId;
-    renderEvents();
-    void loadEventItems(state.selectedEventId);
-  });
+  // events list handled via eventsTableContent delegation above
 }
 
 async function refreshCurrentPage(forcedPage = null) {

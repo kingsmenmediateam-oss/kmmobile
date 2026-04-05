@@ -1,4 +1,7 @@
 import {
+  startFocusVisible
+} from "./chunk-L6ISKHKK.js";
+import {
   isRTL
 } from "./chunk-IUXA2G6D.js";
 import {
@@ -20,9 +23,6 @@ import {
   printIonContentErrorMsg,
   resetContentScrollY
 } from "./chunk-BT47KCBG.js";
-import {
-  startFocusVisible
-} from "./chunk-L6ISKHKK.js";
 import {
   AngularDelegate,
   BACKDROP,

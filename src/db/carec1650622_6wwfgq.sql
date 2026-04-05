@@ -345,6 +345,17 @@ ALTER TABLE `chat_messages`
 -- Migration: reply support
 -- ALTER TABLE `chat_messages` ADD COLUMN `reply_to` bigint(20) UNSIGNED NULL DEFAULT NULL;
 
+-- --------------------------------------------------------
+-- Admin Events API
+-- Nouveaux endpoints: admin_events.php, admin_event_create.php, admin_event_delete.php
+-- La table `events` est déjà présente et compatible.
+-- Les suppressions en cascade sont gérées via les FK existantes:
+--   event_users     ON DELETE CASCADE
+--   event_info_items ON DELETE CASCADE
+--   chat_rooms.event_id ON DELETE SET NULL
+-- Aucune migration SQL requise.
+-- --------------------------------------------------------
+
 --
 -- Contraintes pour la table `chat_rooms`
 --
