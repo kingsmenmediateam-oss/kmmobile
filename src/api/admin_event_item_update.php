@@ -15,12 +15,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-$payload = require_auth();
-$role = (string)($payload['role'] ?? '');
-if ($role !== 'admin') {
-  json_error(403, 'FORBIDDEN', 'Admin role required');
-}
-
 // ── Detect multipart vs JSON ──────────────────────────────────────────────────
 $isMultipart = str_starts_with($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data');
 
@@ -47,6 +41,9 @@ $st = $pdo->prepare('SELECT id, event_id, item_type, file_url FROM event_info_it
 $st->execute([':id' => $id]);
 $existing = $st->fetch(PDO::FETCH_ASSOC);
 if (!$existing) json_error(404, 'NOT_FOUND', 'Item not found');
+
+// Verify role/access AFTER we know which event
+require_event_access((int)$existing['event_id'], $pdo);
 
 $fileUrl = $existing['file_url']; // keep old URL by default
 

@@ -16,11 +16,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-$payload = require_auth();
-$role = (string)($payload['role'] ?? '');
-if ($role !== 'admin') {
-  json_error(403, 'FORBIDDEN', 'Admin role required');
-}
+$payload = require_admin();
 
 $body = json_decode(file_get_contents('php://input'), true) ?? [];
 $id = trim((string)($body['id'] ?? ''));

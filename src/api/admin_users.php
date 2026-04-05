@@ -4,17 +4,7 @@ declare(strict_types=1);
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-$payload = require_auth();
-$userId = (string)($payload['sub'] ?? $payload['user_id'] ?? $payload['uid'] ?? '');
-if ($userId === '') {
-  json_error(401, 'UNAUTHORIZED', 'Token payload missing user id');
-}
-
-// Vérifier que l'utilisateur a le rôle admin
-$userRole = (string)($payload['role'] ?? $payload['realm_access']['roles'][0] ?? '');
-if ($userRole !== 'admin' && $userRole !== 'superadmin') {
-  json_error(403, 'FORBIDDEN', 'Requires admin role');
-}
+$payload = require_admin();
 
 $pdo = db();
 

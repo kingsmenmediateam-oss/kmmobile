@@ -77,6 +77,50 @@ function get_bearer_token(): ?string {
 /**
  * @return array payload JWT
  */
+/**
+ * Vérifie que l'utilisateur connecté est admin ou superadmin.
+ * Retourne le payload JWT.
+ */
+function require_admin(): array {
+  $payload = require_auth();
+  $role = (string)($payload['role'] ?? '');
+  if ($role !== 'admin' && $role !== 'superadmin') {
+    json_error(403, 'FORBIDDEN', 'Admin role required');
+  }
+  return $payload;
+}
+
+/**
+ * Vérifie que l'utilisateur connecté est :
+ *   - admin/superadmin (accès total), OU
+ *   - event_manager assigné à $eventId dans la table event_managers.
+ *
+ * @param int    $eventId  L'ID de l'event concerné
+ * @param PDO    $pdo      Connexion PDO déjà ouverte
+ * @return array payload JWT
+ */
+function require_event_access(int $eventId, PDO $pdo): array {
+  $payload = require_auth();
+  $role    = (string)($payload['role'] ?? '');
+  $uuid    = (string)($payload['sub']  ?? '');
+
+  if ($role === 'admin' || $role === 'superadmin') {
+    return $payload;
+  }
+
+  if ($role === 'event_manager') {
+    $st = $pdo->prepare(
+      'SELECT 1 FROM event_managers WHERE event_id = :eid AND user_uuid = :uuid LIMIT 1'
+    );
+    $st->execute([':eid' => $eventId, ':uuid' => $uuid]);
+    if ($st->fetchColumn()) {
+      return $payload;
+    }
+  }
+
+  json_error(403, 'FORBIDDEN', 'Access denied to this event');
+}
+
 function require_auth(): array {
   global $config;
 

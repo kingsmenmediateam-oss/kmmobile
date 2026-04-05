@@ -5,11 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-$payload  = require_auth();
-$userRole = (string)($payload['role'] ?? '');
-if ($userRole !== 'admin' && $userRole !== 'superadmin') {
-  json_error(403, 'FORBIDDEN', 'Requires admin role');
-}
+$payload  = require_admin();
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
   json_error(405, 'METHOD_NOT_ALLOWED', 'Use POST');
@@ -39,7 +35,7 @@ if ($email     === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 if (strlen($password) < 6) {
   json_error(400, 'BAD_REQUEST', 'Password must be at least 6 characters');
 }
-if (!in_array($role, ['member', 'admin', 'superadmin'], true)) {
+if (!in_array($role, ['member', 'event_manager', 'admin', 'superadmin'], true)) {
   $role = 'member';
 }
 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthday)) {

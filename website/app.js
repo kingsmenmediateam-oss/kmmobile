@@ -2,6 +2,7 @@ const STORAGE_KEYS = {
   token: 'km_admin_token',
   apiBase: 'km_admin_api_base',
   lang: 'km_admin_lang',
+  role: 'km_admin_role',
 };
 
 const defaultApiBase = 'https://carecode.be/kmmobile/api';
@@ -29,9 +30,26 @@ const resources = {
         createSuccess: 'Utilisateur créé avec succès.', createError: 'Erreur création:',
       },
       access: {
-        title: 'Gestion des acces', expected: 'Endpoint attendu: /admin_access.php', loading: 'Chargement...',
-        empty: 'Aucun acces.', loadFailed: 'Impossible de charger les acces:', missingEndpoint: 'Ajoute un endpoint JSON /admin_access.php pour activer cette page.',
-        thResource: 'Ressource', thRole: 'Role', thDescription: 'Description',
+        title: 'Gestion des accès',
+        rolesTitle: 'Rôles disponibles',
+        matrixTitle: 'Matrice des permissions',
+        thRole: 'Rôle', thDescription: 'Description', thResource: 'Fonctionnalité', thAccess: 'Accès',
+        roles: [
+          { role: 'superadmin', badge: 'superadmin', description: 'Accès illimité à toutes les fonctionnalités. Peut gérer les admins.' },
+          { role: 'admin',      badge: 'admin',      description: 'Accès complet : utilisateurs, events, chat, accès. Peut assigner des event_managers.' },
+          { role: 'event_manager', badge: 'event_manager', description: 'Accès CRUD aux events dont il est manager (items, fichiers). Pas d\'accès aux utilisateurs ni au chat.' },
+          { role: 'member',    badge: 'member',     description: 'Utilisateur de l\'app mobile uniquement. Aucun accès à l\'admin.' },
+        ],
+        matrix: [
+          { resource: 'Dashboard',            admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Gestion utilisateurs', admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Gestion accès',        admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Modération chat',      admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Liste des events',     admin: '✅', eventManager: '✅', member: '—' },
+          { resource: 'Créer / suppr. event', admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Items d\'event (CRUD)',admin: '✅', eventManager: '✅ (ses events)', member: '—' },
+          { resource: 'Assigner managers',    admin: '✅', eventManager: '—',  member: '—' },
+        ],
       },
       chat: {
         title: 'Moderation des salons', refreshRooms: 'Rafraichir salons', rooms: 'Salons', messages: 'Messages',
@@ -62,6 +80,14 @@ const resources = {
         editItemSuccess: 'Item mis à jour.', editItemError: 'Erreur modification:',
         deleteItemConfirm: 'Supprimer cet item ?', deleteItemSuccess: 'Item supprimé.', deleteItemFailed: 'Suppression impossible:',
         viewFile: 'Voir le fichier',
+        managersTitle: 'Gestionnaires de cet event',
+        managersEmpty: 'Aucun gestionnaire assigné.',
+        managerAssignPlaceholder: 'UUID ou username du gestionnaire',
+        managerAssign: 'Assigner',
+        managerRemove: 'Retirer',
+        managerAssignSuccess: 'Gestionnaire assigné.',
+        managerRemoveSuccess: 'Gestionnaire retiré.',
+        managerError: 'Erreur gestionnaire:',
       },
       common: { unknown: 'Inconnu', error: 'Erreur' },
       toast: { apiSaved: 'API sauvegardee', loginOk: 'Connexion reussie', logoutOk: 'Deconnecte', invalidSession: 'Session invalide. Reconnecte-toi.' },
@@ -89,9 +115,26 @@ const resources = {
         createSuccess: 'User created successfully.', createError: 'Creation error:',
       },
       access: {
-        title: 'Access management', expected: 'Expected endpoint: /admin_access.php', loading: 'Loading...',
-        empty: 'No access entries.', loadFailed: 'Failed to load access entries:', missingEndpoint: 'Add a JSON endpoint /admin_access.php to enable this page.',
-        thResource: 'Resource', thRole: 'Role', thDescription: 'Description',
+        title: 'Access management',
+        rolesTitle: 'Available roles',
+        matrixTitle: 'Permissions matrix',
+        thRole: 'Role', thDescription: 'Description', thResource: 'Feature', thAccess: 'Access',
+        roles: [
+          { role: 'superadmin', badge: 'superadmin', description: 'Unlimited access to all features. Can manage admins.' },
+          { role: 'admin',      badge: 'admin',      description: 'Full access: users, events, chat, access management. Can assign event_managers.' },
+          { role: 'event_manager', badge: 'event_manager', description: 'CRUD access to assigned events (items, files). No access to users or chat.' },
+          { role: 'member',    badge: 'member',     description: 'Mobile app user only. No admin access.' },
+        ],
+        matrix: [
+          { resource: 'Dashboard',            admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'User management',      admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Access management',    admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Chat moderation',      admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Event list',           admin: '✅', eventManager: '✅', member: '—' },
+          { resource: 'Create / delete event',admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Event items (CRUD)',   admin: '✅', eventManager: '✅ (own events)', member: '—' },
+          { resource: 'Assign managers',      admin: '✅', eventManager: '—',  member: '—' },
+        ],
       },
       chat: {
         title: 'Room moderation', refreshRooms: 'Refresh rooms', rooms: 'Rooms', messages: 'Messages',
@@ -122,6 +165,14 @@ const resources = {
         editItemSuccess: 'Item updated.', editItemError: 'Edit error:',
         deleteItemConfirm: 'Delete this item?', deleteItemSuccess: 'Item deleted.', deleteItemFailed: 'Deletion failed:',
         viewFile: 'View file',
+        managersTitle: 'Event managers',
+        managersEmpty: 'No managers assigned.',
+        managerAssignPlaceholder: 'Manager UUID or username',
+        managerAssign: 'Assign',
+        managerRemove: 'Remove',
+        managerAssignSuccess: 'Manager assigned.',
+        managerRemoveSuccess: 'Manager removed.',
+        managerError: 'Manager error:',
       },
       common: { unknown: 'Unknown', error: 'Error' },
       toast: { apiSaved: 'API saved', loginOk: 'Login successful', logoutOk: 'Logged out', invalidSession: 'Invalid session. Please log in again.' },
@@ -149,9 +200,26 @@ const resources = {
         createSuccess: 'Gebruiker succesvol aangemaakt.', createError: 'Aanmaakfout:',
       },
       access: {
-        title: 'Toegangsbeheer', expected: 'Verwacht endpoint: /admin_access.php', loading: 'Laden...',
-        empty: 'Geen toegangsregels.', loadFailed: 'Toegang laden mislukt:', missingEndpoint: 'Voeg JSON-endpoint /admin_access.php toe om deze pagina te activeren.',
-        thResource: 'Resource', thRole: 'Rol', thDescription: 'Beschrijving',
+        title: 'Toegangsbeheer',
+        rolesTitle: 'Beschikbare rollen',
+        matrixTitle: 'Permissiematrix',
+        thRole: 'Rol', thDescription: 'Beschrijving', thResource: 'Functie', thAccess: 'Toegang',
+        roles: [
+          { role: 'superadmin', badge: 'superadmin', description: 'Onbeperkte toegang tot alle functies. Kan admins beheren.' },
+          { role: 'admin',      badge: 'admin',      description: 'Volledige toegang: gebruikers, events, chat, toegangsbeheer. Kan event_managers toewijzen.' },
+          { role: 'event_manager', badge: 'event_manager', description: 'CRUD-toegang tot toegewezen events (items, bestanden). Geen toegang tot gebruikers of chat.' },
+          { role: 'member',    badge: 'member',     description: 'Alleen mobiele app-gebruiker. Geen beheerderstoegang.' },
+        ],
+        matrix: [
+          { resource: 'Dashboard',               admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Gebruikersbeheer',        admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Toegangsbeheer',          admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Chat moderatie',          admin: '✅', eventManager: '—',  member: '—' },
+          { resource: 'Eventlijst',              admin: '✅', eventManager: '✅', member: '—' },
+          { resource: 'Event aanmaken/verwijderen', admin: '✅', eventManager: '—', member: '—' },
+          { resource: 'Eventitems (CRUD)',       admin: '✅', eventManager: '✅ (eigen events)', member: '—' },
+          { resource: 'Beheerders toewijzen',    admin: '✅', eventManager: '—',  member: '—' },
+        ],
       },
       chat: {
         title: 'Kanaalmoderatie', refreshRooms: 'Kanalen vernieuwen', rooms: 'Kanalen', messages: 'Berichten',
@@ -182,6 +250,14 @@ const resources = {
         editItemSuccess: 'Item bijgewerkt.', editItemError: 'Bewerkfout:',
         deleteItemConfirm: 'Dit item verwijderen?', deleteItemSuccess: 'Item verwijderd.', deleteItemFailed: 'Verwijderen mislukt:',
         viewFile: 'Bestand bekijken',
+        managersTitle: 'Eventbeheerders',
+        managersEmpty: 'Geen beheerders toegewezen.',
+        managerAssignPlaceholder: 'UUID of gebruikersnaam beheerder',
+        managerAssign: 'Toewijzen',
+        managerRemove: 'Verwijderen',
+        managerAssignSuccess: 'Beheerder toegewezen.',
+        managerRemoveSuccess: 'Beheerder verwijderd.',
+        managerError: 'Beheerderfout:',
       },
       common: { unknown: 'Onbekend', error: 'Fout' },
       toast: { apiSaved: 'API opgeslagen', loginOk: 'Succesvol aangemeld', logoutOk: 'Afgemeld', invalidSession: 'Ongeldige sessie. Meld opnieuw aan.' },
@@ -191,6 +267,7 @@ const resources = {
 
 const state = {
   token: localStorage.getItem(STORAGE_KEYS.token) || '',
+  role: localStorage.getItem(STORAGE_KEYS.role) || 'member',
   apiBase: localStorage.getItem(STORAGE_KEYS.apiBase) || defaultApiBase,
   lang: localStorage.getItem(STORAGE_KEYS.lang) || 'fr',
   rooms: [],
@@ -298,6 +375,17 @@ function setAuthUI(loggedIn) {
   els.logoutBtn.classList.toggle('hidden', !loggedIn);
   const menuToggle = document.getElementById('menuToggle');
   if (menuToggle) menuToggle.classList.toggle('hidden', !loggedIn);
+
+  // Adapt nav tabs visibility based on role
+  if (loggedIn) {
+    const isAdmin = state.role === 'admin' || state.role === 'superadmin';
+    document.querySelector('[data-page="dashboard"]')?.classList.toggle('hidden', !isAdmin);
+    document.querySelector('[data-page="users"]')?.classList.toggle('hidden', !isAdmin);
+    document.querySelector('[data-page="access"]')?.classList.toggle('hidden', !isAdmin);
+    document.querySelector('[data-page="chat"]')?.classList.toggle('hidden', !isAdmin);
+    // openCreateEventBtn visible only for admins
+    if (els.openCreateEventBtn) els.openCreateEventBtn.classList.toggle('hidden', !isAdmin);
+  }
 }
 
 function escapeHtml(input) {
@@ -566,42 +654,43 @@ async function loadUsers() {
   }
 }
 
-async function loadAccess() {
-  els.accessContent.innerHTML = `<p class="hint">${escapeHtml(t('access.loading'))}</p>`;
-  try {
-    const response = await apiFetch('/admin_access.php');
-    const rawAccess = Array.isArray(response) ? response : (response?.data ?? []);
-    const data = normalizeKeys(rawAccess);
-    
-    if (!Array.isArray(data)) throw new Error('Unexpected format');
+function loadAccess() {
+  const roles  = t('access.roles',  { returnObjects: true });
+  const matrix = t('access.matrix', { returnObjects: true });
 
-    const rows = data.map((a) => `
-      <tr>
-        <td>${escapeHtml(a.resource || a.scope || '')}</td>
-        <td>${escapeHtml(a.role || '')}</td>
-        <td>${escapeHtml(a.description || '')}</td>
-      </tr>
-    `).join('');
+  // Badge colour map
+  const badgeClass = { superadmin: 'role-superadmin', admin: 'role-admin', event_manager: 'role-eventmanager', member: 'role-member' };
 
-    els.accessContent.innerHTML = `
-      <div class="table-wrap">
-        <table class="table">
-          <thead><tr>
-            <th>${escapeHtml(t('access.thResource'))}</th>
-            <th>${escapeHtml(t('access.thRole'))}</th>
-            <th>${escapeHtml(t('access.thDescription'))}</th>
-          </tr></thead>
-          <tbody>${rows || `<tr><td colspan="3">${escapeHtml(t('access.empty'))}</td></tr>`}</tbody>
-        </table>
-      </div>
-    `;
-  } catch (error) {
-    console.error('Error loading access:', error);
-    els.accessContent.innerHTML = `
-      <p class="hint">${escapeHtml(t('access.loadFailed'))} ${escapeHtml(error.message)}</p>
-      <p class="hint">${escapeHtml(t('access.missingEndpoint'))}</p>
-    `;
-  }
+  const roleCards = Array.isArray(roles) ? roles.map((r) => `
+    <article class="access-role-card">
+      <span class="role-badge ${escapeHtml(badgeClass[r.role] ?? '')}">${escapeHtml(r.badge)}</span>
+      <p class="access-role-desc">${escapeHtml(r.description)}</p>
+    </article>`).join('') : '';
+
+  const matrixRows = Array.isArray(matrix) ? matrix.map((row) => `
+    <tr>
+      <td>${escapeHtml(row.resource)}</td>
+      <td class="access-cell">${escapeHtml(row.admin)}</td>
+      <td class="access-cell">${escapeHtml(row.eventManager)}</td>
+      <td class="access-cell">${escapeHtml(row.member)}</td>
+    </tr>`).join('') : '';
+
+  els.accessContent.innerHTML = `
+    <h3 class="access-section-title">${escapeHtml(t('access.rolesTitle'))}</h3>
+    <div class="access-roles-grid">${roleCards}</div>
+
+    <h3 class="access-section-title" style="margin-top:2rem">${escapeHtml(t('access.matrixTitle'))}</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr>
+          <th>${escapeHtml(t('access.thResource'))}</th>
+          <th class="access-cell">admin / superadmin</th>
+          <th class="access-cell">event_manager</th>
+          <th class="access-cell">member</th>
+        </tr></thead>
+        <tbody>${matrixRows}</tbody>
+      </table>
+    </div>`;
 }
 
 function renderRooms() {
@@ -835,6 +924,7 @@ function renderEventsTable() {
     els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.noVisibleEvents'))}</p>`;
     return;
   }
+  const isAdmin = state.role === 'admin' || state.role === 'superadmin';
   const rows = state.events.map((event) => `
     <tr>
       <td class="code">${escapeHtml(event.id)}</td>
@@ -847,11 +937,11 @@ function renderEventsTable() {
           data-view-event-id="${escapeHtml(event.id)}">
           ${escapeHtml(t('myevents.items'))}
         </button>
-        <button class="btn danger small"
+        ${isAdmin ? `<button class="btn danger small"
           data-delete-event-id="${escapeHtml(event.id)}"
           data-delete-event-name="${escapeHtml(event.name || '')}">
           ${escapeHtml(t('actions.delete'))}
-        </button>
+        </button>` : ''}
       </td>
     </tr>`
   ).join('');
@@ -969,6 +1059,116 @@ async function loadEventItems(eventId) {
   } catch (error) {
     console.error('Error loading event items:', error);
     els.eventItemsContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loadItemsError'))} ${escapeHtml(error.message)}</p>`;
+  }
+  // Admin-only: load managers panel below items
+  const isAdmin = state.role === 'admin' || state.role === 'superadmin';
+  let managersPanel = document.getElementById('eventManagersPanel');
+  if (!managersPanel) {
+    managersPanel = document.createElement('div');
+    managersPanel.id = 'eventManagersPanel';
+    managersPanel.className = 'managers-panel';
+    els.eventItemsContent.parentElement.appendChild(managersPanel);
+  }
+  if (isAdmin) {
+    managersPanel.classList.remove('hidden');
+    await loadEventManagers(eventId);
+  } else {
+    managersPanel.classList.add('hidden');
+    managersPanel.innerHTML = '';
+  }
+}
+
+// ── Event managers (admin only) ───────────────────────────────────────────────
+
+async function loadEventManagers(eventId) {
+  const panel = document.getElementById('eventManagersPanel');
+  if (!panel) return;
+  panel.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loading'))}</p>`;
+  try {
+    const response = await apiFetch(`/admin_event_manager_list.php?eventId=${encodeURIComponent(eventId)}`);
+    const rawMgrs = Array.isArray(response) ? response : (response?.data ?? []);
+    const managers = normalizeKeys(rawMgrs);
+    renderEventManagers(eventId, Array.isArray(managers) ? managers : []);
+  } catch (error) {
+    panel.innerHTML = `<p class="hint">${escapeHtml(t('myevents.managerError'))} ${escapeHtml(error.message)}</p>`;
+  }
+}
+
+function renderEventManagers(eventId, managers) {
+  const panel = document.getElementById('eventManagersPanel');
+  if (!panel) return;
+
+  const rows = managers.length === 0
+    ? `<p class="hint">${escapeHtml(t('myevents.managersEmpty'))}</p>`
+    : managers.map((m) => `
+        <div class="manager-row">
+          <span class="manager-info">
+            <strong>${escapeHtml(m.username || m.uuid)}</strong>
+            ${m.firstname || m.lastname ? ` — ${escapeHtml([m.firstname, m.lastname].filter(Boolean).join(' '))}` : ''}
+            <span class="hint code">${escapeHtml(m.uuid)}</span>
+          </span>
+          <button class="btn danger small"
+            data-remove-manager-uuid="${escapeHtml(m.uuid)}"
+            data-remove-manager-event="${escapeHtml(String(eventId))}">
+            ${escapeHtml(t('myevents.managerRemove'))}
+          </button>
+        </div>`).join('');
+
+  panel.innerHTML = `
+    <div class="panel-label-row" style="margin-top:1.5rem">
+      <p class="panel-label">${escapeHtml(t('myevents.managersTitle'))}</p>
+    </div>
+    <div id="managersList">${rows}</div>
+    <div class="manager-assign-row" style="margin-top:.75rem;display:flex;gap:.5rem;flex-wrap:wrap">
+      <input id="managerUuidInput" type="text" class="cfg-input"
+        placeholder="${escapeHtml(t('myevents.managerAssignPlaceholder'))}"
+        style="flex:1;min-width:200px" />
+      <button id="managerAssignBtn" class="btn primary-sm"
+        data-assign-event="${escapeHtml(String(eventId))}">
+        ${escapeHtml(t('myevents.managerAssign'))}
+      </button>
+    </div>`;
+
+  // Wire assign button
+  document.getElementById('managerAssignBtn')?.addEventListener('click', () => {
+    const uuid = document.getElementById('managerUuidInput')?.value.trim();
+    if (!uuid) return;
+    void addEventManager(eventId, uuid);
+  });
+
+  // Wire remove buttons
+  panel.querySelectorAll('[data-remove-manager-uuid]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      void removeEventManager(btn.dataset.removeManagerEvent, btn.dataset.removeManagerUuid);
+    });
+  });
+}
+
+async function addEventManager(eventId, uuid) {
+  try {
+    await apiFetch('/admin_event_manager_add.php', {
+      method: 'POST',
+      body: JSON.stringify({ eventId: Number(eventId), uuid }),
+    });
+    const input = document.getElementById('managerUuidInput');
+    if (input) input.value = '';
+    toast(t('myevents.managerAssignSuccess'), 'success');
+    await loadEventManagers(eventId);
+  } catch (error) {
+    toast(`${t('myevents.managerError')} ${error.message}`, 'error');
+  }
+}
+
+async function removeEventManager(eventId, uuid) {
+  try {
+    await apiFetch('/admin_event_manager_remove.php', {
+      method: 'POST',
+      body: JSON.stringify({ eventId: Number(eventId), uuid }),
+    });
+    toast(t('myevents.managerRemoveSuccess'), 'success');
+    await loadEventManagers(eventId);
+  } catch (error) {
+    toast(`${t('myevents.managerError')} ${error.message}`, 'error');
   }
 }
 
@@ -1203,6 +1403,12 @@ async function login(username, password) {
 
     state.token = data.token;
     localStorage.setItem(STORAGE_KEYS.token, state.token);
+    // Decode role from JWT payload
+    try {
+      const jwtPayload = JSON.parse(atob(data.token.split('.')[1]));
+      state.role = jwtPayload.role ?? 'member';
+    } catch { state.role = 'member'; }
+    localStorage.setItem(STORAGE_KEYS.role, state.role);
   } catch (error) {
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new Error(`Connection error: Could not reach ${state.apiBase}/login.php. Make sure the API server is running and CORS is properly configured.`);
@@ -1213,11 +1419,13 @@ async function login(username, password) {
 
 function logout() {
   state.token = '';
+  state.role = 'member';
   state.rooms = [];
   state.selectedRoomId = null;
   state.events = [];
   state.selectedEventId = null;
   localStorage.removeItem(STORAGE_KEYS.token);
+  localStorage.removeItem(STORAGE_KEYS.role);
   setAuthUI(false);
 }
 
@@ -1242,7 +1450,14 @@ function wireEvents() {
       await login(els.username.value.trim(), els.password.value);
       setAuthUI(true);
       toast(t('toast.loginOk'), 'success');
-      await Promise.all([loadRooms(), loadEvents(), loadDashboard()]);
+      // Redirect event_manager directly to myevents tab
+      const isAdmin = state.role === 'admin' || state.role === 'superadmin';
+      if (!isAdmin) {
+        activatePage('myevents');
+        await loadEvents();
+      } else {
+        await Promise.all([loadRooms(), loadEvents(), loadDashboard()]);
+      }
     } catch (error) {
       toast(error.message, 'error');
     }
@@ -1278,7 +1493,7 @@ function wireEvents() {
     if (!btn) return;
     void toggleUser(btn.dataset.toggleUuid);
   });
-  els.refreshAccessBtn.addEventListener('click', () => void loadAccess());
+  els.refreshAccessBtn.addEventListener('click', () => loadAccess());
   els.refreshRoomsBtn.addEventListener('click', () => void loadRooms());
 
   els.createRoomForm.addEventListener('submit', (event) => {
@@ -1410,7 +1625,7 @@ async function refreshCurrentPage(forcedPage = null) {
 
   if (activePage === 'dashboard') await loadDashboard();
   if (activePage === 'users') await loadUsers();
-  if (activePage === 'access') await loadAccess();
+  if (activePage === 'access') loadAccess();
   if (activePage === 'chat') await loadRooms();
   if (activePage === 'myevents') await loadEvents();
 }
@@ -1435,7 +1650,13 @@ async function boot() {
 
   setAuthUI(true);
   try {
-    await Promise.all([loadRooms(), loadEvents(), loadDashboard()]);
+    const isAdmin = state.role === 'admin' || state.role === 'superadmin';
+    if (!isAdmin) {
+      activatePage('myevents');
+      await loadEvents();
+    } else {
+      await Promise.all([loadRooms(), loadEvents(), loadDashboard()]);
+    }
   } catch {
     logout();
     toast(t('toast.invalidSession'), 'error');

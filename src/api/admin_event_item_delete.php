@@ -15,12 +15,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-$payload = require_auth();
-$role = (string)($payload['role'] ?? '');
-if ($role !== 'admin') {
-  json_error(403, 'FORBIDDEN', 'Admin role required');
-}
-
 $body  = json_decode((string)file_get_contents('php://input'), true) ?? [];
 $id    = (int)($body['id'] ?? 0);
 if ($id <= 0) json_error(400, 'BAD_REQUEST', 'Missing id');
@@ -28,11 +22,14 @@ if ($id <= 0) json_error(400, 'BAD_REQUEST', 'Missing id');
 $pdo = db();
 
 // Fetch item first to get file_url for physical deletion
-$st = $pdo->prepare('SELECT id, file_url FROM event_info_items WHERE id = :id');
+$st = $pdo->prepare('SELECT id, event_id, file_url FROM event_info_items WHERE id = :id');
 $st->execute([':id' => $id]);
 $item = $st->fetch(PDO::FETCH_ASSOC);
 
 if (!$item) json_error(404, 'NOT_FOUND', 'Item not found');
+
+// Verify role/access AFTER we know which event
+require_event_access((int)$item['event_id'], $pdo);
 
 // Delete from DB
 $del = $pdo->prepare('DELETE FROM event_info_items WHERE id = :id');

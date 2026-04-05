@@ -1209,3 +1209,104 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .stat .value { font-size: 28px; }
 }
+
+/* ─── 25. Managers panel ─── */
+.managers-panel {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--km-surface);
+  border: 1px solid var(--km-border);
+  border-radius: var(--km-radius);
+}
+
+.manager-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--km-border);
+  flex-wrap: wrap;
+}
+
+.manager-row:last-child { border-bottom: none; }
+
+.manager-info {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.manager-info .code {
+  font-size: 11px;
+  opacity: .6;
+}
+
+.manager-assign-row input {
+  height: 34px;
+  border: 1px solid var(--km-border);
+  border-radius: var(--km-radius);
+  padding: 0 .6rem;
+  background: var(--km-bg);
+  color: var(--km-text);
+  font-size: 13px;
+}
+
+/* ─── 26. Access page ─── */
+.access-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--km-text-muted, #8a8fa8);
+  margin: 0 0 .75rem;
+}
+
+.access-roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: .75rem;
+}
+
+.access-role-card {
+  background: var(--km-surface);
+  border: 1px solid var(--km-border);
+  border-radius: var(--km-radius);
+  padding: .9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.access-role-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--km-text);
+  line-height: 1.5;
+}
+
+/* Role badges */
+.role-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+.role-superadmin  { background: #7c3aed22; color: #7c3aed; border: 1px solid #7c3aed55; }
+.role-admin       { background: #0ea5e922; color: #0ea5e9; border: 1px solid #0ea5e955; }
+.role-eventmanager{ background: #f59e0b22; color: #d97706; border: 1px solid #f59e0b55; }
+.role-member      { background: #64748b22; color: #64748b; border: 1px solid #64748b55; }
+
+/* Matrix access cells */
+.access-cell {
+  text-align: center;
+  font-size: 15px;
+  white-space: nowrap;
+}

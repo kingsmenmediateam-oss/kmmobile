@@ -15,12 +15,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/db.php';
 
-$payload = require_auth();
-$role = (string)($payload['role'] ?? '');
-if ($role !== 'admin') {
-  json_error(403, 'FORBIDDEN', 'Admin role required');
-}
-
 // ── Detect form vs JSON ──────────────────────────────────────────────────────
 $isMultipart = str_starts_with($_SERVER['CONTENT_TYPE'] ?? '', 'multipart/form-data');
 
@@ -45,6 +39,7 @@ if (!in_array($itemType, ['text', 'pin', 'song', 'file'], true)) {
 if ($title === '') json_error(400, 'BAD_REQUEST', 'title is required');
 
 $pdo = db();
+require_event_access($eventId, $pdo);
 
 // Verify event exists
 $ev = $pdo->prepare('SELECT id FROM events WHERE id = :id');
