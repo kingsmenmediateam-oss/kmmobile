@@ -201,7 +201,7 @@
         <!-- Events -->
         <section id="page-myevents" class="page">
           <div class="page-header">
-            <h2 data-i18n="myevents.title">Gestion Events</h2>
+            <h2 data-i18n="myevents.title">Events</h2>
             <div class="page-header-actions">
               <button class="btn primary-sm" id="openCreateEventBtn" data-i18n="myevents.createBtn">+ Ajouter un event</button>
               <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">RafraîChir</button>
@@ -228,6 +228,49 @@
     </section>
 
     <div id="toast" class="toast hidden"></div>
+
+    <!-- ══════════════════════════════════════════
+         MODAL — Éditer un event
+         ══════════════════════════════════════════ -->
+    <div id="editEventModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card" style="max-width:560px">
+        <div class="modal-header">
+          <h3 data-i18n="myevents.editTitle">Modifier l'event</h3>
+          <button class="modal-close-btn" id="closeEditEventBtn" type="button" aria-label="Fermer">✕</button>
+        </div>
+        <form id="editEventForm" class="modal-form">
+          <input type="hidden" id="editEventId" />
+
+          <!-- Titre -->
+          <div class="form-field">
+            <label for="editEventName" data-i18n="myevents.fieldName">Nom</label>
+            <input type="text" id="editEventName" required autocomplete="off" />
+          </div>
+
+          <!-- Participants -->
+          <div class="form-field" style="margin-top:4px">
+            <label data-i18n="myevents.editAttendeesLabel">Participants</label>
+            <div id="editEventUsersList" style="max-height:220px;overflow-y:auto;border:1px solid var(--km-border);border-radius:8px;padding:6px 0;margin-top:6px;background:#fafafa"></div>
+            <p class="hint" data-i18n="myevents.editAttendeesHint">Cochez les utilisateurs à associer à cet event.</p>
+          </div>
+
+          <!-- Event manager -->
+          <div class="form-field">
+            <label data-i18n="myevents.editManagerLabel">Event Manager</label>
+            <select id="editEventManager" class="modal-select">
+              <option value="" data-i18n="myevents.editManagerNone">— Aucun —</option>
+            </select>
+            <p class="hint" data-i18n="myevents.editManagerHint">L'utilisateur sélectionné aura le rôle event_manager pour cet event.</p>
+          </div>
+
+          <div id="editEventError" class="modal-error hidden"></div>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="cancelEditEventBtn" data-i18n="actions.cancel">Annuler</button>
+            <button type="submit" class="btn primary-sm" data-i18n="myevents.editSubmit">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <!-- ══════════════════════════════════════════
          MODAL — Créer un event
@@ -413,6 +456,6 @@
   </div>
 
   <script src="./vendor/i18next.min.js"></script>
-  <script type="module" src="./app.js?v=12"></script>
+  <script type="module" src="./app.js?v=13"></script>
 </body>
 </html>

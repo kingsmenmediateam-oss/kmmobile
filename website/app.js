@@ -10,13 +10,13 @@ const defaultApiBase = 'https://carecode.be/kmmobile/api';
 const resources = {
   fr: {
     translation: {
-      top: { title: 'Kingsmen Admin', subtitle: 'Gestion utilisateurs, acces, chat, myEvents', apiLabel: 'API', langLabel: 'Langue' },
+      top: { title: 'Kingsmen Admin', subtitle: 'Gestion utilisateurs, accès, chat, events', apiLabel: 'API', langLabel: 'Langue' },
       login: {
         title: 'Connexion admin', usernameLabel: 'Username ou email', passwordLabel: 'Mot de passe',
         submit: 'Se connecter', hint: 'Authentification via /login.php (meme backend que l\'app mobile).',
       },
       actions: { save: 'Sauver', logout: 'Deconnexion', refresh: 'Rafraichir', delete: 'Supprimer', cancel: 'Annuler', reply: 'Répondre', edit: 'Modifier' },
-      tabs: { dashboard: 'Dashboard', users: 'Utilisateurs', access: 'Acces', chat: 'Moderation chat', myevents: 'MyEvents' },
+      tabs: { dashboard: 'Dashboard', users: 'Utilisateurs', access: 'Accès', chat: 'Modération chat', myevents: 'Events' },
       dashboard: { title: 'Dashboard', rooms: 'Salons', roomMessages: 'Messages salon', events: 'MyEvents', eventItems: 'Items event' },
       users: {
         title: 'Gestion utilisateurs', expected: 'Endpoint attendu: /admin_users.php', loading: 'Chargement...',
@@ -67,7 +67,13 @@ const resources = {
         editSuccess: 'Message modifié.', editError: 'Erreur modification:',
       },
       myevents: {
-        title: 'Gestion page MyEvents', refresh: 'Rafraichir events', list: 'Mes events', items: 'Contenu event',
+        title: 'Gestion des Events', refresh: 'Rafraichir', list: 'Events', items: 'Contenu event',
+        editTitle: 'Modifier l\'event', editBtn: 'Modifier', editSubmit: 'Enregistrer',
+        editSuccess: 'Event mis à jour.', editError: 'Erreur modification:',
+        editAttendeesLabel: 'Participants', editAttendeesHint: 'Cochez les utilisateurs à associer à cet event.',
+        editManagerLabel: 'Event Manager', editManagerNone: '— Aucun —', editManagerHint: 'L\'utilisateur sélectionné aura le rôle event_manager pour cet event.',
+        usersLoadError: 'Impossible de charger la liste des utilisateurs.',
+        thEdit: 'Edit',
         loading: 'Chargement...', noVisibleEvents: 'Aucun event visible.', noItems: 'Aucun item pour cet event.',
         loadItemsError: 'Erreur chargement items:', eventLabel: 'event',
         createBtn: '+ Ajouter un event', createTitle: 'Nouvel event',
@@ -98,13 +104,13 @@ const resources = {
   },
   en: {
     translation: {
-      top: { title: 'Kingsmen Admin', subtitle: 'User, access, chat and myEvents management', apiLabel: 'API', langLabel: 'Language' },
+      top: { title: 'Kingsmen Admin', subtitle: 'User, access, chat and events management', apiLabel: 'API', langLabel: 'Language' },
       login: {
         title: 'Admin login', usernameLabel: 'Username or email', passwordLabel: 'Password',
         submit: 'Sign in', hint: 'Authentication via /login.php (same backend as mobile app).',
       },
       actions: { save: 'Save', logout: 'Logout', refresh: 'Refresh', delete: 'Delete', cancel: 'Cancel', reply: 'Reply', edit: 'Edit' },
-      tabs: { dashboard: 'Dashboard', users: 'Users', access: 'Access', chat: 'Chat moderation', myevents: 'MyEvents' },
+      tabs: { dashboard: 'Dashboard', users: 'Users', access: 'Access', chat: 'Chat moderation', myevents: 'Events' },
       dashboard: { title: 'Dashboard', rooms: 'Rooms', roomMessages: 'Room messages', events: 'MyEvents', eventItems: 'Event items' },
       users: {
         title: 'User management', expected: 'Expected endpoint: /admin_users.php', loading: 'Loading...',
@@ -155,7 +161,13 @@ const resources = {
         editSuccess: 'Message updated.', editError: 'Edit error:',
       },
       myevents: {
-        title: 'MyEvents page management', refresh: 'Refresh events', list: 'My events', items: 'Event content',
+        title: 'Events management', refresh: 'Refresh', list: 'Events', items: 'Event content',
+        editTitle: 'Edit event', editBtn: 'Edit', editSubmit: 'Save',
+        editSuccess: 'Event updated.', editError: 'Edit error:',
+        editAttendeesLabel: 'Attendees', editAttendeesHint: 'Check the users to associate with this event.',
+        editManagerLabel: 'Event Manager', editManagerNone: '— None —', editManagerHint: 'The selected user will have the event_manager role for this event.',
+        usersLoadError: 'Unable to load the users list.',
+        thEdit: 'Edit',
         loading: 'Loading...', noVisibleEvents: 'No visible events.', noItems: 'No items for this event.',
         loadItemsError: 'Failed to load items:', eventLabel: 'event',
         createBtn: '+ Add event', createTitle: 'New event',
@@ -186,13 +198,13 @@ const resources = {
   },
   nl: {
     translation: {
-      top: { title: 'Kingsmen Admin', subtitle: 'Beheer van gebruikers, toegang, chat en myEvents', apiLabel: 'API', langLabel: 'Taal' },
+      top: { title: 'Kingsmen Admin', subtitle: 'Beheer van gebruikers, toegang, chat en events', apiLabel: 'API', langLabel: 'Taal' },
       login: {
         title: 'Admin aanmelding', usernameLabel: 'Gebruikersnaam of e-mail', passwordLabel: 'Wachtwoord',
         submit: 'Aanmelden', hint: 'Authenticatie via /login.php (zelfde backend als de mobiele app).',
       },
       actions: { save: 'Opslaan', logout: 'Afmelden', refresh: 'Vernieuwen', delete: 'Verwijderen', cancel: 'Annuleren', reply: 'Beantwoorden', edit: 'Bewerken' },
-      tabs: { dashboard: 'Dashboard', users: 'Gebruikers', access: 'Toegang', chat: 'Chat moderatie', myevents: 'MyEvents' },
+      tabs: { dashboard: 'Dashboard', users: 'Gebruikers', access: 'Toegang', chat: 'Chat moderatie', myevents: 'Events' },
       dashboard: { title: 'Dashboard', rooms: 'Kanalen', roomMessages: 'Kanaalberichten', events: 'MyEvents', eventItems: 'Eventitems' },
       users: {
         title: 'Gebruikersbeheer', expected: 'Verwacht endpoint: /admin_users.php', loading: 'Laden...',
@@ -243,7 +255,13 @@ const resources = {
         editSuccess: 'Bericht bijgewerkt.', editError: 'Fout bij bewerken:',
       },
       myevents: {
-        title: 'MyEvents pagina beheer', refresh: 'Events vernieuwen', list: 'Mijn events', items: 'Eventinhoud',
+        title: 'Eventbeheer', refresh: 'Vernieuwen', list: 'Events', items: 'Event-inhoud',
+        editTitle: 'Event bewerken', editBtn: 'Bewerken', editSubmit: 'Opslaan',
+        editSuccess: 'Event bijgewerkt.', editError: 'Bewerkfout:',
+        editAttendeesLabel: 'Deelnemers', editAttendeesHint: 'Vink de gebruikers aan die aan dit event gekoppeld moeten worden.',
+        editManagerLabel: 'Event Manager', editManagerNone: '— Geen —', editManagerHint: 'De geselecteerde gebruiker krijgt de event_manager rol voor dit event.',
+        usersLoadError: 'Kan de gebruikerslijst niet laden.',
+        thEdit: 'Bewerken',
         loading: 'Laden...', noVisibleEvents: 'Geen zichtbare events.', noItems: 'Geen items voor dit event.',
         loadItemsError: 'Items laden mislukt:', eventLabel: 'event',
         createBtn: '+ Event toevoegen', createTitle: 'Nieuw event',
@@ -324,6 +342,13 @@ const els = {
   newEventStartsAt: document.getElementById('newEventStartsAt'),
   newEventEndsAt: document.getElementById('newEventEndsAt'),
   createEventError: document.getElementById('createEventError'),
+  editEventModal: document.getElementById('editEventModal'),
+  editEventForm: document.getElementById('editEventForm'),
+  editEventId: document.getElementById('editEventId'),
+  editEventName: document.getElementById('editEventName'),
+  editEventUsersList: document.getElementById('editEventUsersList'),
+  editEventManager: document.getElementById('editEventManager'),
+  editEventError: document.getElementById('editEventError'),
   openAddItemBtn: document.getElementById('openAddItemBtn'),
   addItemModal: document.getElementById('addItemModal'),
   closeAddItemBtn: document.getElementById('closeAddItemBtn'),
@@ -983,6 +1008,96 @@ async function loadMessages(roomId) {
   }
 }
 
+// ── Edit event modal ─────────────────────────────────────────────────
+async function openEditEventModal(eventId, eventName) {
+  els.editEventId.value  = eventId;
+  els.editEventName.value = eventName;
+  els.editEventError.classList.add('hidden');
+  els.editEventError.textContent = '';
+
+  // Reset UI
+  els.editEventUsersList.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loading'))}</p>`;
+  els.editEventManager.innerHTML   = `<option value="">${escapeHtml(t('myevents.editManagerNone'))}</option>`;
+
+  els.editEventModal.classList.remove('hidden');
+
+  // Load all users + current attendees + current manager in parallel
+  try {
+    const [allUsers, attendees, managers] = await Promise.all([
+      apiFetch('/admin_users.php'),
+      apiFetch(`/admin_event_users_list.php?eventId=${encodeURIComponent(eventId)}`).catch(() => []),
+      apiFetch(`/admin_event_manager_list.php?eventId=${encodeURIComponent(eventId)}`).catch(() => []),
+    ]);
+
+    const users        = normalizeKeys(Array.isArray(allUsers)  ? allUsers  : (allUsers?.data  ?? []));
+    const attendeeList = normalizeKeys(Array.isArray(attendees) ? attendees : (attendees?.data ?? []));
+    const managerList  = normalizeKeys(Array.isArray(managers)  ? managers  : (managers?.data  ?? []));
+
+    const attendeeUuids = new Set(attendeeList.map((u) => String(u.uuid).trim()));
+    const managerUuid   = String(managerList[0]?.uuid ?? '').trim();
+
+    // Build checkboxes
+    if (users.length === 0) {
+      els.editEventUsersList.innerHTML = `<p class="hint">${escapeHtml(t('myevents.editAttendeesHint'))}</p>`;
+    } else {
+      els.editEventUsersList.innerHTML = users.map((u) => {
+        const uuid    = String(u.uuid).trim();
+        const checked = attendeeUuids.has(uuid) ? 'checked' : '';
+        const isMgr   = uuid === managerUuid;
+        const mgrBadge = isMgr ? ` <span style="background:var(--km-red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;vertical-align:middle">manager</span>` : '';
+        const label   = `${escapeHtml(u.username || '')} <span style="color:var(--km-muted)">(${escapeHtml(u.email || '')})</span>${mgrBadge}`;
+        return `
+          <label class="edit-event-user-row" style="display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;font-size:13px">
+            <input type="checkbox" value="${escapeHtml(uuid)}" ${checked} style="width:15px;height:15px;accent-color:var(--km-red)" />
+            ${label}
+          </label>`;
+      }).join('');
+    }
+
+    // Build manager select
+    const managerOptions = users.map((u) => {
+      const uuid = String(u.uuid).trim();
+      const sel  = uuid === managerUuid ? 'selected' : '';
+      return `<option value="${escapeHtml(uuid)}" ${sel}>${escapeHtml(u.username || uuid)} (${escapeHtml(u.email || '')})</option>`;
+    }).join('');
+    els.editEventManager.innerHTML = `<option value="">${escapeHtml(t('myevents.editManagerNone'))}</option>${managerOptions}`;
+
+  } catch (err) {
+    els.editEventUsersList.innerHTML = `<p class="hint">${escapeHtml(t('myevents.usersLoadError'))}</p>`;
+  }
+}
+
+function closeEditEventModal() {
+  els.editEventModal.classList.add('hidden');
+}
+
+async function saveEditEvent() {
+  els.editEventError.classList.add('hidden');
+  els.editEventError.textContent = '';
+
+  const eventId = els.editEventId.value;
+  const name    = els.editEventName.value.trim();
+  if (!name) { els.editEventError.textContent = t('myevents.fieldName') + ' requis.'; els.editEventError.classList.remove('hidden'); return; }
+
+  // Collect checked uuids
+  const checkedUuids = [...els.editEventUsersList.querySelectorAll('input[type=checkbox]:checked')].map((cb) => cb.value);
+
+  const managerUuid = els.editEventManager.value || null;
+
+  try {
+    await apiFetch('/admin_event_update.php', {
+      method: 'POST',
+      body: JSON.stringify({ id: Number(eventId), name, userUuids: checkedUuids, managerUuid }),
+    });
+    closeEditEventModal();
+    toast(t('myevents.editSuccess'), 'success');
+    await loadEvents();
+  } catch (error) {
+    els.editEventError.textContent = `${t('myevents.editError')} ${error.message}`;
+    els.editEventError.classList.remove('hidden');
+  }
+}
+
 function renderEventsTable() {
   if (!els.eventsTableContent) return;
   if (state.events.length === 0) {
@@ -1002,7 +1117,15 @@ function renderEventsTable() {
           data-view-event-id="${escapeHtml(event.id)}">
           ${escapeHtml(t('myevents.items'))}
         </button>
-        ${isAdmin ? `<button class="btn danger small"
+        ${isAdmin ? `
+        <button class="btn small"
+          data-edit-event-id="${escapeHtml(event.id)}"
+          data-edit-event-name="${escapeHtml(event.name || '')}"
+          data-edit-event-starts="${escapeHtml(event.startsAt || '')}"
+          data-edit-event-ends="${escapeHtml(event.endsAt || '')}">
+          ${escapeHtml(t('myevents.editBtn'))}
+        </button>
+        <button class="btn danger small"
           data-delete-event-id="${escapeHtml(event.id)}"
           data-delete-event-name="${escapeHtml(event.name || '')}">
           ${escapeHtml(t('actions.delete'))}
@@ -1598,7 +1721,7 @@ function wireEvents() {
     void createEvent();
   });
 
-  // Wiring tableau events (view items + delete)
+  // Wiring tableau events (view items + edit + delete)
   document.getElementById('eventsTableContent')?.addEventListener('click', (event) => {
     const viewBtn = event.target.closest('[data-view-event-id]');
     if (viewBtn) {
@@ -1606,11 +1729,22 @@ function wireEvents() {
       void loadEventItems(state.selectedEventId);
       return;
     }
+    const editBtn = event.target.closest('[data-edit-event-id]');
+    if (editBtn) {
+      void openEditEventModal(editBtn.dataset.editEventId, editBtn.dataset.editEventName);
+      return;
+    }
     const delBtn = event.target.closest('[data-delete-event-id]');
     if (delBtn) {
       void deleteEvent(delBtn.dataset.deleteEventId, delBtn.dataset.deleteEventName);
     }
   });
+
+  // Wiring edit event modal
+  document.getElementById('closeEditEventBtn')?.addEventListener('click', closeEditEventModal);
+  document.getElementById('cancelEditEventBtn')?.addEventListener('click', closeEditEventModal);
+  els.editEventModal?.addEventListener('click', (e) => { if (e.target === els.editEventModal) closeEditEventModal(); });
+  els.editEventForm?.addEventListener('submit', (e) => { e.preventDefault(); void saveEditEvent(); });
 
   // Wiring modal add item
   els.openAddItemBtn?.addEventListener('click', openAddItemModal);
