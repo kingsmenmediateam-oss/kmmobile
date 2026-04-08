@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kingsmen – Activer mon compte</title>
+  <title>Kingsmen – Activate your account</title>
   <link rel="stylesheet" href="./styles.css?v=6" />
   <style>
     body {
@@ -83,35 +83,35 @@
   <div class="activate-card">
     <img src="./assets/kingsmen_logo.png" alt="Kingsmen" class="activate-logo" />
     <h1 class="activate-title">Kingsmen</h1>
-    <p class="activate-sub">Activation de votre compte</p>
+    <p class="activate-sub">Account activation</p>
 
     <div id="alert" class="activate-alert"></div>
 
-    <!-- État : chargement -->
+    <!-- State: loading -->
     <div id="loadingSection">
-      <p class="activate-greeting">Vérification du lien…</p>
+      <p class="activate-greeting">Verifying link…</p>
     </div>
 
-    <!-- État : formulaire -->
+    <!-- State: form -->
     <div id="formSection">
       <p class="activate-greeting" id="greetingText"></p>
       <form id="activateForm" class="form-grid">
         <label>
-          Choisissez un mot de passe
-          <input type="password" id="password" minlength="6" required autocomplete="new-password" placeholder="Minimum 6 caractères" />
+          Choose a password
+          <input type="password" id="password" minlength="6" required autocomplete="new-password" placeholder="Minimum 6 characters" />
         </label>
         <label>
-          Confirmez le mot de passe
+          Confirm your password
           <input type="password" id="passwordConfirm" minlength="6" required autocomplete="new-password" />
         </label>
-        <button class="btn primary" type="submit" id="submitBtn">Activer mon compte</button>
+        <button class="btn primary" type="submit" id="submitBtn">Activate my account</button>
       </form>
     </div>
 
-    <!-- État : succès -->
+    <!-- State: success -->
     <div id="successSection">
       <div class="activate-success-icon">✅</div>
-      <p class="activate-success-text">Votre compte est activé !<br/>Vous pouvez maintenant vous connecter à l'application Kingsmen.</p>
+      <p class="activate-success-text">Your account is activated!<br/>You can now log in to the Kingsmen app.</p>
     </div>
   </div>
 
@@ -141,7 +141,7 @@
     async function checkToken() {
       if (!token) {
         loadingEl.style.display = 'none';
-        showAlert('Lien invalide ou incomplet.', 'error');
+        showAlert('Invalid or incomplete link.', 'error');
         return;
       }
       try {
@@ -150,17 +150,17 @@
         loadingEl.style.display = 'none';
         if (!res.ok) {
           const msgs = {
-            GONE:    'Ce lien a déjà été utilisé. Contactez un administrateur si nécessaire.',
-            EXPIRED: 'Ce lien a expiré (validité 72h). Contactez un administrateur pour en recevoir un nouveau.',
+            GONE:    'This link has already been used. Contact an administrator if needed.',
+            EXPIRED: 'This link has expired (valid for 72h). Contact an administrator to receive a new one.',
           };
-          showAlert(msgs[data.code] || `Lien invalide : ${data.message}`, 'warning');
+          showAlert(msgs[data.code] || `Invalid link: ${data.message}`, 'warning');
           return;
         }
-        greetingEl.textContent = `Bonjour ${data.firstname} ${data.lastname} (${data.email}), choisissez votre mot de passe :`;
+        greetingEl.textContent = `Hello ${data.firstname} ${data.lastname} (${data.email}), please choose your password:`;
         formEl.style.display = 'block';
       } catch (e) {
         loadingEl.style.display = 'none';
-        showAlert('Impossible de joindre le serveur. Réessayez plus tard.', 'error');
+        showAlert('Unable to reach the server. Please try again later.', 'error');
       }
     }
 
@@ -171,11 +171,11 @@
       const pwd  = pwdInput.value;
       const pwd2 = pwdConfirm.value;
 
-      if (pwd !== pwd2) { showAlert('Les mots de passe ne correspondent pas.', 'error'); return; }
-      if (pwd.length < 6) { showAlert('Minimum 6 caractères.', 'error'); return; }
+      if (pwd !== pwd2) { showAlert('Passwords do not match.', 'error'); return; }
+      if (pwd.length < 6) { showAlert('Minimum 6 characters required.', 'error'); return; }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Activation…';
+      submitBtn.textContent = 'Activating…';
 
       try {
         const res  = await fetch(`${API_BASE}/account_activate.php`, {
@@ -185,17 +185,17 @@
         });
         const data = await res.json();
         if (!res.ok) {
-          showAlert(data.message || 'Erreur lors de l\'activation.', 'error');
+          showAlert(data.message || 'An error occurred during activation.', 'error');
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Activer mon compte';
+          submitBtn.textContent = 'Activate my account';
           return;
         }
         formEl.style.display    = 'none';
         successEl.style.display = 'block';
       } catch (err) {
-        showAlert('Erreur réseau. Réessayez.', 'error');
+        showAlert('Network error. Please try again.', 'error');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Activer mon compte';
+        submitBtn.textContent = 'Activate my account';
       }
     });
 
