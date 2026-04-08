@@ -435,6 +435,38 @@
     </div>
   </div>
 
+  <!-- Edit room modal -->
+  <div id="editRoomModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width:560px">
+      <div class="modal-header">
+        <h3 data-i18n="chat.editRoomTitle">Modifier le salon</h3>
+        <button class="modal-close-btn" id="closeEditRoomBtn" type="button" aria-label="Close">&#x2715;</button>
+      </div>
+      <form id="editRoomForm" class="modal-form">
+        <input type="hidden" id="editRoomId" />
+        <div class="form-field">
+          <label for="editRoomName" data-i18n="chat.editRoomNameLabel">Nom du salon</label>
+          <input type="text" id="editRoomName" required autocomplete="off" />
+        </div>
+        <div class="form-field" style="margin-top:4px">
+          <label data-i18n="chat.editRoomMembersLabel">Membres</label>
+          <div id="editRoomUsersList" style="max-height:200px;overflow-y:auto;border:1px solid var(--km-border);border-radius:8px;padding:6px 0;margin-top:6px;background:#fafafa"></div>
+          <p class="hint" data-i18n="chat.editRoomMembersHint">Check users to add to this room.</p>
+        </div>
+        <div class="form-field">
+          <label data-i18n="chat.editRoomManagersLabel">Chat Managers <span style="font-weight:400;color:var(--km-muted)">(max 2)</span></label>
+          <div id="editRoomManagersList" style="max-height:140px;overflow-y:auto;border:1px solid var(--km-border);border-radius:8px;padding:6px 0;margin-top:6px;background:#fafafa"></div>
+          <p class="hint" data-i18n="chat.editRoomManagersHint">Selected managers can moderate this room.</p>
+        </div>
+        <div id="editRoomError" class="modal-error hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancelEditRoomBtn" data-i18n="actions.cancel">Cancel</button>
+          <button type="submit" class="btn primary-sm" data-i18n="chat.editRoomSubmit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Edit message modal -->
   <div id="editMessageModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
     <div class="modal">
@@ -456,6 +488,6 @@
   </div>
 
   <script src="./vendor/i18next.min.js"></script>
-  <script type="module" src="./app.js?v=13"></script>
+  <script type="module" src="./app.js?v=14"></script>
 </body>
 </html>

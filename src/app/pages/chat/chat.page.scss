@@ -27,6 +27,15 @@ ion-toolbar {
   padding: 10px;
 }
 
+.empty-state {
+  margin: 18px 12px;
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--km-red-dark);
+  font-weight: 700;
+}
+
 .rooms-scroll {
   display: flex;
   gap: 10px;

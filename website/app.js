@@ -65,6 +65,12 @@ const resources = {
         sendSuccess: 'Message envoye', sendError: 'Erreur envoi:',
         editModalTitle: 'Modifier le message', editPlaceholder: 'Nouveau texte…', editSubmit: 'Enregistrer',
         editSuccess: 'Message modifié.', editError: 'Erreur modification:',
+        editRoomTitle: 'Modifier le salon', editRoomBtn: 'Modifier', editRoomSubmit: 'Enregistrer',
+        editRoomNameLabel: 'Nom du salon',
+        editRoomSuccess: 'Salon mis à jour.', editRoomError: 'Erreur modification salon:',
+        editRoomMembersLabel: 'Membres', editRoomMembersHint: 'Cochez les utilisateurs à inclure dans ce salon.',
+        editRoomManagersLabel: 'Chat Managers', editRoomManagersHint: 'Les managers sélectionnés pourront modérer ce salon.',
+        editRoomLoading: 'Chargement des membres…', editRoomUsersError: 'Impossible de charger les utilisateurs.',
       },
       myevents: {
         title: 'Gestion des Events', refresh: 'Rafraichir', list: 'Events', items: 'Contenu event',
@@ -159,6 +165,12 @@ const resources = {
         sendSuccess: 'Message sent', sendError: 'Send error:',
         editModalTitle: 'Edit message', editPlaceholder: 'New text…', editSubmit: 'Save',
         editSuccess: 'Message updated.', editError: 'Edit error:',
+        editRoomTitle: 'Edit chat room', editRoomBtn: 'Edit', editRoomSubmit: 'Save',
+        editRoomNameLabel: 'Room name',
+        editRoomSuccess: 'Room updated.', editRoomError: 'Error updating room:',
+        editRoomMembersLabel: 'Members', editRoomMembersHint: 'Check the users to include in this room.',
+        editRoomManagersLabel: 'Chat Managers', editRoomManagersHint: 'Selected managers can moderate this room.',
+        editRoomLoading: 'Loading members…', editRoomUsersError: 'Unable to load users.',
       },
       myevents: {
         title: 'Events management', refresh: 'Refresh', list: 'Events', items: 'Event content',
@@ -253,6 +265,12 @@ const resources = {
         sendSuccess: 'Bericht verzonden', sendError: 'Fout bij verzenden:',
         editModalTitle: 'Bericht bewerken', editPlaceholder: 'Nieuwe tekst…', editSubmit: 'Opslaan',
         editSuccess: 'Bericht bijgewerkt.', editError: 'Fout bij bewerken:',
+        editRoomTitle: 'Kanaal bewerken', editRoomBtn: 'Bewerken', editRoomSubmit: 'Opslaan',
+        editRoomNameLabel: 'Kanaalnaam',
+        editRoomSuccess: 'Kanaal bijgewerkt.', editRoomError: 'Fout bij bewerken van kanaal:',
+        editRoomMembersLabel: 'Leden', editRoomMembersHint: 'Vink de gebruikers aan die in dit kanaal moeten worden opgenomen.',
+        editRoomManagersLabel: 'Chat Managers', editRoomManagersHint: 'Geselecteerde managers kunnen dit kanaal modereren.',
+        editRoomLoading: 'Leden laden…', editRoomUsersError: 'Kan gebruikers niet laden.',
       },
       myevents: {
         title: 'Eventbeheer', refresh: 'Vernieuwen', list: 'Events', items: 'Event-inhoud',
@@ -342,6 +360,13 @@ const els = {
   newEventStartsAt: document.getElementById('newEventStartsAt'),
   newEventEndsAt: document.getElementById('newEventEndsAt'),
   createEventError: document.getElementById('createEventError'),
+  editRoomModal: document.getElementById('editRoomModal'),
+  editRoomForm: document.getElementById('editRoomForm'),
+  editRoomId: document.getElementById('editRoomId'),
+  editRoomName: document.getElementById('editRoomName'),
+  editRoomUsersList: document.getElementById('editRoomUsersList'),
+  editRoomManagersList: document.getElementById('editRoomManagersList'),
+  editRoomError: document.getElementById('editRoomError'),
   editEventModal: document.getElementById('editEventModal'),
   editEventForm: document.getElementById('editEventForm'),
   editEventId: document.getElementById('editEventId'),
@@ -786,11 +811,112 @@ function loadAccess() {
 function renderRooms() {
   els.roomsList.innerHTML = state.rooms.map((room) => `
     <li class="list-item ${String(room.id) === String(state.selectedRoomId) ? 'active' : ''}" data-room-id="${escapeHtml(room.id)}">
-      <div><strong>${escapeHtml(room.name || `Room ${room.id}`)}</strong></div>
-      <div class="hint">${escapeHtml(t('chat.roomId'))}: ${escapeHtml(room.id)}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <div>
+          <strong>${escapeHtml(room.name || `Room ${room.id}`)}</strong>
+          <div class="hint">${escapeHtml(t('chat.roomId'))}: ${escapeHtml(room.id)}</div>
+        </div>
+        <button class="btn small" data-edit-room-id="${escapeHtml(room.id)}" data-edit-room-name="${escapeHtml(room.name || '')}" style="flex-shrink:0">
+          ${escapeHtml(t('chat.editRoomBtn'))}
+        </button>
+      </div>
     </li>
   `).join('');
 }
+
+// ── Edit room modal ──────────────────────────────────────────────────────────
+
+async function openEditRoomModal(roomId, roomName) {
+  els.editRoomId.value = roomId;
+  els.editRoomName.value = roomName;
+  els.editRoomError.classList.add('hidden');
+  els.editRoomUsersList.innerHTML = `<p class="hint" style="padding:6px 12px">${escapeHtml(t('chat.editRoomLoading'))}</p>`;
+  els.editRoomManagersList.innerHTML = '';
+  els.editRoomModal.classList.remove('hidden');
+
+  try {
+    const [allUsersRaw, membersRaw] = await Promise.all([
+      apiFetch('/admin_users.php'),
+      apiFetch(`/admin_chat_room_members.php?roomId=${encodeURIComponent(roomId)}`).catch(() => []),
+    ]);
+
+    const users      = normalizeKeys(Array.isArray(allUsersRaw) ? allUsersRaw : (allUsersRaw?.data ?? []));
+    const memberList = normalizeKeys(Array.isArray(membersRaw)  ? membersRaw  : (membersRaw?.data  ?? []));
+
+    const memberUuids  = new Set(memberList.map((m) => String(m.uuid).trim()));
+    const managerUuids = memberList.filter((m) => m.role === 'admin').map((m) => String(m.uuid).trim());
+
+    // Render member checkboxes
+    els.editRoomUsersList.innerHTML = users.map((u) => {
+      const uuid    = String(u.uuid).trim();
+      const checked = memberUuids.has(uuid) ? 'checked' : '';
+      const isMgr   = managerUuids.includes(uuid);
+      const badge   = isMgr
+        ? ` <span style="background:var(--km-red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px">manager</span>`
+        : '';
+      return `<label style="display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;font-size:13px">
+        <input type="checkbox" value="${escapeHtml(uuid)}" ${checked} style="width:15px;height:15px;accent-color:var(--km-red)" />
+        ${escapeHtml(u.username || '')} <span style="color:var(--km-muted)">(${escapeHtml(u.email || '')})</span>${badge}
+      </label>`;
+    }).join('');
+
+    // Render manager checkboxes (max 2; only from current member list)
+    const checkedManagers = new Set(managerUuids);
+    els.editRoomManagersList.innerHTML = users.map((u) => {
+      const uuid    = String(u.uuid).trim();
+      const checked = checkedManagers.has(uuid) ? 'checked' : '';
+      return `<label style="display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;font-size:13px">
+        <input type="checkbox" class="manager-cb" value="${escapeHtml(uuid)}" ${checked} style="width:15px;height:15px;accent-color:var(--km-red)" />
+        ${escapeHtml(u.username || '')} <span style="color:var(--km-muted)">(${escapeHtml(u.email || '')})</span>
+      </label>`;
+    }).join('');
+
+    // Enforce max 2 manager checkboxes
+    els.editRoomManagersList.addEventListener('change', (ev) => {
+      if (!ev.target.classList.contains('manager-cb')) return;
+      const checked = [...els.editRoomManagersList.querySelectorAll('.manager-cb:checked')];
+      if (checked.length > 2) { ev.target.checked = false; }
+    }, { once: false });
+
+  } catch (err) {
+    console.error('openEditRoomModal', err);
+    els.editRoomUsersList.innerHTML = `<p class="hint" style="padding:6px 12px">${escapeHtml(t('chat.editRoomUsersError'))}</p>`;
+  }
+}
+
+function closeEditRoomModal() {
+  els.editRoomModal.classList.add('hidden');
+}
+
+async function saveEditRoom() {
+  els.editRoomError.classList.add('hidden');
+  const roomId      = els.editRoomId.value;
+  const name        = els.editRoomName.value.trim();
+  if (!name) {
+    els.editRoomError.textContent = t('chat.editRoomNameLabel') + ' required.';
+    els.editRoomError.classList.remove('hidden');
+    return;
+  }
+
+  const memberUuids  = [...els.editRoomUsersList.querySelectorAll('input[type=checkbox]:checked')].map((cb) => cb.value);
+  const managerUuids = [...els.editRoomManagersList.querySelectorAll('.manager-cb:checked')].map((cb) => cb.value);
+
+  try {
+    await apiFetch('/admin_chat_room_update.php', {
+      method: 'POST',
+      body: JSON.stringify({ id: Number(roomId), name, memberUuids, managerUuids }),
+    });
+    closeEditRoomModal();
+    toast(t('chat.editRoomSuccess'), 'success');
+    await loadRooms();
+  } catch (error) {
+    els.editRoomError.textContent = `${t('chat.editRoomError')} ${error.message}`;
+    els.editRoomError.classList.remove('hidden');
+  }
+}
+
+// ── /Edit room modal ─────────────────────────────────────────────────────────
+
 
 function setReply(message) {
   state.replyToMessage = message;
@@ -1700,6 +1826,18 @@ function wireEvents() {
     e.preventDefault();
     void saveUser();
   });
+
+  // Edit room modal listeners
+  document.getElementById('closeEditRoomBtn')?.addEventListener('click', closeEditRoomModal);
+  document.getElementById('cancelEditRoomBtn')?.addEventListener('click', closeEditRoomModal);
+  els.editRoomModal?.addEventListener('click', (e) => {
+    if (e.target === els.editRoomModal) closeEditRoomModal();
+  });
+  els.editRoomForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    void saveEditRoom();
+  });
+
   els.refreshAccessBtn.addEventListener('click', () => loadAccess());
   els.refreshRoomsBtn.addEventListener('click', () => void loadRooms());
 
@@ -1784,6 +1922,12 @@ function wireEvents() {
   }
 
   els.roomsList.addEventListener('click', (event) => {
+    // Edit button — must check before room-id selection
+    const editRoomBtn = event.target.closest('[data-edit-room-id]');
+    if (editRoomBtn) {
+      void openEditRoomModal(editRoomBtn.dataset.editRoomId, editRoomBtn.dataset.editRoomName);
+      return;
+    }
     const item = event.target.closest('[data-room-id]');
     if (!item) return;
     state.selectedRoomId = item.dataset.roomId;

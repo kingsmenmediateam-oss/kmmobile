@@ -33,11 +33,12 @@ $pdo = db();
 $userRole = (string)($payload['role'] ?? '');
 $isAdmin  = ($userRole === 'admin' || $userRole === 'superadmin');
 
-// Les admins peuvent poster dans n'importe quel salon sans être membres
+// Les admins peuvent poster dans n'importe quel salon sans être membres.
+// Les autres doivent être membres via chat_room_members.
 if (!$isAdmin) {
-  $st = $pdo->prepare("SELECT 1 FROM chat_room_members WHERE room_id = :rid AND user_id = :uid");
-  $st->execute([':rid' => $roomId, ':uid' => $userId]);
-  if (!$st->fetchColumn()) {
+  $stM = $pdo->prepare("SELECT 1 FROM chat_room_members WHERE room_id = :rid AND user_id = :uid");
+  $stM->execute([':rid' => $roomId, ':uid' => $userId]);
+  if (!$stM->fetchColumn()) {
     json_error(403, 'FORBIDDEN', 'Not a member of this room');
   }
 }

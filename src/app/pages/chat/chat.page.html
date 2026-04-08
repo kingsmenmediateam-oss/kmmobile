@@ -23,6 +23,11 @@
     </div>
   </div>
 
+  <!-- Empty state: no rooms -->
+  <div class="empty-state" *ngIf="!loadingRooms && rooms.length === 0">
+    {{ tr('chatNoRoom') }}
+  </div>
+
   <!-- Messages -->
   <div class="messages" *ngIf="selectedRoom">
 <div

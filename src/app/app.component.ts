@@ -125,6 +125,7 @@ export class AppComponent {
       chatUser: 'User',
       chatOpenEmoji: 'Open emojis',
       chatCloseEmoji: 'Close emojis',
+      chatNoRoom: 'You are not registered in any chat room.',
       // My Events page
       eventTitle: 'My Events',
       eventLoading: 'Loading event information...',
@@ -196,6 +197,7 @@ export class AppComponent {
       chatUser: 'Gebruiker',
       chatOpenEmoji: 'Emoji openen',
       chatCloseEmoji: 'Emoji sluiten',
+      chatNoRoom: 'Je bent niet ingeschreven in een chatruimte.',
       // My Events page
       eventTitle: 'Mijn evenementen',
       eventLoading: 'Evenementinformatie laden...',
@@ -267,6 +269,7 @@ export class AppComponent {
       chatUser: 'Utilisateur',
       chatOpenEmoji: 'Ouvrir les emojis',
       chatCloseEmoji: 'Fermer les emojis',
+      chatNoRoom: 'Vous n\'êtes inscrit dans aucun salon de discussion.',
       // My Events page
       eventTitle: 'Mes événements',
       eventLoading: 'Chargement des informations...',
@@ -338,6 +341,7 @@ export class AppComponent {
       chatUser: 'Benutzer',
       chatOpenEmoji: 'Emojis öffnen',
       chatCloseEmoji: 'Emojis schließen',
+      chatNoRoom: 'Du bist in keinem Chatroom registriert.',
       // My Events page
       eventTitle: 'Meine Events',
       eventLoading: 'Eventinformationen werden geladen...',
@@ -409,6 +413,7 @@ export class AppComponent {
       chatUser: 'Uzytkownik',
       chatOpenEmoji: 'Otworz emoji',
       chatCloseEmoji: 'Zamknij emoji',
+      chatNoRoom: 'Nie jestes zapisany do zadnego pokoju czatu.',
       // My Events page
       eventTitle: 'Moje wydarzenia',
       eventLoading: 'Ladowanie informacji o wydarzeniu...',
@@ -480,6 +485,7 @@ export class AppComponent {
       chatUser: 'Vartotojas',
       chatOpenEmoji: 'Atidaryti emoji',
       chatCloseEmoji: 'Uzdaryti emoji',
+      chatNoRoom: 'Jūs nesate užsiregistravęs jokiame pokalbių kambaryje.',
       // My Events page
       eventTitle: 'Mano renginiai',
       eventLoading: 'Kraunama renginio informacija...',
@@ -551,6 +557,7 @@ export class AppComponent {
       chatUser: 'Usuario',
       chatOpenEmoji: 'Abrir emojis',
       chatCloseEmoji: 'Cerrar emojis',
+      chatNoRoom: 'No estás registrado en ninguna sala de chat.',
       // My Events page
       eventTitle: 'Mis eventos',
       eventLoading: 'Cargando información del evento...',
