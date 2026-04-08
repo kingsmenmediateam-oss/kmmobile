@@ -27,7 +27,8 @@ const resources = {
         createBtn: '+ Ajouter', createTitle: 'Nouvel utilisateur', createSubmit: 'Créer',
         fieldFirstname: 'Prénom', fieldLastname: 'Nom', fieldUsername: 'Username',
         fieldEmail: 'Email', fieldPassword: 'Mot de passe', fieldRole: 'Rôle', fieldBirthday: 'Date de naissance',
-        createSuccess: 'Utilisateur créé avec succès.', createError: 'Erreur création:',
+        createSuccess: 'Compte créé. Un mail d\'activation a été envoyé à l\'utilisateur.', createError: 'Erreur création:',
+        createMailFailed: 'Compte créé, mais l\'envoi du mail a échoué. Lien d\'activation :',
         editTitle: 'Modifier l\'utilisateur', editSubmit: 'Enregistrer',
         editSuccess: 'Utilisateur mis à jour.', editError: 'Erreur modification:',
       },
@@ -114,7 +115,8 @@ const resources = {
         createBtn: '+ Add user', createTitle: 'New user', createSubmit: 'Create',
         fieldFirstname: 'First name', fieldLastname: 'Last name', fieldUsername: 'Username',
         fieldEmail: 'Email', fieldPassword: 'Password', fieldRole: 'Role', fieldBirthday: 'Birthday',
-        createSuccess: 'User created successfully.', createError: 'Creation error:',
+        createSuccess: 'Account created. An activation email has been sent to the user.', createError: 'Creation error:',
+        createMailFailed: 'Account created, but the activation email could not be sent. Activation link:',
         editTitle: 'Edit user', editSubmit: 'Save',
         editSuccess: 'User updated.', editError: 'Edit error:',
       },
@@ -201,7 +203,8 @@ const resources = {
         createBtn: '+ Toevoegen', createTitle: 'Nieuwe gebruiker', createSubmit: 'Aanmaken',
         fieldFirstname: 'Voornaam', fieldLastname: 'Achternaam', fieldUsername: 'Gebruikersnaam',
         fieldEmail: 'E-mail', fieldPassword: 'Wachtwoord', fieldRole: 'Rol', fieldBirthday: 'Geboortedatum',
-        createSuccess: 'Gebruiker succesvol aangemaakt.', createError: 'Aanmaakfout:',
+        createSuccess: 'Account aangemaakt. Een activeringsmail is verzonden naar de gebruiker.', createError: 'Aanmaakfout:',
+        createMailFailed: 'Account aangemaakt, maar de activeringsmail kon niet worden verstuurd. Activeringslink:',
         editTitle: 'Gebruiker bewerken', editSubmit: 'Opslaan',
         editSuccess: 'Gebruiker bijgewerkt.', editError: 'Bewerkfout:',
       },
@@ -342,10 +345,10 @@ const els = {
   newUserLastname: document.getElementById('newUserLastname'),
   newUserUsername: document.getElementById('newUserUsername'),
   newUserEmail: document.getElementById('newUserEmail'),
-  newUserPassword: document.getElementById('newUserPassword'),
   newUserRole: document.getElementById('newUserRole'),
   newUserBirthday: document.getElementById('newUserBirthday'),
   createUserError: document.getElementById('createUserError'),
+  // newUserPassword removed — password set by user via activation email
   composeArea: document.getElementById('composeArea'),
   composeText: document.getElementById('composeText'),
   sendMessageBtn: document.getElementById('sendMessageBtn'),
@@ -368,11 +371,11 @@ function applyStaticTranslations() {
   });
 }
 
-function toast(message, type = '') {
+function toast(message, type = '', duration = 3200) {
   els.toast.textContent = message;
   els.toast.className = `toast ${type}`.trim();
   els.toast.classList.remove('hidden');
-  setTimeout(() => els.toast.classList.add('hidden'), 3200);
+  setTimeout(() => els.toast.classList.add('hidden'), duration);
 }
 
 function setAuthUI(loggedIn) {
@@ -535,6 +538,7 @@ function openCreateUserModal() {
   els.createUserForm.reset();
   els.createUserError.classList.add('hidden');
   els.createUserError.textContent = '';
+  els.createUserError.style.color = '';
   els.createUserModal.classList.remove('hidden');
   els.newUserFirstname.focus();
 }
@@ -552,15 +556,21 @@ async function createUser() {
     lastname:  els.newUserLastname.value.trim(),
     username:  els.newUserUsername.value.trim(),
     email:     els.newUserEmail.value.trim(),
-    password:  els.newUserPassword.value,
     role:      els.newUserRole.value,
     birthday:  els.newUserBirthday.value || '1900-01-01',
   };
 
   try {
-    await apiFetch('/admin_user_create.php', { method: 'POST', body: JSON.stringify(body) });
-    closeCreateUserModal();
-    toast(t('users.createSuccess'), 'success');
+    const data = await apiFetch('/admin_user_create.php', { method: 'POST', body: JSON.stringify(body) });
+    if (data.mailSent === false && data.activateUrl) {
+      // Mail échoué : on garde le modal ouvert et on affiche le lien copiable
+      els.createUserError.innerHTML = `${t('users.createMailFailed')}<br><input type="text" value="${data.activateUrl}" style="width:100%;margin-top:6px;font-size:11px;background:#0f1117;color:#fcd34d;border:1px solid #78530a;border-radius:4px;padding:4px 8px;" readonly onclick="this.select()" />`;
+      els.createUserError.classList.remove('hidden');
+      els.createUserError.style.color = '#fcd34d';
+    } else {
+      closeCreateUserModal();
+      toast(t('users.createSuccess'), 'success');
+    }
     await loadUsers();
   } catch (error) {
     const msg = error.message.includes('CONFLICT')

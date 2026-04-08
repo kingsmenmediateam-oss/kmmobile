@@ -1310,3 +1310,28 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
   font-size: 15px;
   white-space: nowrap;
 }
+
+/* ─── 27. Logo Kingsmen ─── */
+.brand-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.login-logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 8px;
+}

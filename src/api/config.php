@@ -10,6 +10,9 @@ return [
   'jwt_audience' => 'kmmobile',
   'jwt_ttl_seconds' => 60 * 60 * 6, // 6 heures
 
+  // URL publique de l'application (pour les liens dans les mails)
+  'app_url' => 'https://carecode.be/kmmobile',
+
   // DB (exemple MySQL)
   'db' => [
     'dsn' => 'mysql:host=127.0.0.1;dbname=carec1650622_6wwfgq;charset=utf8mb4',
