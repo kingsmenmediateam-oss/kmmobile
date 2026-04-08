@@ -24,7 +24,7 @@ const resources = {
         thId: 'ID', thUsername: 'Username', thEmail: 'Email', thRole: 'Role', thState: 'Etat', thActions: 'Actions',
         active: 'Actif', inactive: 'Inactif', activate: 'Activer', deactivate: 'Désactiver',
         toggleError: 'Erreur mise à jour:', selfDeactivation: 'Impossible de désactiver votre propre compte.',
-        createBtn: '+ Ajouter', createTitle: 'Nouvel utilisateur', createSubmit: 'Créer',
+        createBtn: 'Ajouter', createTitle: 'Nouvel utilisateur', createSubmit: 'Créer',
         fieldFirstname: 'Prénom', fieldLastname: 'Nom', fieldUsername: 'Username',
         fieldEmail: 'Email', fieldPassword: 'Mot de passe', fieldRole: 'Rôle', fieldBirthday: 'Date de naissance',
         createSuccess: 'Compte créé. Un mail d\'activation a été envoyé à l\'utilisateur.', createError: 'Erreur création:',
@@ -82,12 +82,12 @@ const resources = {
         thEdit: 'Edit',
         loading: 'Chargement...', noVisibleEvents: 'Aucun event visible.', noItems: 'Aucun item pour cet event.',
         loadItemsError: 'Erreur chargement items:', eventLabel: 'event',
-        createBtn: '+ Ajouter un event', createTitle: 'Nouvel event',
+        createBtn: 'Ajouter un event', createTitle: 'Nouvel event',
         fieldName: 'Nom', fieldStartsAt: 'Début', fieldEndsAt: 'Fin',
         createSubmit: 'Créer', createSuccess: 'Event créé avec succès.', createError: 'Erreur création:',
         deleteConfirm: 'Supprimer cet event et toutes ses données ?', deleteSuccess: 'Event supprimé.', deleteFailed: 'Suppression impossible:',
         thId: 'ID', thName: 'Nom', thStart: 'Début', thEnd: 'Fin', thAttendees: 'Participants', thActions: 'Actions',
-        addItemBtn: '+ Ajouter du contenu', addItemTitle: 'Ajouter un item à l\'event',
+        addItemBtn: 'Ajouter du contenu', addItemTitle: 'Ajouter un item à l\'event',
         itemTypeLabel: 'Type', itemTypeText: 'Texte / émoticone', itemTypeFile: 'Fichier (jpg, png, pdf)',
         fieldTitle: 'Titre', fieldBody: 'Contenu (texte, émoticones…)', fieldFile: 'Fichier',
         addItemSubmit: 'Ajouter', addItemSuccess: 'Item ajouté.', addItemError: 'Erreur ajout:',
@@ -124,7 +124,7 @@ const resources = {
         thId: 'ID', thUsername: 'Username', thEmail: 'Email', thRole: 'Role', thState: 'State', thActions: 'Actions',
         active: 'Active', inactive: 'Inactive', activate: 'Activate', deactivate: 'Deactivate',
         toggleError: 'Update error:', selfDeactivation: 'Cannot deactivate your own account.',
-        createBtn: '+ Add user', createTitle: 'New user', createSubmit: 'Create',
+        createBtn: 'Add user', createTitle: 'New user', createSubmit: 'Create',
         fieldFirstname: 'First name', fieldLastname: 'Last name', fieldUsername: 'Username',
         fieldEmail: 'Email', fieldPassword: 'Password', fieldRole: 'Role', fieldBirthday: 'Birthday',
         createSuccess: 'Account created. An activation email has been sent to the user.', createError: 'Creation error:',
@@ -182,12 +182,12 @@ const resources = {
         thEdit: 'Edit',
         loading: 'Loading...', noVisibleEvents: 'No visible events.', noItems: 'No items for this event.',
         loadItemsError: 'Failed to load items:', eventLabel: 'event',
-        createBtn: '+ Add event', createTitle: 'New event',
+        createBtn: 'Add event', createTitle: 'New event',
         fieldName: 'Name', fieldStartsAt: 'Start date', fieldEndsAt: 'End date',
         createSubmit: 'Create', createSuccess: 'Event created successfully.', createError: 'Creation error:',
         deleteConfirm: 'Delete this event and all its data?', deleteSuccess: 'Event deleted.', deleteFailed: 'Deletion failed:',
         thId: 'ID', thName: 'Name', thStart: 'Start', thEnd: 'End', thAttendees: 'Attendees', thActions: 'Actions',
-        addItemBtn: '+ Add content', addItemTitle: 'Add an item to the event',
+        addItemBtn: 'Add content', addItemTitle: 'Add an item to the event',
         itemTypeLabel: 'Type', itemTypeText: 'Text / emoji', itemTypeFile: 'File (jpg, png, pdf)',
         fieldTitle: 'Title', fieldBody: 'Content (text, emoji…)', fieldFile: 'File',
         addItemSubmit: 'Add', addItemSuccess: 'Item added.', addItemError: 'Add error:',
@@ -224,7 +224,7 @@ const resources = {
         thId: 'ID', thUsername: 'Gebruikersnaam', thEmail: 'E-mail', thRole: 'Rol', thState: 'Status', thActions: 'Acties',
         active: 'Actief', inactive: 'Inactief', activate: 'Activeren', deactivate: 'Deactiveren',
         toggleError: 'Updatefout:', selfDeactivation: 'U kunt uw eigen account niet deactiveren.',
-        createBtn: '+ Toevoegen', createTitle: 'Nieuwe gebruiker', createSubmit: 'Aanmaken',
+        createBtn: 'Toevoegen', createTitle: 'Nieuwe gebruiker', createSubmit: 'Aanmaken',
         fieldFirstname: 'Voornaam', fieldLastname: 'Achternaam', fieldUsername: 'Gebruikersnaam',
         fieldEmail: 'E-mail', fieldPassword: 'Wachtwoord', fieldRole: 'Rol', fieldBirthday: 'Geboortedatum',
         createSuccess: 'Account aangemaakt. Een activeringsmail is verzonden naar de gebruiker.', createError: 'Aanmaakfout:',
@@ -282,12 +282,12 @@ const resources = {
         thEdit: 'Bewerken',
         loading: 'Laden...', noVisibleEvents: 'Geen zichtbare events.', noItems: 'Geen items voor dit event.',
         loadItemsError: 'Items laden mislukt:', eventLabel: 'event',
-        createBtn: '+ Event toevoegen', createTitle: 'Nieuw event',
+        createBtn: 'Event toevoegen', createTitle: 'Nieuw event',
         fieldName: 'Naam', fieldStartsAt: 'Startdatum', fieldEndsAt: 'Einddatum',
         createSubmit: 'Aanmaken', createSuccess: 'Event succesvol aangemaakt.', createError: 'Aanmaakfout:',
         deleteConfirm: 'Dit event en alle bijbehorende gegevens verwijderen?', deleteSuccess: 'Event verwijderd.', deleteFailed: 'Verwijderen mislukt:',
         thId: 'ID', thName: 'Naam', thStart: 'Start', thEnd: 'Einde', thAttendees: 'Deelnemers', thActions: 'Acties',
-        addItemBtn: '+ Inhoud toevoegen', addItemTitle: 'Item toevoegen aan event',
+        addItemBtn: 'Inhoud toevoegen', addItemTitle: 'Item toevoegen aan event',
         itemTypeLabel: 'Type', itemTypeText: 'Tekst / emoji', itemTypeFile: 'Bestand (jpg, png, pdf)',
         fieldTitle: 'Titel', fieldBody: 'Inhoud (tekst, emoji…)', fieldFile: 'Bestand',
         addItemSubmit: 'Toevoegen', addItemSuccess: 'Item toegevoegd.', addItemError: 'Toevoegfout:',
@@ -417,7 +417,37 @@ function t(key, options = undefined) {
 function applyStaticTranslations() {
   document.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.getAttribute('data-i18n');
-    if (key) el.textContent = t(key);
+    if (!key) return;
+    const translated = t(key);
+    const svg = el.querySelector('svg');
+    if (svg) {
+      // Preserve the SVG icon — only update the text node that follows it
+      // Find or create a text span
+      let textNode = el.querySelector('span.i18n-label');
+      if (!textNode) {
+        // Replace bare text nodes with a span so we can target them
+        [...el.childNodes]
+          .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim() !== '')
+          .forEach((n) => {
+            const s = document.createElement('span');
+            s.className = 'i18n-label';
+            s.textContent = n.textContent;
+            n.replaceWith(s);
+          });
+        textNode = el.querySelector('span.i18n-label');
+      }
+      if (textNode) {
+        textNode.textContent = translated;
+      } else {
+        // No existing text node — append one after the SVG
+        const s = document.createElement('span');
+        s.className = 'i18n-label';
+        s.textContent = translated;
+        el.appendChild(s);
+      }
+    } else {
+      el.textContent = translated;
+    }
   });
 }
 
@@ -692,11 +722,16 @@ async function loadUsers() {
             data-edit-user-username="${escapeHtml(u.username || '')}"
             data-edit-user-email="${escapeHtml(u.email || '')}"
             data-edit-user-role="${escapeHtml(u.role || 'member')}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
             ${escapeHtml(t('actions.edit'))}
           </button>
           <button class="btn small ${active ? 'toggle-deactivate' : 'toggle-activate'}"
             data-toggle-uuid="${uuid}"
             data-toggle-active="${active ? '1' : '0'}">
+            ${active
+              ? `<svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524L13.477 14.89zm1.414-1.414L6.524 5.11A6 6 0 0114.89 13.476zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"/></svg>`
+              : `<svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>`
+            }
             ${escapeHtml(active ? t('users.deactivate') : t('users.activate'))}
           </button>
         </td>
@@ -817,6 +852,7 @@ function renderRooms() {
           <div class="hint">${escapeHtml(t('chat.roomId'))}: ${escapeHtml(room.id)}</div>
         </div>
         <button class="btn small" data-edit-room-id="${escapeHtml(room.id)}" data-edit-room-name="${escapeHtml(room.name || '')}" style="flex-shrink:0">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
           ${escapeHtml(t('chat.editRoomBtn'))}
         </button>
       </div>
@@ -1093,17 +1129,20 @@ async function loadMessages(roomId) {
             data-reply-message-id="${escapeHtml(m.id)}"
             data-reply-author="${escapeHtml(m.author?.displayName || '')}"
             data-reply-text="${escapeHtml((m.text || '').substring(0, 100))}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
             ${escapeHtml(t('actions.reply'))}
           </button>
           <button class="btn small"
             data-edit-message-id="${escapeHtml(m.id)}"
             data-edit-room-id="${escapeHtml(roomId)}"
             data-edit-message-text="${escapeHtml(m.text || '')}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
             ${escapeHtml(t('actions.edit'))}
           </button>
           <button class="btn danger small"
             data-delete-message-id="${escapeHtml(m.id)}"
             data-delete-room-id="${escapeHtml(roomId)}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
             ${escapeHtml(t('actions.delete'))}
           </button>
         </td>
@@ -1241,6 +1280,7 @@ function renderEventsTable() {
       <td class="actions-cell">
         <button class="btn small"
           data-view-event-id="${escapeHtml(event.id)}">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
           ${escapeHtml(t('myevents.items'))}
         </button>
         ${isAdmin ? `
@@ -1249,11 +1289,13 @@ function renderEventsTable() {
           data-edit-event-name="${escapeHtml(event.name || '')}"
           data-edit-event-starts="${escapeHtml(event.startsAt || '')}"
           data-edit-event-ends="${escapeHtml(event.endsAt || '')}">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
           ${escapeHtml(t('myevents.editBtn'))}
         </button>
         <button class="btn danger small"
           data-delete-event-id="${escapeHtml(event.id)}"
           data-delete-event-name="${escapeHtml(event.name || '')}">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
           ${escapeHtml(t('actions.delete'))}
         </button>` : ''}
       </td>
@@ -1424,6 +1466,7 @@ function renderEventManagers(eventId, managers) {
           <button class="btn danger small"
             data-remove-manager-uuid="${escapeHtml(m.uuid)}"
             data-remove-manager-event="${escapeHtml(String(eventId))}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
             ${escapeHtml(t('myevents.managerRemove'))}
           </button>
         </div>`).join('');
@@ -1439,6 +1482,7 @@ function renderEventManagers(eventId, managers) {
         style="flex:1;min-width:200px" />
       <button id="managerAssignBtn" class="btn primary-sm"
         data-assign-event="${escapeHtml(String(eventId))}">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
         ${escapeHtml(t('myevents.managerAssign'))}
       </button>
     </div>`;
@@ -1535,11 +1579,13 @@ function renderEventItemsAdmin(items) {
             data-edit-item-body="${escapeHtml(item.body || '')}"
             data-edit-item-type="${escapeHtml(item.type || 'pin')}"
             data-edit-item-fileurl="${escapeHtml(item.fileUrl || '')}">
-            ✏️ ${escapeHtml(t('actions.edit'))}
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
+            ${escapeHtml(t('actions.edit'))}
           </button>
           <button class="btn danger small item-delete-btn"
             data-delete-item-id="${escapeHtml(String(item.id))}"
             title="${escapeHtml(t('myevents.deleteItemConfirm'))}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
             ${escapeHtml(t('actions.delete'))}
           </button>
         </div>
