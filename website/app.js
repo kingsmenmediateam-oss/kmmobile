@@ -71,6 +71,7 @@ const resources = {
         editRoomMembersLabel: 'Membres', editRoomMembersHint: 'Cochez les utilisateurs à inclure dans ce salon.',
         editRoomManagersLabel: 'Chat Managers', editRoomManagersHint: 'Les managers sélectionnés pourront modérer ce salon.',
         editRoomLoading: 'Chargement des membres…', editRoomUsersError: 'Impossible de charger les utilisateurs.',
+        deleteRoomConfirm: 'Supprimer ce salon et tous ses messages ?', deleteRoomSuccess: 'Salon supprimé.', deleteRoomFailed: 'Suppression impossible:',
       },
       myevents: {
         title: 'Gestion des Events', refresh: 'Rafraichir', list: 'Events', items: 'Contenu event',
@@ -81,8 +82,8 @@ const resources = {
         usersLoadError: 'Impossible de charger la liste des utilisateurs.',
         thEdit: 'Edit',
         loading: 'Chargement...', noVisibleEvents: 'Aucun event visible.', noItems: 'Aucun item pour cet event.',
-        loadItemsError: 'Erreur chargement items:', eventLabel: 'event',
-        createBtn: 'Ajouter un event', createTitle: 'Nouvel event',
+        loadItemsError: 'Erreur chargement items:', eventLabel: 'event', list: 'Events',
+        createBtn: 'Créer', createTitle: 'Nouvel event',
         fieldName: 'Nom', fieldStartsAt: 'Début', fieldEndsAt: 'Fin',
         createSubmit: 'Créer', createSuccess: 'Event créé avec succès.', createError: 'Erreur création:',
         deleteConfirm: 'Supprimer cet event et toutes ses données ?', deleteSuccess: 'Event supprimé.', deleteFailed: 'Suppression impossible:',
@@ -171,6 +172,7 @@ const resources = {
         editRoomMembersLabel: 'Members', editRoomMembersHint: 'Check the users to include in this room.',
         editRoomManagersLabel: 'Chat Managers', editRoomManagersHint: 'Selected managers can moderate this room.',
         editRoomLoading: 'Loading members…', editRoomUsersError: 'Unable to load users.',
+        deleteRoomConfirm: 'Delete this room and all its messages?', deleteRoomSuccess: 'Room deleted.', deleteRoomFailed: 'Deletion failed:',
       },
       myevents: {
         title: 'Events management', refresh: 'Refresh', list: 'Events', items: 'Event content',
@@ -181,8 +183,8 @@ const resources = {
         usersLoadError: 'Unable to load the users list.',
         thEdit: 'Edit',
         loading: 'Loading...', noVisibleEvents: 'No visible events.', noItems: 'No items for this event.',
-        loadItemsError: 'Failed to load items:', eventLabel: 'event',
-        createBtn: 'Add event', createTitle: 'New event',
+        loadItemsError: 'Failed to load items:', eventLabel: 'event', list: 'Events',
+        createBtn: 'Create', createTitle: 'New event',
         fieldName: 'Name', fieldStartsAt: 'Start date', fieldEndsAt: 'End date',
         createSubmit: 'Create', createSuccess: 'Event created successfully.', createError: 'Creation error:',
         deleteConfirm: 'Delete this event and all its data?', deleteSuccess: 'Event deleted.', deleteFailed: 'Deletion failed:',
@@ -271,6 +273,7 @@ const resources = {
         editRoomMembersLabel: 'Leden', editRoomMembersHint: 'Vink de gebruikers aan die in dit kanaal moeten worden opgenomen.',
         editRoomManagersLabel: 'Chat Managers', editRoomManagersHint: 'Geselecteerde managers kunnen dit kanaal modereren.',
         editRoomLoading: 'Leden laden…', editRoomUsersError: 'Kan gebruikers niet laden.',
+        deleteRoomConfirm: 'Dit kanaal en alle berichten verwijderen?', deleteRoomSuccess: 'Kanaal verwijderd.', deleteRoomFailed: 'Verwijderen mislukt:',
       },
       myevents: {
         title: 'Eventbeheer', refresh: 'Vernieuwen', list: 'Events', items: 'Event-inhoud',
@@ -281,8 +284,8 @@ const resources = {
         usersLoadError: 'Kan de gebruikerslijst niet laden.',
         thEdit: 'Bewerken',
         loading: 'Laden...', noVisibleEvents: 'Geen zichtbare events.', noItems: 'Geen items voor dit event.',
-        loadItemsError: 'Items laden mislukt:', eventLabel: 'event',
-        createBtn: 'Event toevoegen', createTitle: 'Nieuw event',
+        loadItemsError: 'Items laden mislukt:', eventLabel: 'event', list: 'Events',
+        createBtn: 'Aanmaken', createTitle: 'Nieuw event',
         fieldName: 'Naam', fieldStartsAt: 'Startdatum', fieldEndsAt: 'Einddatum',
         createSubmit: 'Aanmaken', createSuccess: 'Event succesvol aangemaakt.', createError: 'Aanmaakfout:',
         deleteConfirm: 'Dit event en alle bijbehorende gegevens verwijderen?', deleteSuccess: 'Event verwijderd.', deleteFailed: 'Verwijderen mislukt:',
@@ -347,6 +350,7 @@ const els = {
   roomsList: document.getElementById('roomsList'),
   messagesTitle: document.getElementById('messagesTitle'),
   messagesContent: document.getElementById('messagesContent'),
+  eventsList: document.getElementById('eventsList'),
   eventsList: document.getElementById('eventsList'),
   eventsTableContent: document.getElementById('eventsTableContent'),
   eventItemsTitle: document.getElementById('eventItemsTitle'),
@@ -472,8 +476,9 @@ function setAuthUI(loggedIn) {
     document.querySelector('[data-page="users"]')?.classList.toggle('hidden', !isAdmin);
     document.querySelector('[data-page="access"]')?.classList.toggle('hidden', !isAdmin);
     document.querySelector('[data-page="chat"]')?.classList.toggle('hidden', !isAdmin);
-    // openCreateEventBtn visible only for admins
-    if (els.openCreateEventBtn) els.openCreateEventBtn.classList.toggle('hidden', !isAdmin);
+    // Inline create-event form visible only for admins
+    const createEventForm = document.getElementById('createEventForm');
+    if (createEventForm) createEventForm.style.display = isAdmin ? '' : 'none';
   }
 }
 
@@ -844,17 +849,26 @@ function loadAccess() {
 }
 
 function renderRooms() {
+  const isAdmin = state.role === 'admin' || state.role === 'superadmin';
   els.roomsList.innerHTML = state.rooms.map((room) => `
     <li class="list-item ${String(room.id) === String(state.selectedRoomId) ? 'active' : ''}" data-room-id="${escapeHtml(room.id)}">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-        <div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <div style="min-width:0">
           <strong>${escapeHtml(room.name || `Room ${room.id}`)}</strong>
           <div class="hint">${escapeHtml(t('chat.roomId'))}: ${escapeHtml(room.id)}</div>
         </div>
-        <button class="btn small" data-edit-room-id="${escapeHtml(room.id)}" data-edit-room-name="${escapeHtml(room.name || '')}" style="flex-shrink:0">
-          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
-          ${escapeHtml(t('chat.editRoomBtn'))}
-        </button>
+        <div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
+          <button class="btn small" data-edit-room-id="${escapeHtml(room.id)}" data-edit-room-name="${escapeHtml(room.name || '')}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
+            ${escapeHtml(t('chat.editRoomBtn'))}
+          </button>
+          ${isAdmin ? `<button class="btn danger small"
+            data-delete-room-id="${escapeHtml(room.id)}"
+            data-delete-room-name="${escapeHtml(room.name || '')}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+            ${escapeHtml(t('actions.delete'))}
+          </button>` : ''}
+        </div>
       </div>
     </li>
   `).join('');
@@ -1263,70 +1277,45 @@ async function saveEditEvent() {
   }
 }
 
-function renderEventsTable() {
-  if (!els.eventsTableContent) return;
+function renderEventsList() {
+  const list = document.getElementById('eventsList');
+  if (!list) return;
   if (state.events.length === 0) {
-    els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.noVisibleEvents'))}</p>`;
+    list.innerHTML = `<li class="hint">${escapeHtml(t('myevents.noVisibleEvents'))}</li>`;
     return;
   }
   const isAdmin = state.role === 'admin' || state.role === 'superadmin';
-  const rows = state.events.map((event) => `
-    <tr>
-      <td class="code">${escapeHtml(event.id)}</td>
-      <td><strong>${escapeHtml(event.name || '')}</strong></td>
-      <td>${escapeHtml(event.startsAt || '')}</td>
-      <td>${escapeHtml(event.endsAt || '')}</td>
-      <td>${escapeHtml(String(event.attendeeCount ?? 0))}</td>
-      <td class="actions-cell">
-        <button class="btn small"
-          data-view-event-id="${escapeHtml(event.id)}">
-          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
-          ${escapeHtml(t('myevents.items'))}
-        </button>
-        ${isAdmin ? `
-        <button class="btn small"
-          data-edit-event-id="${escapeHtml(event.id)}"
-          data-edit-event-name="${escapeHtml(event.name || '')}"
-          data-edit-event-starts="${escapeHtml(event.startsAt || '')}"
-          data-edit-event-ends="${escapeHtml(event.endsAt || '')}">
-          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
-          ${escapeHtml(t('myevents.editBtn'))}
-        </button>
-        <button class="btn danger small"
-          data-delete-event-id="${escapeHtml(event.id)}"
-          data-delete-event-name="${escapeHtml(event.name || '')}">
-          <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-          ${escapeHtml(t('actions.delete'))}
-        </button>` : ''}
-      </td>
-    </tr>`
+  list.innerHTML = state.events.map((event) => `
+    <li class="list-item ${String(event.id) === String(state.selectedEventId) ? 'active' : ''}" data-select-event-id="${escapeHtml(event.id)}">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <div style="min-width:0">
+          <strong>${escapeHtml(event.name || `Event ${event.id}`)}</strong>
+          <div class="hint">${escapeHtml(event.startsAt ? event.startsAt.slice(0,10) : '')}${event.endsAt ? ' → ' + escapeHtml(event.endsAt.slice(0,10)) : ''}</div>
+          <div class="hint">${escapeHtml(String(event.attendeeCount ?? 0))} participant(s)</div>
+        </div>
+        ${isAdmin ? `<div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
+          <button class="btn small"
+            data-edit-event-id="${escapeHtml(event.id)}"
+            data-edit-event-name="${escapeHtml(event.name || '')}"
+            data-edit-event-starts="${escapeHtml(event.startsAt || '')}"
+            data-edit-event-ends="${escapeHtml(event.endsAt || '')}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
+            ${escapeHtml(t('actions.edit'))}
+          </button>
+          <button class="btn danger small"
+            data-delete-event-id="${escapeHtml(event.id)}"
+            data-delete-event-name="${escapeHtml(event.name || '')}">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+            ${escapeHtml(t('actions.delete'))}
+          </button>
+        </div>` : ''}
+      </div>
+    </li>`
   ).join('');
-  els.eventsTableContent.innerHTML = `
-    <div class="table-wrap">
-      <table class="table">
-        <thead><tr>
-          <th>${escapeHtml(t('myevents.thId'))}</th>
-          <th>${escapeHtml(t('myevents.thName'))}</th>
-          <th>${escapeHtml(t('myevents.thStart'))}</th>
-          <th>${escapeHtml(t('myevents.thEnd'))}</th>
-          <th>${escapeHtml(t('myevents.thAttendees'))}</th>
-          <th>${escapeHtml(t('myevents.thActions'))}</th>
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>`;
 }
 
-function openCreateEventModal() {
-  els.createEventForm.reset();
-  els.createEventError.classList.add('hidden');
-  els.createEventError.textContent = '';
-  els.createEventModal.classList.remove('hidden');
-  els.newEventName.focus();
-}
-
-function closeCreateEventModal() {
-  els.createEventModal.classList.add('hidden');
+function renderEventsTable() {
+  renderEventsList();
 }
 
 async function createEvent() {
@@ -1341,7 +1330,7 @@ async function createEvent() {
 
   try {
     await apiFetch('/admin_event_create.php', { method: 'POST', body: JSON.stringify(body) });
-    closeCreateEventModal();
+    els.createEventForm.reset();
     toast(t('myevents.createSuccess'), 'success');
     await loadEvents();
   } catch (error) {
@@ -1371,20 +1360,38 @@ async function deleteEvent(id, name) {
   }
 }
 
+async function deleteRoom(id, name) {
+  const confirmMsg = `${t('chat.deleteRoomConfirm')}\n"${name}"`;
+  if (!confirm(confirmMsg)) return;
+  try {
+    await apiFetch('/admin_chat_room_delete.php', { method: 'POST', body: JSON.stringify({ id }) });
+    toast(t('chat.deleteRoomSuccess'), 'success');
+    if (String(state.selectedRoomId) === String(id)) {
+      state.selectedRoomId = null;
+      els.messagesContent.innerHTML = '';
+      els.messagesTitle.textContent = t('chat.messages');
+      els.composeArea.classList.add('hidden');
+    }
+    await loadRooms();
+  } catch (error) {
+    toast(`${t('chat.deleteRoomFailed')} ${error.message}`, 'error');
+  }
+}
+
 function renderEvents() {
-  // Kept for backward compat — now delegates to table renderer
-  renderEventsTable();
+  renderEventsList();
 }
 
 async function loadEvents() {
-  if (els.eventsTableContent) els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('myevents.loading'))}</p>`;
+  const list = document.getElementById('eventsList');
+  if (list) list.innerHTML = `<li class="hint">${escapeHtml(t('myevents.loading'))}</li>`;
   try {
     const response = await apiFetch('/admin_events.php');
     const rawEvents = Array.isArray(response) ? response : (response?.data ?? []);
     const events = normalizeKeys(rawEvents);
     state.events = Array.isArray(events) ? events : [];
 
-    renderEventsTable();
+    renderEventsList();
 
     if (!state.selectedEventId && state.events[0]) {
       state.selectedEventId = state.events[0].id;
@@ -1397,7 +1404,8 @@ async function loadEvents() {
     }
   } catch (error) {
     console.error('Error loading events:', error);
-    if (els.eventsTableContent) els.eventsTableContent.innerHTML = `<p class="hint">${escapeHtml(t('common.error'))}: ${escapeHtml(error.message)}</p>`;
+    const list = document.getElementById('eventsList');
+    if (list) list.innerHTML = `<li class="hint">${escapeHtml(t('common.error'))}: ${escapeHtml(error.message)}</li>`;
     if (els.eventItemsContent) els.eventItemsContent.innerHTML = '';
   }
 }
@@ -1893,26 +1901,14 @@ function wireEvents() {
   });
   els.refreshEventsBtn.addEventListener('click', () => void loadEvents());
 
-  // Wiring modal create event
-  els.openCreateEventBtn?.addEventListener('click', openCreateEventModal);
-  els.closeCreateEventBtn?.addEventListener('click', closeCreateEventModal);
-  els.cancelCreateEventBtn?.addEventListener('click', closeCreateEventModal);
-  els.createEventModal?.addEventListener('click', (event) => {
-    if (event.target === els.createEventModal) closeCreateEventModal();
-  });
+  // Wiring formulaire inline create event
   els.createEventForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     void createEvent();
   });
 
-  // Wiring tableau events (view items + edit + delete)
-  document.getElementById('eventsTableContent')?.addEventListener('click', (event) => {
-    const viewBtn = event.target.closest('[data-view-event-id]');
-    if (viewBtn) {
-      state.selectedEventId = viewBtn.dataset.viewEventId;
-      void loadEventItems(state.selectedEventId);
-      return;
-    }
+  // Wiring liste events (clic sur item = charger contenu, edit, delete)
+  document.getElementById('eventsList')?.addEventListener('click', (event) => {
     const editBtn = event.target.closest('[data-edit-event-id]');
     if (editBtn) {
       void openEditEventModal(editBtn.dataset.editEventId, editBtn.dataset.editEventName);
@@ -1921,6 +1917,13 @@ function wireEvents() {
     const delBtn = event.target.closest('[data-delete-event-id]');
     if (delBtn) {
       void deleteEvent(delBtn.dataset.deleteEventId, delBtn.dataset.deleteEventName);
+      return;
+    }
+    const item = event.target.closest('[data-select-event-id]');
+    if (item) {
+      state.selectedEventId = item.dataset.selectEventId;
+      renderEventsList();
+      void loadEventItems(state.selectedEventId);
     }
   });
 
@@ -1968,6 +1971,12 @@ function wireEvents() {
   }
 
   els.roomsList.addEventListener('click', (event) => {
+    // Delete button — must check before room-id selection
+    const delRoomBtn = event.target.closest('[data-delete-room-id]');
+    if (delRoomBtn) {
+      void deleteRoom(delRoomBtn.dataset.deleteRoomId, delRoomBtn.dataset.deleteRoomName);
+      return;
+    }
     // Edit button — must check before room-id selection
     const editRoomBtn = event.target.closest('[data-edit-room-id]');
     if (editRoomBtn) {

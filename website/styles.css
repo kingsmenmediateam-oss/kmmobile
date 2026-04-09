@@ -847,16 +847,6 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
 }
 .panel-label-row .panel-label { margin-bottom: 0; }
 
-/* Events section: single-column layout (no sidebar panel) */
-.events-admin-grid {
-  display: block;
-  width: 100%;
-}
-
-.events-admin-grid .panel-col {
-  width: 100%;
-}
-
 .panel-main { width: 100%; }
 
 /* ─── 16. Listes (salons, events) ─── */

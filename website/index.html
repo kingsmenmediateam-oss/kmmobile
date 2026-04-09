@@ -229,23 +229,43 @@
         <section id="page-myevents" class="page">
           <div class="page-header">
             <h2 data-i18n="myevents.title">Events</h2>
-            <div class="page-header-actions">
-              <button class="btn primary-sm" id="openCreateEventBtn" data-i18n="myevents.createBtn">
-                <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-                Ajouter un event
-              </button>
-              <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">
-                <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
-                Rafraîchir
-              </button>
-            </div>
+            <button class="btn" id="refreshEventsBtn" data-i18n="myevents.refresh">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
+              Rafraîchir
+            </button>
           </div>
 
-          <!-- Liste des events (tableau) -->
-          <div id="eventsTableContent"></div>
+          <!-- Formulaire création d'event -->
+          <form id="createEventForm" class="create-form">
+            <p class="create-form-heading" data-i18n="myevents.createTitle">Nouvel event</p>
+            <div class="create-form-fields">
+              <div class="form-field" style="flex:2;min-width:200px">
+                <label for="newEventName" data-i18n="myevents.fieldName">Nom</label>
+                <input type="text" id="newEventName" required autocomplete="off" />
+              </div>
+              <div class="form-field">
+                <label for="newEventStartsAt" data-i18n="myevents.fieldStartsAt">Début</label>
+                <input type="datetime-local" id="newEventStartsAt" required />
+              </div>
+              <div class="form-field">
+                <label for="newEventEndsAt" data-i18n="myevents.fieldEndsAt">Fin</label>
+                <input type="datetime-local" id="newEventEndsAt" required />
+              </div>
+              <button class="btn primary-sm" type="submit" data-i18n="myevents.createBtn">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                Créer
+              </button>
+            </div>
+            <div id="createEventError" class="modal-error hidden" style="margin-top:8px"></div>
+          </form>
 
-          <!-- Détail items d'un event -->
-          <div class="events-admin-grid" style="margin-top:1.5rem">
+          <div class="events-admin-grid">
+            <!-- Colonne gauche : liste des events -->
+            <div class="panel-col">
+              <p class="panel-label" data-i18n="myevents.list">Events</p>
+              <ul id="eventsList" class="list"></ul>
+            </div>
+            <!-- Colonne droite : contenu de l'event sélectionné -->
             <div class="panel-col panel-main">
               <div class="panel-label-row">
                 <p class="panel-label" id="eventItemsTitle" data-i18n="myevents.items">Contenu event</p>
@@ -566,6 +586,6 @@
   </div>
 
   <script src="./vendor/i18next.min.js"></script>
-  <script type="module" src="./app.js?v=17"></script>
+  <script type="module" src="./app.js?v=19"></script>
 </body>
 </html>
