@@ -59,7 +59,7 @@
 </ion-content>
 
 <!-- Composer -->
-<ion-footer *ngIf="selectedRoom">
+<ion-footer *ngIf="selectedRoom" class="chat-footer">
   <ion-toolbar>
     <div class="composer-wrap">
       <div class="reply-draft" *ngIf="replyTarget">
@@ -71,11 +71,17 @@
       </div>
 
       <div class="composer">
-        <ion-textarea
-          autoGrow="true"
+        <textarea
+          #chatNativeTextarea
+          class="km-textarea"
+          rows="1"
+          inputmode="text"
+          enterkeyhint="send"
           [placeholder]="tr('chatPlaceholder')"
-          [(ngModel)]="draft">
-        </ion-textarea>
+          [(ngModel)]="draft"
+          (input)="autoGrow($event)"
+          (keydown.enter)="$event.preventDefault(); send()">
+        </textarea>
 
         <ion-button
           fill="clear"

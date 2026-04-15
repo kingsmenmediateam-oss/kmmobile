@@ -11,8 +11,10 @@ require __DIR__ . '/lib/jwt.php';
  */
 function is_allowed_origin(string $origin): bool {
   if ($origin === 'https://carecode.be') return true;
-  if (preg_match('#^http://localhost(?::\d+)?$#', $origin)) return true;
-  if (preg_match('#^http://127\.0\.0\.1(?::\d+)?$#', $origin)) return true;
+  if (preg_match('/^https:\/\/localhost(:\d+)?$/', $origin)) return true;
+  if (preg_match('/^http:\/\/localhost(:\d+)?$/', $origin)) return true;
+  if (preg_match('/^https:\/\/127\.0\.0\.1(:\d+)?$/', $origin)) return true;
+  if (preg_match('/^http:\/\/127\.0\.0\.1(:\d+)?$/', $origin)) return true;
   if ($origin === 'capacitor://localhost') return true;
   if ($origin === 'ionic://localhost') return true;
   return false;
@@ -21,7 +23,11 @@ function is_allowed_origin(string $origin): bool {
 function send_cors_headers(): void {
   $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-  if ($origin !== '' && is_allowed_origin($origin)) {
+  if ($origin === '') {
+    // Android WebView (Capacitor) sometimes sends no Origin header.
+    // Reflect a safe wildcard so the response is never blocked.
+    header('Access-Control-Allow-Origin: *');
+  } elseif (is_allowed_origin($origin)) {
     header("Access-Control-Allow-Origin: $origin");
     header('Vary: Origin');
   }

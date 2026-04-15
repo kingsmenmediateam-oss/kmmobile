@@ -8,6 +8,7 @@
 
 ion-content {
   --background: var(--km-red);
+  --padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 ion-header,

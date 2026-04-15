@@ -12,6 +12,7 @@
 /* Background */
 ion-content {
   --background: var(--km-red);
+  --padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px));
 }
 
 /* Header */
@@ -244,16 +245,31 @@ ion-footer ion-toolbar {
   --background: var(--km-red-dark);
 }
 
+ion-footer {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  position: relative;
+  z-index: 100;
+}
+
+ion-footer ion-toolbar {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+}
+
 .composer {
   display: flex;
   gap: 10px;
   align-items: center;
+  width: 100%;
 }
 
 .composer-wrap {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
 .reply-draft {
@@ -299,14 +315,33 @@ ion-footer ion-toolbar {
   flex: 0 0 auto;
 }
 
-ion-textarea {
+.km-textarea {
   flex: 1;
-  --background: var(--km-white);
-  --color: var(--km-ink);
-  --placeholder-color: rgba(0, 0, 0, 0.45);
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  max-height: 120px;
+  background: rgba(255, 255, 255, 0.98);
+  color: var(--km-ink);
+  padding: 10px 12px;
   border-radius: 16px;
-  padding: 8px;
-  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  z-index: 1;
+  position: relative;
+}
+
+.km-textarea::placeholder {
+  color: rgba(0, 0, 0, 0.45);
 }
 
 /* Send button */
@@ -322,6 +357,7 @@ ion-button {
   min-height: 44px;
   --padding-start: 12px;
   --padding-end: 12px;
+  flex: 0 0 auto;
 }
 
 .composer ion-button.emoji-toggle {

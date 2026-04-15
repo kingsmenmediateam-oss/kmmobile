@@ -22,6 +22,8 @@ allprojects {
         google()
         mavenCentral()
     }
+    // Redirect build outputs for plugins sourced from node_modules (read-only in CI)
+    buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
 task clean(type: Delete) {

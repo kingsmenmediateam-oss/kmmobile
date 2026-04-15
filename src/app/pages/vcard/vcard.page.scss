@@ -1,5 +1,6 @@
 .km-content {
   --background: #e00000; // même rouge que home
+  --padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .km-wrapper {

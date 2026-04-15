@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Keyboard } from '@capacitor/keyboard';
 
 import { IonContent } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
@@ -32,6 +33,7 @@ type UiChatMessage = ChatMessage & {
 })
 export class ChatPage implements OnInit, OnDestroy {
   @ViewChild(IonContent) content!: IonContent;
+  @ViewChild('chatNativeTextarea') chatNativeTextarea?: ElementRef<HTMLTextAreaElement>;
 
   rooms: ChatRoom[] = [];
   selectedRoom: ChatRoom | null = null;
@@ -161,6 +163,7 @@ export class ChatPage implements OnInit, OnDestroy {
 
   appendEmoji(emoji: string): void {
     this.draft = `${this.draft}${emoji}`;
+    void this.focusComposer();
   }
 
   startReply(message: UiChatMessage): void {
@@ -170,6 +173,19 @@ export class ChatPage implements OnInit, OnDestroy {
 
   cancelReply(): void {
     this.replyTarget = null;
+  }
+
+  async focusComposer(): Promise<void> {
+    try {
+      this.chatNativeTextarea?.nativeElement.focus();
+      await Keyboard.show();
+    } catch {}
+  }
+
+  autoGrow(event: Event): void {
+    const el = event.target as HTMLTextAreaElement;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
   }
 
   private composeOutgoingText(text: string): string {

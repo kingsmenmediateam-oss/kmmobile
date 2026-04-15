@@ -11,22 +11,23 @@ declare(strict_types=1);
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 function is_allowed_origin_index(string $origin): bool {
   if ($origin === 'https://carecode.be') return true;
-  if (preg_match('#^http://localhost(?::\d+)?$#', $origin)) return true;
-  if (preg_match('#^http://127\.0\.0\.1(?::\d+)?$#', $origin)) return true;
+  if (preg_match('/^https:\/\/localhost(:\d+)?$/', $origin)) return true;
+  if (preg_match('/^http:\/\/localhost(:\d+)?$/', $origin)) return true;
+  if (preg_match('/^https:\/\/127\.0\.0\.1(:\d+)?$/', $origin)) return true;
+  if (preg_match('/^http:\/\/127\.0\.0\.1(:\d+)?$/', $origin)) return true;
   if ($origin === 'capacitor://localhost') return true;
   if ($origin === 'ionic://localhost') return true;
   return false;
 }
 
-// Autoriser l'origine si elle est dans la whitelist
-if ($origin !== '' && is_allowed_origin_index($origin)) {
+// Autoriser l'origine si elle est dans la whitelist,
+// ou fallback * si pas d'Origin (Android WebView / Capacitor natif)
+if ($origin === '') {
+  // Android WebView (Capacitor) sometimes sends no Origin header.
+  header('Access-Control-Allow-Origin: *');
+} elseif (is_allowed_origin_index($origin)) {
   header("Access-Control-Allow-Origin: $origin");
   header('Vary: Origin');
-} else {
-  // Si pas d'Origin (curl/postman) ou origin non reconnue :
-  // - on peut soit ne rien mettre
-  // - soit laisser passer "sans CORS" (le navigateur bloquera de toute façon)
-  // Ici: on ne met pas Allow-Origin si origin non autorisée.
 }
 
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');

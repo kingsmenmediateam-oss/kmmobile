@@ -38,12 +38,12 @@ export class AuthService {
   }
 
   async login(username: string, password: string): Promise<void> {
-    const form = new FormData();
-    form.append('username', username);
-    form.append('password', password);
-
     const response = await firstValueFrom(
-      this.http.post<{ token: string }>(`${this.API_URL}/login.php`, form)
+      this.http.post<{ token: string }>(
+        `${this.API_URL}/login.php`,
+        { username, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      )
     );
 
     const token = this.normalizeJwtToken(response?.token ?? null);
