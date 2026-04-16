@@ -1085,6 +1085,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
 }
 
 .modal-form .form-field input,
+.modal-form .form-field textarea,
 .modal-select {
   height: 38px;
   border: 1.5px solid var(--km-border);
@@ -1095,10 +1096,19 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; }
   background: #fafafa;
   color: var(--km-ink);
   width: 100%;
+  box-sizing: border-box;
   transition: border-color 150ms ease, background 150ms ease;
 }
 
+.modal-form .form-field textarea {
+  height: auto;
+  padding: 10px 12px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
 .modal-form .form-field input:focus,
+.modal-form .form-field textarea:focus,
 .modal-select:focus {
   outline: none;
   border-color: var(--km-red);

@@ -1,3 +1,156 @@
-ion-content {
-  --padding-bottom: calc(var(--ion-padding, 16px) + env(safe-area-inset-bottom, 0px));
+:host {
+  --km-red: #e00000;
+  --km-red-dark: #8b0000;
+  --km-white: #ffffff;
+  --km-ink: #1f2937;
+}
+
+.login-content {
+  --background: var(--km-red);
+  --padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.login-wrapper {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.login-card {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 24px 28px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
+}
+
+.login-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login-logo {
+  height: 72px;
+  object-fit: contain;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--km-red-dark);
+  margin-bottom: 28px;
+}
+
+.login-field {
+  margin-bottom: 18px;
+}
+
+.login-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Standalone input (username) */
+.login-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  background: #fafafa;
+  color: var(--km-ink);
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  &:focus {
+    border-color: var(--km-red);
+    background: #fff;
+  }
+}
+
+/* Password row: input + eye button side by side */
+.login-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  background: #fafafa;
+  transition: border-color 0.2s, background 0.2s;
+
+  &:focus-within {
+    border-color: var(--km-red);
+    background: #fff;
+  }
+
+  /* Remove border from the input inside the wrap */
+  .login-input--pw {
+    flex: 1;
+    border: none;
+    border-radius: 12px 0 0 12px;
+    background: transparent;
+    padding-right: 4px;
+
+    &:focus {
+      border-color: transparent;
+      background: transparent;
+    }
+  }
+}
+
+.pwd-toggle {
+  flex: 0 0 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0 12px 12px 0;
+
+  &:active {
+    color: var(--km-red-dark);
+  }
+}
+
+.login-btn {
+  margin-top: 24px;
+  --background: var(--km-red);
+  --background-activated: var(--km-red-dark);
+  --background-focused: var(--km-red-dark);
+  --border-radius: 12px;
+  --color: #fff;
+  --box-shadow: 0 8px 20px rgba(139, 0, 0, 0.35);
+  height: 50px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.login-error {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--km-red-dark);
 }

@@ -90,6 +90,8 @@ export class AppComponent {
       loginPassword: 'Password',
       loginSubmit: 'Log in',
       loginError: 'Login failed',
+      loginShowPassword: 'Show password',
+      loginHidePassword: 'Hide password',
       // Home page
       lifeBegins: 'LIFE BEGINS ...',
       comfortZone: '... at the end of your comfort zone',
@@ -162,6 +164,8 @@ export class AppComponent {
       loginPassword: 'Wachtwoord',
       loginSubmit: 'Inloggen',
       loginError: 'Inloggen mislukt',
+      loginShowPassword: 'Wachtwoord tonen',
+      loginHidePassword: 'Wachtwoord verbergen',
       // Home page
       lifeBegins: 'HET LEVEN BEGINT ...',
       comfortZone: '... buiten je comfortzone',
@@ -234,6 +238,8 @@ export class AppComponent {
       loginPassword: 'Mot de passe',
       loginSubmit: 'Se connecter',
       loginError: 'Échec de la connexion',
+      loginShowPassword: 'Afficher le mot de passe',
+      loginHidePassword: 'Masquer le mot de passe',
       // Home page
       lifeBegins: 'LA VIE COMMENCE ...',
       comfortZone: '... à la fin de ta zone de confort',
@@ -306,6 +312,8 @@ export class AppComponent {
       loginPassword: 'Passwort',
       loginSubmit: 'Anmelden',
       loginError: 'Anmeldung fehlgeschlagen',
+      loginShowPassword: 'Passwort anzeigen',
+      loginHidePassword: 'Passwort verbergen',
       // Home page
       lifeBegins: 'DAS LEBEN BEGINNT ...',
       comfortZone: '... am Ende deiner Komfortzone',
@@ -378,6 +386,8 @@ export class AppComponent {
       loginPassword: 'Haslo',
       loginSubmit: 'Zaloguj sie',
       loginError: 'Logowanie nie powiodlo sie',
+      loginShowPassword: 'Pokaz haslo',
+      loginHidePassword: 'Ukryj haslo',
       // Home page
       lifeBegins: 'ZYCIE ZACZYNA SIE ...',
       comfortZone: '... poza strefa komfortu',
@@ -450,6 +460,8 @@ export class AppComponent {
       loginPassword: 'Slaptazodis',
       loginSubmit: 'Prisijungti',
       loginError: 'Prisijungti nepavyko',
+      loginShowPassword: 'Rodyti slaptazodi',
+      loginHidePassword: 'Slėpti slaptazodi',
       // Home page
       lifeBegins: 'GYVENIMAS PRASIDEDA ...',
       comfortZone: '... komforto zonos pabaigoje',
@@ -522,6 +534,8 @@ export class AppComponent {
       loginPassword: 'Contrasena',
       loginSubmit: 'Iniciar sesion',
       loginError: 'Error al iniciar sesion',
+      loginShowPassword: 'Mostrar contraseña',
+      loginHidePassword: 'Ocultar contraseña',
       // Home page
       lifeBegins: 'LA VIDA EMPIEZA ...',
       comfortZone: '... al final de tu zona de confort',

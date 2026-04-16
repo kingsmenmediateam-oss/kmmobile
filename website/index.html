@@ -561,14 +561,15 @@
 
   <!-- Edit message modal -->
   <div id="editMessageModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
-    <div class="modal">
+    <div class="modal-card">
       <div class="modal-header">
-        <span class="modal-title" data-i18n="chat.editModalTitle">Modifier le message</span>
-        <button class="modal-close" id="closeEditMessageBtn" type="button">&#x2715;</button>
+        <h3 class="modal-title" data-i18n="chat.editModalTitle">Modifier le message</h3>
+        <button class="modal-close-btn" id="closeEditMessageBtn" type="button" aria-label="Fermer">&#x2715;</button>
       </div>
-      <form id="editMessageForm">
+      <form id="editMessageForm" class="modal-form">
         <div class="form-field">
-          <textarea id="editMessageText" class="compose-textarea" rows="4" style="width:100%"></textarea>
+          <label for="editMessageText" data-i18n="chat.editMessageLabel">Contenu du message</label>
+          <textarea id="editMessageText" rows="5"></textarea>
         </div>
         <div id="editMessageError" class="modal-error hidden"></div>
         <div class="modal-actions">
